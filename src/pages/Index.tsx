@@ -19,71 +19,103 @@ import {
 const Index = () => {
   const { t } = useLanguage();
 
-  // Updated visa data with more countries and cities
+  // Updated visa data for foreign countries from Turkish cities
   const visaData = [
     {
-      city: 'Paris',
-      country: 'France',
-      flag: '🇫🇷',
-      date: '2024-06-15',
-      status: 'available' as const,
-      slots: 10,
-    },
-    {
-      city: 'Amsterdam',
+      city: 'Ankara',
       country: 'Netherlands',
       flag: '🇳🇱',
-      date: '2024-06-28',
-      status: 'full' as const,
-      nextAvailable: '2024-06-28',
-    },
-    {
-      city: 'Berlin',
-      country: 'Germany',
-      flag: '🇩🇪',
-      date: '2024-06-05',
-      status: 'available' as const,
-      slots: 5,
-    },
-    {
-      city: 'Ankara',
-      country: 'Turkey',
-      flag: '🇹🇷',
-      date: '2024-05-30',
+      date: '2024-06-10',
       status: 'available' as const,
       slots: 12,
     },
     {
       city: 'Istanbul',
-      country: 'Turkey',
-      flag: '🇹🇷',
+      country: 'France',
+      flag: '🇫🇷',
+      date: '2024-06-15',
+      status: 'full' as const,
+      nextAvailable: '2024-06-28',
+    },
+    {
+      city: 'Izmir',
+      country: 'Belgium',
+      flag: '🇧🇪',
+      date: '2024-06-05',
+      status: 'available' as const,
+      slots: 5,
+    },
+    {
+      city: 'Antalya',
+      country: 'Sweden',
+      flag: '🇸🇪',
+      date: '2024-05-30',
+      status: 'available' as const,
+      slots: 8,
+    },
+    {
+      city: 'Gaziantep',
+      country: 'Norway',
+      flag: '🇳🇴',
       date: '2024-06-10',
       status: 'full' as const,
       nextAvailable: '2024-06-25',
     },
     {
-      city: 'Rome',
-      country: 'Italy',
-      flag: '🇮🇹',
+      city: 'Bursa',
+      country: 'Finland',
+      flag: '🇫🇮',
       date: '2024-06-12',
       status: 'available' as const,
-      slots: 8,
+      slots: 3,
     },
     {
-      city: 'Madrid',
-      country: 'Spain',
-      flag: '🇪🇸',
+      city: 'Istanbul',
+      country: 'Ireland',
+      flag: '🇮🇪',
       date: '2024-07-03',
       status: 'full' as const,
       nextAvailable: '2024-07-15',
     },
     {
-      city: 'London',
-      country: 'United Kingdom',
-      flag: '🇬🇧',
+      city: 'Ankara',
+      country: 'Estonia',
+      flag: '🇪🇪',
       date: '2024-06-08',
       status: 'available' as const,
-      slots: 3,
+      slots: 6,
+    },
+    {
+      city: 'Izmir',
+      country: 'Croatia',
+      flag: '🇭🇷',
+      date: '2024-06-20',
+      status: 'available' as const,
+      slots: 4,
+    },
+    {
+      city: 'Antalya',
+      country: 'Luxembourg',
+      flag: '🇱🇺',
+      date: '2024-06-18',
+      status: 'full' as const,
+      nextAvailable: '2024-07-10',
+    },
+    {
+      city: 'Bursa',
+      country: 'Lithuania',
+      flag: '🇱🇹',
+      date: '2024-06-22',
+      status: 'available' as const,
+      slots: 7,
+    },
+    {
+      city: 'Gaziantep',
+      country: 'Slovenia',
+      flag: '🇸🇮',
+      date: '2024-06-30',
+      status: 'full' as const,
+      nextAvailable: '2024-07-20',
     },
   ];
 
@@ -182,7 +214,7 @@ const Index = () => {
               Live Visa Availability
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Real-time updates from embassy consulates worldwide
+              Real-time updates from embassy consulates in Turkish cities
             </p>
           </div>
           

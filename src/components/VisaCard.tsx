@@ -25,6 +25,12 @@ const VisaCard: React.FC<VisaCardProps> = ({
 }) => {
   const { t, language } = useLanguage();
   
+  // Format date from YYYY-MM-DD to DD.MM.YYYY
+  const formatDate = (dateString: string) => {
+    const [year, month, day] = dateString.split('-');
+    return `${day}.${month}.${year}`;
+  };
+
   // Get the appropriate status text based on the language
   const statusText = language === 'tr' 
     ? (status === 'available' ? 'Müsait' : 'Dolu')
@@ -33,16 +39,18 @@ const VisaCard: React.FC<VisaCardProps> = ({
   return (
     <Card className={`group transition-all duration-300 overflow-hidden 
       ${status === 'available' 
-        ? 'bg-gradient-to-br from-green-50 to-teal-50 border-green-100 hover:border-green-200' 
-        : 'bg-gradient-to-br from-red-50 to-rose-50 border-red-100 hover:border-red-200'
-      } border-2 hover:shadow-lg rounded-xl`}>
+        ? 'bg-gradient-to-br from-green-50 to-teal-50 border-green-100 hover:border-green-200 hover:shadow-md' 
+        : 'bg-gradient-to-br from-red-50 to-rose-50 border-red-100 hover:border-red-200 hover:shadow-md'
+      } border-2 rounded-xl`}>
       <CardContent className="p-6">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center space-x-3">
             <div className="text-3xl">{flag}</div>
             <div>
               <h3 className="font-semibold text-gray-900 text-lg">{country}</h3>
-              <p className="text-sm text-gray-600">{city}</p>
+              <p className="text-sm text-gray-600">
+                {language === 'tr' ? 'Şehir:' : 'City:'} {city}
+              </p>
             </div>
           </div>
           <Badge
@@ -54,24 +62,18 @@ const VisaCard: React.FC<VisaCardProps> = ({
               } font-medium px-3 py-1`
             }
           >
-            {language === 'tr' ? `Durum: ${statusText}` : statusText}
+            {language === 'tr' ? `Durum: ${statusText}` : `Status: ${statusText}`}
           </Badge>
         </div>
 
         <div className="space-y-3">
-          {language === 'tr' && (
-            <div className="text-sm text-gray-600 mb-1">
-              Şehir: <span className="font-medium text-gray-800">{city}</span>
-            </div>
-          )}
-          
           {status === 'available' && (
             <>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600">
                   {language === 'tr' ? 'En yakın tarih:' : t('visa.nextAvailable')}:
                 </span>
-                <span className="font-medium text-gray-900">{date}</span>
+                <span className="font-medium text-gray-900">{formatDate(date)}</span>
               </div>
               
               <div className="flex justify-between items-center">
@@ -88,7 +90,7 @@ const VisaCard: React.FC<VisaCardProps> = ({
               <span className="text-sm text-gray-600">
                 {language === 'tr' ? 'Sonraki müsait:' : t('visa.nextAvailable')}:
               </span>
-              <span className="font-medium text-gray-900">{nextAvailable}</span>
+              <span className="font-medium text-gray-900">{formatDate(nextAvailable)}</span>
             </div>
           )}
         </div>
@@ -99,7 +101,7 @@ const VisaCard: React.FC<VisaCardProps> = ({
               status === 'available' ? 'bg-green-500' : 'bg-red-500'
             } animate-pulse mr-2`}></div>
             <span className="text-xs text-gray-500">
-              {status === 'available' ? '🟢' : '🔴'} Live Status
+              {status === 'available' ? '🟢' : '🔴'} {language === 'tr' ? 'Canlı Durum' : 'Live Status'}
             </span>
           </div>
         </div>
