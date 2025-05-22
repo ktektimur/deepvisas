@@ -45,12 +45,11 @@ const AddTrackingModal: React.FC<AddTrackingModalProps> = ({
     }
   };
 
-  // Updated country list as requested
+  // Updated country list, sorted alphabetically
   const countries = [
-    'Netherlands', 'France', 'Belgium', 'Bulgaria', 'Croatia', 
-    'Czechia', 'Estonia', 'Finland', 'Ireland', 'Latvia', 
-    'Lithuania', 'Luxembourg', 'Norway', 'Slovenia', 'Sweden', 
-    'Ukraine', 'USA', 'England', 'Iraq'
+    'Belgium', 'Bulgaria', 'Croatia', 'Czechia', 'England', 'Estonia', 
+    'Finland', 'France', 'Ireland', 'Iraq', 'Latvia', 'Lithuania', 
+    'Luxembourg', 'Netherlands', 'Norway', 'Slovenia', 'Sweden', 'Ukraine', 'USA'
   ];
   
   // Updated city list as requested
@@ -60,10 +59,10 @@ const AddTrackingModal: React.FC<AddTrackingModalProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] dark:bg-gray-900 dark:text-gray-100">
         <DialogHeader>
           <DialogTitle>{t('dashboard.addTracking')}</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="dark:text-gray-400">
             Select country, city and visa type to start tracking appointments.
           </DialogDescription>
         </DialogHeader>
@@ -71,10 +70,10 @@ const AddTrackingModal: React.FC<AddTrackingModalProps> = ({
           <div className="grid gap-2">
             <Label htmlFor="country">{t('form.country')}</Label>
             <Select value={country} onValueChange={setCountry}>
-              <SelectTrigger id="country">
+              <SelectTrigger id="country" className="dark:bg-gray-800 dark:border-gray-700">
                 <SelectValue placeholder="Select a country" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-gray-800">
                 {countries.map((c) => (
                   <SelectItem key={c} value={c}>
                     {c}
@@ -90,10 +89,10 @@ const AddTrackingModal: React.FC<AddTrackingModalProps> = ({
               value={city}
               onValueChange={setCity}
             >
-              <SelectTrigger id="city">
+              <SelectTrigger id="city" className="dark:bg-gray-800 dark:border-gray-700">
                 <SelectValue placeholder="Select a city" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-gray-800">
                 {cities.map((c) => (
                   <SelectItem key={c} value={c}>
                     {c}
@@ -106,10 +105,10 @@ const AddTrackingModal: React.FC<AddTrackingModalProps> = ({
           <div className="grid gap-2">
             <Label htmlFor="visaType">{t('form.visaType')}</Label>
             <Select value={visaType} onValueChange={setVisaType}>
-              <SelectTrigger id="visaType">
+              <SelectTrigger id="visaType" className="dark:bg-gray-800 dark:border-gray-700">
                 <SelectValue placeholder="Select visa type" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-gray-800">
                 {visaTypes.map((type) => (
                   <SelectItem key={type} value={type}>
                     {t(`visa.${type.toLowerCase()}`)}

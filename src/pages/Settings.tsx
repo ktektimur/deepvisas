@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
@@ -13,6 +13,23 @@ const Settings = () => {
   const [darkMode, setDarkMode] = React.useState(false);
   const [language, setLanguage] = React.useState('en');
 
+  // Update dark mode state to match actual system state on component mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    setDarkMode(savedTheme === 'dark' || 
+      (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches));
+  }, []);
+
+  const handleDarkModeChange = (checked: boolean) => {
+    setDarkMode(checked);
+    
+    // Update the DOM
+    document.documentElement.classList.toggle('dark', checked);
+    
+    // Save preference to localStorage
+    localStorage.setItem('theme', checked ? 'dark' : 'light');
+  };
+
   const handleSaveSettings = () => {
     toast.success('Settings saved successfully');
   };
@@ -23,7 +40,7 @@ const Settings = () => {
         <h1 className="text-2xl font-bold mb-6">Settings</h1>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card>
+          <Card className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100">
             <CardHeader>
               <CardTitle>Notification Preferences</CardTitle>
             </CardHeader>
@@ -31,7 +48,7 @@ const Settings = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <Label htmlFor="email-notifications" className="font-medium">Email Notifications</Label>
-                  <p className="text-sm text-gray-500">Receive updates via email</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Receive updates via email</p>
                 </div>
                 <Switch 
                   id="email-notifications" 
@@ -43,7 +60,7 @@ const Settings = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <Label htmlFor="telegram-notifications" className="font-medium">Telegram Notifications</Label>
-                  <p className="text-sm text-gray-500">Receive updates via Telegram</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Receive updates via Telegram</p>
                 </div>
                 <Switch 
                   id="telegram-notifications" 
@@ -54,7 +71,7 @@ const Settings = () => {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100">
             <CardHeader>
               <CardTitle>Display Settings</CardTitle>
             </CardHeader>
@@ -62,12 +79,12 @@ const Settings = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <Label htmlFor="dark-mode" className="font-medium">Dark Mode</Label>
-                  <p className="text-sm text-gray-500">Use dark theme</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Use dark theme</p>
                 </div>
                 <Switch 
                   id="dark-mode" 
                   checked={darkMode}
-                  onCheckedChange={setDarkMode}
+                  onCheckedChange={handleDarkModeChange}
                 />
               </div>
               
@@ -77,7 +94,7 @@ const Settings = () => {
                   id="language"
                   value={language}
                   onChange={(e) => setLanguage(e.target.value)}
-                  className="w-full p-2 border rounded-md"
+                  className="w-full p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 >
                   <option value="en">English</option>
                   <option value="tr">Turkish</option>
@@ -86,12 +103,12 @@ const Settings = () => {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100">
             <CardHeader>
               <CardTitle>Telegram Integration</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="mb-4 text-sm text-gray-700">
+              <p className="mb-4 text-sm text-gray-700 dark:text-gray-300">
                 Connect with our DeepVisas Telegram channel for the latest updates:
               </p>
               <div className="flex items-center space-x-2 mb-4">
@@ -99,7 +116,7 @@ const Settings = () => {
                   href="https://t.me/deepvisas"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 underline"
+                  className="text-blue-600 dark:text-blue-400 underline"
                 >
                   @deepvisas
                 </a>
@@ -110,7 +127,7 @@ const Settings = () => {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100">
             <CardHeader>
               <CardTitle>Account Settings</CardTitle>
             </CardHeader>
@@ -122,7 +139,7 @@ const Settings = () => {
                   id="email"
                   value="user@example.com"
                   readOnly
-                  className="w-full p-2 border rounded-md bg-gray-50"
+                  className="w-full p-2 border rounded-md bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 />
               </div>
               <Button variant="outline">Change Password</Button>

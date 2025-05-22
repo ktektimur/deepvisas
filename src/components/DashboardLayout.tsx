@@ -4,6 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import DarkModeToggle from '@/components/DarkModeToggle';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { 
   Home, 
@@ -51,20 +52,21 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white font-inter">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800 dark:text-white font-inter transition-colors duration-200">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-blue-100">
+      <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-blue-100 dark:border-gray-700 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">DV</span>
               </div>
-              <span className="text-xl font-bold text-gray-900">DeepVisas</span>
+              <span className="text-xl font-bold text-gray-900 dark:text-white transition-colors duration-200">DeepVisas</span>
             </Link>
             
             <div className="flex items-center space-x-4">
-              <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
+              <DarkModeToggle />
+              <Badge className="bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100 hover:bg-green-100 dark:hover:bg-green-800 transition-colors duration-200">
                 Active
               </Badge>
               <Link to="/admin">
@@ -79,7 +81,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-64 bg-white/50 backdrop-blur-sm min-h-screen border-r border-blue-100">
+        <aside className="w-64 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm min-h-screen border-r border-blue-100 dark:border-gray-700 transition-colors duration-200">
           <div className="p-6">
             <nav className="space-y-2">
               {navItems.map((item) => (
@@ -97,7 +99,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
               {/* Logout Button */}
               <Button 
                 variant="ghost" 
-                className="w-full justify-start text-red-500 hover:text-red-600 hover:bg-red-50"
+                className="w-full justify-start text-red-500 hover:text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-red-950/50 transition-colors duration-200"
                 onClick={handleLogout}
               >
                 <LogOut className="w-4 h-4 mr-2" />

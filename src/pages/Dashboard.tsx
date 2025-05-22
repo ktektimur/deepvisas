@@ -122,10 +122,10 @@ const Dashboard = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             {t('dashboard.title')}
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-400">
             Welcome back! Here's your visa tracking overview.
           </p>
         </div>
@@ -184,8 +184,8 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Tracked Visas */}
           <div className="lg:col-span-2">
-            <Card>
-              <div className="flex flex-row items-center justify-between p-6 border-b">
+            <Card className="dark:bg-gray-800 dark:border-gray-700">
+              <div className="flex flex-row items-center justify-between p-6 border-b dark:border-gray-700">
                 <h2 className="text-xl font-semibold">{t('dashboard.trackedVisas')}</h2>
                 <Button size="sm" onClick={() => setIsTrackingModalOpen(true)}>
                   <Plus className="w-4 h-4 mr-2" />
@@ -214,8 +214,8 @@ const Dashboard = () => {
           {/* Right Sidebar */}
           <div className="space-y-6">
             {/* Telegram Status */}
-            <Card>
-              <div className="p-6 border-b">
+            <Card className="dark:bg-gray-800 dark:border-gray-700">
+              <div className="p-6 border-b dark:border-gray-700">
                 <h2 className="text-lg font-semibold">{t('dashboard.telegramStatus')}</h2>
               </div>
               <CardContent className="p-6">
@@ -228,15 +228,15 @@ const Dashboard = () => {
                   </div>
                 </div>
                 
-                {/* Updated Telegram Connection Section */}
+                {/* Updated Telegram Connection Section with the requested link */}
                 <div className="mb-4">
-                  <p className="mb-2 text-sm text-gray-700">
+                  <p className="mb-2 text-sm text-gray-700 dark:text-gray-300">
                     Follow our updates on Telegram:{" "}
                     <a
                       href="https://t.me/deepvisas"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 underline"
+                      className="text-blue-600 dark:text-blue-400 underline"
                     >
                       @deepvisas
                     </a>
@@ -258,7 +258,7 @@ const Dashboard = () => {
                 
                 {telegramConnected && (
                   <div className="text-center">
-                    <p className="text-sm text-green-600 mb-2">✓ Connected to @deepvisas</p>
+                    <p className="text-sm text-green-600 dark:text-green-400 mb-2">✓ Connected to @deepvisas</p>
                     <Button 
                       variant="outline" 
                       size="sm"
@@ -272,18 +272,18 @@ const Dashboard = () => {
             </Card>
 
             {/* Recent Notifications */}
-            <Card>
-              <div className="p-6 border-b">
+            <Card className="dark:bg-gray-800 dark:border-gray-700">
+              <div className="p-6 border-b dark:border-gray-700">
                 <h2 className="text-lg font-semibold">{t('dashboard.notifications')}</h2>
               </div>
               <CardContent className="p-6">
                 <div className="space-y-3">
                   {recentNotifications.map((notification) => (
-                    <div key={notification.id} className="p-3 bg-gray-50 rounded-lg">
+                    <div key={notification.id} className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <p className="text-sm text-gray-900">{notification.message}</p>
-                          <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
+                          <p className="text-sm text-gray-900 dark:text-gray-100">{notification.message}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{notification.time}</p>
                         </div>
                         <Button 
                           variant="ghost" 

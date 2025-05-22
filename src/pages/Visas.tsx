@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { FilterX, Plus } from 'lucide-react';
 import VisaCard from '@/components/VisaCard';
 import DashboardLayout from '@/components/DashboardLayout';
+import AddTrackingModal from '@/components/AddTrackingModal';
+import { toast } from '@/components/ui/sonner';
 
 // Define status type
 type VisaStatus = 'available' | 'full';
@@ -21,6 +23,13 @@ interface VisaItem {
   slots?: number;
   nextAvailable?: string;
 }
+
+// Updated country list, sorted alphabetically
+const countries = [
+  'Belgium', 'Bulgaria', 'Croatia', 'Czechia', 'England', 'Estonia', 
+  'Finland', 'France', 'Ireland', 'Iraq', 'Latvia', 'Lithuania', 
+  'Luxembourg', 'Netherlands', 'Norway', 'Slovenia', 'Sweden', 'Ukraine', 'USA'
+];
 
 // Sample visa data with 2025 dates
 const visaData: VisaItem[] = [
@@ -86,6 +95,7 @@ const Visas = () => {
     country: '',
     status: '',
   });
+  const [isTrackingModalOpen, setIsTrackingModalOpen] = React.useState(false);
 
   const filteredVisas = visaData.filter((visa) => {
     if (filters.country && !visa.country.includes(filters.country)) {
@@ -101,6 +111,12 @@ const Visas = () => {
     setFilters({ country: '', status: '' });
   };
 
+  const handleAddTracking = (data: { country: string; city: string; visaType: string }) => {
+    toast.success('New tracking added', {
+      description: `${data.visaType} visa for ${data.city}, ${data.country}`
+    });
+  };
+
   return (
     <DashboardLayout>
       <div className="container mx-auto">
@@ -111,7 +127,7 @@ const Visas = () => {
               <FilterX className="w-4 h-4 mr-2" />
               Clear Filters
             </Button>
-            <Button>
+            <Button onClick={() => setIsTrackingModalOpen(true)}>
               <Plus className="w-4 h-4 mr-2" />
               Add New
             </Button>
@@ -127,12 +143,12 @@ const Visas = () => {
             <div className="flex flex-col">
               <label className="text-sm font-medium mb-1">Country</label>
               <select
-                className="p-2 border rounded-md"
+                className="p-2 border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                 value={filters.country}
                 onChange={(e) => setFilters({ ...filters, country: e.target.value })}
               >
                 <option value="">All Countries</option>
-                {Array.from(new Set(visaData.map((v) => v.country))).map((country) => (
+                {countries.map((country) => (
                   <option key={country} value={country}>
                     {country}
                   </option>
@@ -142,7 +158,7 @@ const Visas = () => {
             <div className="flex flex-col">
               <label className="text-sm font-medium mb-1">Status</label>
               <select
-                className="p-2 border rounded-md"
+                className="p-2 border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                 value={filters.status}
                 onChange={(e) => setFilters({ ...filters, status: e.target.value as VisaStatus })}
               >
@@ -172,13 +188,19 @@ const Visas = () => {
 
         {filteredVisas.length === 0 && (
           <div className="text-center py-10">
-            <p className="text-gray-500">No visa appointments match your filters.</p>
+            <p className="text-gray-500 dark:text-gray-400">No visa appointments match your filters.</p>
             <Button variant="link" onClick={clearFilters}>
               Clear filters and show all
             </Button>
           </div>
         )}
       </div>
+
+      <AddTrackingModal
+        open={isTrackingModalOpen}
+        onOpenChange={setIsTrackingModalOpen}
+        onSubmit={handleAddTracking}
+      />
     </DashboardLayout>
   );
 };
