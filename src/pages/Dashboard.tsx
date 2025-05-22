@@ -14,14 +14,23 @@ import {
   Users,
   Globe,
   CheckCircle,
-  X
+  X,
+  BarChart3,
+  MessageSquare
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Dashboard = () => {
   const { t } = useLanguage();
   const [telegramConnected, setTelegramConnected] = useState(false);
   const [isTrackingModalOpen, setIsTrackingModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Check if a route is active
+  const isRouteActive = (path: string) => {
+    return location.pathname === path;
+  };
 
   const trackedVisas = [
     {
@@ -78,6 +87,21 @@ const Dashboard = () => {
     toast.success('Notification removed');
   };
 
+  // Navigation handler for sidebar items
+  const handleNavigation = (path: string) => {
+    navigate(path);
+  };
+
+  // Define navigation items
+  const navItems = [
+    { id: 'home', icon: Home, label: t('nav.home'), path: '/dashboard' },
+    { id: 'visas', icon: Globe, label: t('dashboard.trackedVisas'), path: '/dashboard/visas' },
+    { id: 'notifications', icon: Bell, label: t('dashboard.notifications'), path: '/dashboard/notifications' },
+    { id: 'profile', icon: Users, label: t('dashboard.profile'), path: '/dashboard/profile' },
+    { id: 'analytics', icon: BarChart3, label: t('dashboard.analytics'), path: '/dashboard/analytics' },
+    { id: 'settings', icon: Settings, label: t('dashboard.settings'), path: '/dashboard/settings' }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white font-inter">
       {/* Header */}
@@ -111,22 +135,17 @@ const Dashboard = () => {
         <aside className="w-64 bg-white/50 backdrop-blur-sm min-h-screen border-r border-blue-100">
           <div className="p-6">
             <nav className="space-y-2">
-              <Button variant="default" className="w-full justify-start">
-                <Home className="w-4 h-4 mr-2" />
-                {t('nav.home')}
-              </Button>
-              <Button variant="ghost" className="w-full justify-start">
-                <Globe className="w-4 h-4 mr-2" />
-                {t('dashboard.trackedVisas')}
-              </Button>
-              <Button variant="ghost" className="w-full justify-start">
-                <Bell className="w-4 h-4 mr-2" />
-                {t('dashboard.notifications')}
-              </Button>
-              <Button variant="ghost" className="w-full justify-start">
-                <Settings className="w-4 h-4 mr-2" />
-                {t('dashboard.settings')}
-              </Button>
+              {navItems.map((item) => (
+                <Button 
+                  key={item.id}
+                  variant={isRouteActive(item.path) ? "default" : "ghost"} 
+                  className="w-full justify-start"
+                  onClick={() => handleNavigation(item.path)}
+                >
+                  <item.icon className="w-4 h-4 mr-2" />
+                  {item.label}
+                </Button>
+              ))}
             </nav>
           </div>
         </aside>
@@ -258,7 +277,7 @@ const Dashboard = () => {
                         className="w-full" 
                         onClick={() => setTelegramConnected(true)}
                       >
-                        <Users className="w-4 h-4 mr-2" />
+                        <MessageSquare className="w-4 h-4 mr-2" />
                         {t('dashboard.connect')}
                       </Button>
                     )}
@@ -321,3 +340,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
