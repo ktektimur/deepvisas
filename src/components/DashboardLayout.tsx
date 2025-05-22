@@ -72,7 +72,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 Active
               </Badge>
               <Link to="/admin">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800">
                   Admin Panel
                 </Button>
               </Link>
@@ -90,7 +90,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 <Button 
                   key={item.id}
                   variant={isRouteActive(item.path) ? "default" : "ghost"} 
-                  className="w-full justify-start"
+                  className={`w-full justify-start ${
+                    isRouteActive(item.path) 
+                      ? "bg-primary text-white dark:text-white" 
+                      : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  }`}
                   onClick={() => handleNavigation(item.path)}
                 >
                   <item.icon className="w-4 h-4 mr-2" />

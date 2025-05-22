@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { format } from 'date-fns';
 import { 
@@ -34,6 +35,7 @@ interface UserProfileData {
 
 const AdminUserProfiles = () => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
   const [userProfiles, setUserProfiles] = useState<UserProfileData[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProfile, setSelectedProfile] = useState<UserProfileData | null>(null);
@@ -162,6 +164,11 @@ const AdminUserProfiles = () => {
     setSelectedProfile(profile);
   };
 
+  // Handle user click to navigate to detail page
+  const handleUserClick = (userId: number) => {
+    navigate(`/admin/users/${userId}`);
+  };
+
   // Export user profiles as CSV
   const exportToCSV = () => {
     // Create CSV header
@@ -245,18 +252,19 @@ const AdminUserProfiles = () => {
                         <TableRow 
                           key={profile.id}
                           className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700"
-                          onClick={() => handleProfileSelect(profile)}
+                          onClick={() => handleUserClick(profile.id)}
                         >
-                          <TableCell className="font-medium">{profile.fullName}</TableCell>
-                          <TableCell>{profile.nationality}</TableCell>
-                          <TableCell className="capitalize">{profile.visaType}</TableCell>
+                          <TableCell className="font-medium text-gray-900 dark:text-white">{profile.fullName}</TableCell>
+                          <TableCell className="text-gray-700 dark:text-gray-300">{profile.nationality}</TableCell>
+                          <TableCell className="capitalize text-gray-700 dark:text-gray-300">{profile.visaType}</TableCell>
                           <TableCell className="text-right">
                             <Button 
                               variant="ghost" 
                               size="sm"
+                              className="text-blue-600 dark:text-blue-400"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                handleProfileSelect(profile);
+                                handleUserClick(profile.id);
                               }}
                             >
                               View
@@ -283,7 +291,7 @@ const AdminUserProfiles = () => {
                     </>
                   ) : (
                     <>
-                      <User className="mr-2 h-5 w-5" />
+                      <User className="mr-2 h-5 w-5 text-gray-500 dark:text-gray-400" />
                       Select a User
                     </>
                   )}
@@ -345,6 +353,13 @@ const AdminUserProfiles = () => {
                           <p className="text-gray-900 dark:text-white">{selectedProfile.telegram || 'Not provided'}</p>
                         </div>
                       </div>
+                      
+                      <Button
+                        className="w-full mt-4"
+                        onClick={() => handleUserClick(selectedProfile.id)}
+                      >
+                        View Full Profile
+                      </Button>
                     </div>
                   </div>
                 ) : (

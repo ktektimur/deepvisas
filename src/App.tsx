@@ -11,6 +11,7 @@ import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminUserProfiles from "./pages/AdminUserProfiles";
+import UserDetails from "./pages/UserDetails";
 import UserProfile from "./pages/UserProfile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -72,6 +73,11 @@ const App = () => (
               <Route path="/admin/users" element={
                 <ProtectedRoute requiredRole="admin">
                   <AdminUserProfiles />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/users/:userId" element={
+                <ProtectedRoute requiredRole="admin">
+                  <UserDetails />
                 </ProtectedRoute>
               } />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
