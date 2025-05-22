@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import DashboardLayout from '@/components/DashboardLayout';
 import { Button } from '@/components/ui/button';
@@ -6,13 +7,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import VisaCard from '@/components/VisaCard';
 import AddTrackingModal from '@/components/AddTrackingModal';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-
-interface VisaApplication {
-  id: string;
-  country: string;
-  status: string;
-  applicationDate: string;
-}
+import { VisaApplication } from '@/types/visa';
 
 const visaApplications: VisaApplication[] = [
   {
@@ -41,7 +36,13 @@ const Visas: React.FC = () => {
   
   const [applications, setApplications] = useState(visaApplications);
 
-  const handleAddApplication = (newApplication: VisaApplication) => {
+  const handleAddApplication = (data: { country: string; city: string; visaType: string }) => {
+    const newApplication: VisaApplication = {
+      id: `${Date.now()}`,
+      country: data.country,
+      status: 'Pending',
+      applicationDate: new Date().toISOString().split('T')[0],
+    };
     setApplications([...applications, newApplication]);
   };
   
@@ -117,7 +118,8 @@ const Visas: React.FC = () => {
         {/* Add Tracking Modal */}
         <AddTrackingModal 
           open={isAddModalOpen} 
-          onClose={() => setIsAddModalOpen(false)} 
+          onOpenChange={setIsAddModalOpen} 
+          onSubmit={handleAddApplication}
         />
       </div>
     </DashboardLayout>

@@ -59,10 +59,10 @@ const AddTrackingModal: React.FC<AddTrackingModalProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] dark:bg-gray-900 dark:text-gray-100">
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{t('dashboard.addTracking')}</DialogTitle>
-          <DialogDescription className="dark:text-gray-400">
+          <DialogDescription>
             Select country, city and visa type to start tracking appointments.
           </DialogDescription>
         </DialogHeader>
@@ -70,10 +70,10 @@ const AddTrackingModal: React.FC<AddTrackingModalProps> = ({
           <div className="grid gap-2">
             <Label htmlFor="country">{t('form.country')}</Label>
             <Select value={country} onValueChange={setCountry}>
-              <SelectTrigger id="country" className="dark:bg-gray-800 dark:border-gray-700">
+              <SelectTrigger id="country">
                 <SelectValue placeholder="Select a country" />
               </SelectTrigger>
-              <SelectContent className="dark:bg-gray-800">
+              <SelectContent>
                 {countries.map((c) => (
                   <SelectItem key={c} value={c}>
                     {c}
@@ -89,10 +89,10 @@ const AddTrackingModal: React.FC<AddTrackingModalProps> = ({
               value={city}
               onValueChange={setCity}
             >
-              <SelectTrigger id="city" className="dark:bg-gray-800 dark:border-gray-700">
+              <SelectTrigger id="city">
                 <SelectValue placeholder="Select a city" />
               </SelectTrigger>
-              <SelectContent className="dark:bg-gray-800">
+              <SelectContent>
                 {cities.map((c) => (
                   <SelectItem key={c} value={c}>
                     {c}
@@ -105,10 +105,10 @@ const AddTrackingModal: React.FC<AddTrackingModalProps> = ({
           <div className="grid gap-2">
             <Label htmlFor="visaType">{t('form.visaType')}</Label>
             <Select value={visaType} onValueChange={setVisaType}>
-              <SelectTrigger id="visaType" className="dark:bg-gray-800 dark:border-gray-700">
+              <SelectTrigger id="visaType">
                 <SelectValue placeholder="Select visa type" />
               </SelectTrigger>
-              <SelectContent className="dark:bg-gray-800">
+              <SelectContent>
                 {visaTypes.map((type) => (
                   <SelectItem key={type} value={type}>
                     {t(`visa.${type.toLowerCase()}`)}
