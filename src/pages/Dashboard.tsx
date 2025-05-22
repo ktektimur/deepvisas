@@ -186,8 +186,8 @@ const Dashboard = () => {
           <div className="lg:col-span-2">
             <Card className="dark:bg-gray-800 dark:border-gray-700">
               <div className="flex flex-row items-center justify-between p-6 border-b dark:border-gray-700">
-                <h2 className="text-xl font-semibold">{t('dashboard.trackedVisas')}</h2>
-                <Button size="sm" onClick={() => setIsTrackingModalOpen(true)}>
+                <h2 className="text-xl font-semibold dark:text-white">{t('dashboard.trackedVisas')}</h2>
+                <Button size="sm" onClick={() => setIsTrackingModalOpen(true)} className="dark:bg-primary dark:text-white dark:hover:bg-primary/80">
                   <Plus className="w-4 h-4 mr-2" />
                   {t('dashboard.addTracking')}
                 </Button>
@@ -216,13 +216,13 @@ const Dashboard = () => {
             {/* Telegram Status */}
             <Card className="dark:bg-gray-800 dark:border-gray-700">
               <div className="p-6 border-b dark:border-gray-700">
-                <h2 className="text-lg font-semibold">{t('dashboard.telegramStatus')}</h2>
+                <h2 className="text-lg font-semibold dark:text-white">{t('dashboard.telegramStatus')}</h2>
               </div>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-2">
                     <div className={`w-3 h-3 rounded-full ${telegramConnected ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                    <span className="text-sm">
+                    <span className="text-sm dark:text-gray-300">
                       {telegramConnected ? t('dashboard.connected') : t('dashboard.notConnected')}
                     </span>
                   </div>
@@ -245,7 +245,7 @@ const Dashboard = () => {
                 
                 {!telegramConnected && (
                   <Button 
-                    className="w-full" 
+                    className="w-full dark:bg-primary dark:text-white dark:hover:bg-primary/80" 
                     onClick={() => {
                       window.open("https://t.me/deepvisas", "_blank");
                       setTelegramConnected(true);
@@ -263,6 +263,7 @@ const Dashboard = () => {
                       variant="outline" 
                       size="sm"
                       onClick={() => setTelegramConnected(false)}
+                      className="dark:border-gray-700 dark:text-gray-300"
                     >
                       Disconnect
                     </Button>
@@ -274,7 +275,7 @@ const Dashboard = () => {
             {/* Recent Notifications */}
             <Card className="dark:bg-gray-800 dark:border-gray-700">
               <div className="p-6 border-b dark:border-gray-700">
-                <h2 className="text-lg font-semibold">{t('dashboard.notifications')}</h2>
+                <h2 className="text-lg font-semibold dark:text-white">{t('dashboard.notifications')}</h2>
               </div>
               <CardContent className="p-6">
                 <div className="space-y-3">
@@ -288,7 +289,7 @@ const Dashboard = () => {
                         <Button 
                           variant="ghost" 
                           size="sm" 
-                          className="h-6 w-6 p-0"
+                          className="h-6 w-6 p-0 dark:text-gray-400 dark:hover:bg-gray-600"
                           onClick={() => handleRemoveNotification(notification.id)}
                         >
                           <X className="w-3 h-3" />

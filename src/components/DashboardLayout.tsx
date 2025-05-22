@@ -13,7 +13,8 @@ import {
   Globe,
   BarChart3,
   Users,
-  LogOut
+  LogOut,
+  User
 } from 'lucide-react';
 
 interface DashboardLayoutProps {
@@ -42,6 +43,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     { id: 'visas', icon: Globe, label: t('dashboard.trackedVisas'), path: '/dashboard/visas' },
     { id: 'notifications', icon: Bell, label: t('dashboard.notifications'), path: '/dashboard/notifications' },
     { id: 'analytics', icon: BarChart3, label: t('dashboard.analytics'), path: '/dashboard/analytics' },
+    { id: 'profile', icon: User, label: t('profile.title'), path: '/dashboard/profile' },
     { id: 'settings', icon: Settings, label: t('dashboard.settings'), path: '/dashboard/settings' }
   ];
 

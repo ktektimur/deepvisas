@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { format } from 'date-fns';
-import Layout from '@/components/Layout';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from '@/components/ui/sonner';
+import DashboardLayout from '@/components/DashboardLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Calendar } from '@/components/ui/calendar';
@@ -123,6 +123,9 @@ const UserProfile = () => {
   };
 
   const handleTelegramConnect = () => {
+    // Open Telegram link in new tab
+    window.open('https://t.me/deepvisas', '_blank');
+    
     // Simulate connecting to Telegram
     setTelegramConnected(true);
     const username = '@' + form.getValues('fullName').split(' ')[0].toLowerCase() + Math.floor(Math.random() * 1000);
@@ -149,13 +152,13 @@ const UserProfile = () => {
   };
 
   return (
-    <Layout>
+    <DashboardLayout>
       <div className="container max-w-4xl py-10 px-4 sm:px-6">
-        <h1 className="text-3xl font-bold tracking-tight mb-1">{t('profile.title')}</h1>
+        <h1 className="text-3xl font-bold tracking-tight mb-1 text-gray-900 dark:text-white">{t('profile.title')}</h1>
         <p className="text-muted-foreground mb-8">{t('profile.subtitle')}</p>
 
         <div className="grid grid-cols-1 gap-8">
-          <Card className="shadow-lg">
+          <Card className="shadow-lg dark:bg-gray-800 border dark:border-gray-700">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <CardHeader>
@@ -173,7 +176,7 @@ const UserProfile = () => {
                       rules={{ required: t('profile.required') }}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center gap-2">
+                          <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
                             <User className="h-4 w-4 text-muted-foreground" />
                             {t('profile.fullName')}
                           </FormLabel>
@@ -181,7 +184,7 @@ const UserProfile = () => {
                             <Input
                               placeholder={language === 'tr' ? 'Ahmet Yılmaz' : 'John Smith'}
                               {...field}
-                              className="transition-all hover:border-primary focus-visible:border-primary"
+                              className="transition-all hover:border-primary focus-visible:border-primary dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                             />
                           </FormControl>
                           <FormMessage />
@@ -196,7 +199,7 @@ const UserProfile = () => {
                       rules={{ required: t('profile.required') }}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center gap-2">
+                          <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
                             <CalendarIcon className="h-4 w-4 text-muted-foreground" />
                             {t('profile.dateOfBirth')}
                           </FormLabel>
@@ -206,7 +209,7 @@ const UserProfile = () => {
                                 <Button
                                   variant="outline"
                                   className={cn(
-                                    "w-full justify-start text-left font-normal transition-all hover:border-primary focus-visible:border-primary",
+                                    "w-full justify-start text-left font-normal transition-all hover:border-primary focus-visible:border-primary dark:border-gray-700 dark:bg-gray-900 dark:text-white",
                                     !field.value && "text-muted-foreground"
                                   )}
                                 >
@@ -218,7 +221,7 @@ const UserProfile = () => {
                                   )}
                                 </Button>
                               </PopoverTrigger>
-                              <PopoverContent className="w-auto p-0" align="start">
+                              <PopoverContent className="w-auto p-0 bg-white dark:bg-gray-800" align="start">
                                 <Calendar
                                   mode="single"
                                   selected={field.value || undefined}
@@ -242,16 +245,16 @@ const UserProfile = () => {
                       rules={{ required: t('profile.required') }}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center gap-2">
+                          <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
                             <Globe className="h-4 w-4 text-muted-foreground" />
                             {t('profile.nationality')}
                           </FormLabel>
                           <FormControl>
                             <Select value={field.value} onValueChange={field.onChange}>
-                              <SelectTrigger className="transition-all hover:border-primary focus-visible:border-primary">
+                              <SelectTrigger className="transition-all hover:border-primary focus-visible:border-primary dark:border-gray-700 dark:bg-gray-900 dark:text-white">
                                 <SelectValue placeholder={t('nationality.turkey')} />
                               </SelectTrigger>
-                              <SelectContent>
+                              <SelectContent className="dark:bg-gray-900 dark:border-gray-700">
                                 <SelectItem value="Turkey">{t('nationality.turkey')}</SelectItem>
                                 <SelectItem value="Germany">{t('nationality.germany')}</SelectItem>
                                 <SelectItem value="Iraq">{t('nationality.iraq')}</SelectItem>
@@ -276,7 +279,7 @@ const UserProfile = () => {
                       rules={{ required: t('profile.required') }}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center gap-2">
+                          <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
                             <IdCard className="h-4 w-4 text-muted-foreground" />
                             {t('profile.passportNumber')}
                           </FormLabel>
@@ -284,7 +287,7 @@ const UserProfile = () => {
                             <Input
                               placeholder="U12345678"
                               {...field}
-                              className="transition-all hover:border-primary focus-visible:border-primary"
+                              className="transition-all hover:border-primary focus-visible:border-primary dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                             />
                           </FormControl>
                           <FormMessage />
@@ -299,7 +302,7 @@ const UserProfile = () => {
                       rules={{ required: t('profile.required') }}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center gap-2">
+                          <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
                             <CalendarIcon className="h-4 w-4 text-muted-foreground" />
                             {t('profile.passportExpiry')}
                           </FormLabel>
@@ -309,7 +312,7 @@ const UserProfile = () => {
                                 <Button
                                   variant="outline"
                                   className={cn(
-                                    "w-full justify-start text-left font-normal transition-all hover:border-primary focus-visible:border-primary",
+                                    "w-full justify-start text-left font-normal transition-all hover:border-primary focus-visible:border-primary dark:border-gray-700 dark:bg-gray-900 dark:text-white",
                                     !field.value && "text-muted-foreground"
                                   )}
                                 >
@@ -321,7 +324,7 @@ const UserProfile = () => {
                                   )}
                                 </Button>
                               </PopoverTrigger>
-                              <PopoverContent className="w-auto p-0" align="start">
+                              <PopoverContent className="w-auto p-0 bg-white dark:bg-gray-800" align="start">
                                 <Calendar
                                   mode="single"
                                   selected={field.value || undefined}
@@ -344,7 +347,7 @@ const UserProfile = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center gap-2">
+                          <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
                             <Mail className="h-4 w-4 text-muted-foreground" />
                             {t('profile.email')}
                           </FormLabel>
@@ -353,7 +356,7 @@ const UserProfile = () => {
                               type="email"
                               {...field}
                               disabled
-                              className="bg-muted"
+                              className="bg-muted dark:bg-gray-700 dark:text-gray-300"
                             />
                           </FormControl>
                           <FormMessage />
@@ -368,7 +371,7 @@ const UserProfile = () => {
                       rules={{ required: t('profile.required') }}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center gap-2">
+                          <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
                             <Phone className="h-4 w-4 text-muted-foreground" />
                             {t('profile.phone')}
                           </FormLabel>
@@ -377,7 +380,7 @@ const UserProfile = () => {
                               type="tel"
                               placeholder="+90 530 000 00 00"
                               {...field}
-                              className="transition-all hover:border-primary focus-visible:border-primary"
+                              className="transition-all hover:border-primary focus-visible:border-primary dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                             />
                           </FormControl>
                           <FormMessage />
@@ -391,7 +394,7 @@ const UserProfile = () => {
                       name="telegram"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center gap-2">
+                          <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
                             <MessageCircle className="h-4 w-4 text-muted-foreground" />
                             {t('profile.telegram')}
                           </FormLabel>
@@ -399,7 +402,7 @@ const UserProfile = () => {
                             <Input
                               placeholder="@ahmetbot"
                               {...field}
-                              className="transition-all hover:border-primary focus-visible:border-primary"
+                              className="transition-all hover:border-primary focus-visible:border-primary dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                             />
                           </FormControl>
                           <FormMessage />
@@ -414,7 +417,7 @@ const UserProfile = () => {
                       rules={{ required: t('profile.required') }}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center gap-2">
+                          <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
                             <Building className="h-4 w-4 text-muted-foreground" />
                             {t('profile.city')}
                           </FormLabel>
@@ -422,7 +425,7 @@ const UserProfile = () => {
                             <Input
                               placeholder={language === 'tr' ? 'İstanbul' : 'Istanbul'}
                               {...field}
-                              className="transition-all hover:border-primary focus-visible:border-primary"
+                              className="transition-all hover:border-primary focus-visible:border-primary dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                             />
                           </FormControl>
                           <FormMessage />
@@ -437,16 +440,16 @@ const UserProfile = () => {
                       rules={{ required: t('profile.required') }}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center gap-2">
+                          <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
                             <IdCard className="h-4 w-4 text-muted-foreground" />
                             {t('profile.visaType')}
                           </FormLabel>
                           <FormControl>
                             <Select value={field.value} onValueChange={field.onChange}>
-                              <SelectTrigger className="transition-all hover:border-primary focus-visible:border-primary">
+                              <SelectTrigger className="transition-all hover:border-primary focus-visible:border-primary dark:border-gray-700 dark:bg-gray-900 dark:text-white">
                                 <SelectValue placeholder={t('visaType.tourism')} />
                               </SelectTrigger>
-                              <SelectContent>
+                              <SelectContent className="dark:bg-gray-900 dark:border-gray-700">
                                 <SelectItem value="tourism">{t('visaType.tourism')}</SelectItem>
                                 <SelectItem value="business">{t('visaType.business')}</SelectItem>
                                 <SelectItem value="student">{t('visaType.student')}</SelectItem>
@@ -462,10 +465,10 @@ const UserProfile = () => {
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                  <Button variant="outline" type="button" onClick={() => form.reset()}>
+                  <Button variant="outline" type="button" onClick={() => form.reset()} className="dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800">
                     {t('profile.cancel')}
                   </Button>
-                  <Button type="submit" className="bg-blue-600 hover:bg-blue-700">
+                  <Button type="submit" className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700">
                     {t('profile.save')}
                   </Button>
                 </CardFooter>
@@ -474,13 +477,13 @@ const UserProfile = () => {
           </Card>
 
           {/* Telegram Integration Section */}
-          <Card className="shadow-lg">
+          <Card className="shadow-lg dark:bg-gray-800 border dark:border-gray-700">
             <CardHeader>
-              <CardTitle className="text-xl flex items-center gap-2">
+              <CardTitle className="text-xl flex items-center gap-2 text-gray-900 dark:text-white">
                 <MessageCircle className="h-5 w-5 text-blue-500" />
                 {t('profile.telegramSection')}
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="dark:text-gray-400">
                 {t('profile.telegramConnectInfo')}
               </CardDescription>
             </CardHeader>
@@ -488,7 +491,7 @@ const UserProfile = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className={`w-3 h-3 rounded-full ${telegramConnected ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                  <span>
+                  <span className="dark:text-white">
                     {telegramConnected 
                       ? `${t('profile.telegramConnected')} ${telegramUsername}` 
                       : t('profile.telegramNotConnected')}
@@ -497,22 +500,22 @@ const UserProfile = () => {
                 {telegramConnected ? (
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button variant="outline" size="sm" className="text-red-500 border-red-500 hover:bg-red-50">
+                      <Button variant="outline" size="sm" className="text-red-500 border-red-500 hover:bg-red-50 dark:text-red-400 dark:border-red-500 dark:hover:bg-red-950/50">
                         {t('profile.telegramDisconnect')}
                       </Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent>
+                    <AlertDialogContent className="dark:bg-gray-800 dark:border-gray-700">
                       <AlertDialogHeader>
-                        <AlertDialogTitle className="flex items-center gap-2">
+                        <AlertDialogTitle className="flex items-center gap-2 dark:text-white">
                           <AlertCircle className="h-5 w-5 text-red-500" />
                           {t('profile.telegramDisconnect')}
                         </AlertDialogTitle>
-                        <AlertDialogDescription>
+                        <AlertDialogDescription className="dark:text-gray-400">
                           {t('profile.telegramWarning')}
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogCancel>{t('profile.cancel')}</AlertDialogCancel>
+                        <AlertDialogCancel className="dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800">{t('profile.cancel')}</AlertDialogCancel>
                         <AlertDialogAction 
                           onClick={handleTelegramDisconnect}
                           className="bg-red-500 hover:bg-red-600"
@@ -525,17 +528,30 @@ const UserProfile = () => {
                 ) : (
                   <Button 
                     onClick={handleTelegramConnect}
-                    className="bg-blue-600 hover:bg-blue-700"
+                    className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700"
                   >
                     {t('profile.telegramConnect')}
                   </Button>
                 )}
               </div>
+              <div className="mt-4">
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  Follow our updates on Telegram:{" "}
+                  <a
+                    href="https://t.me/deepvisas"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 dark:text-blue-400 underline"
+                  >
+                    @deepvisas
+                  </a>
+                </p>
+              </div>
             </CardContent>
           </Card>
         </div>
       </div>
-    </Layout>
+    </DashboardLayout>
   );
 };
 
