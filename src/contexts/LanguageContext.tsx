@@ -1,0 +1,147 @@
+
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+
+interface LanguageContextType {
+  language: 'en' | 'tr';
+  setLanguage: (lang: 'en' | 'tr') => void;
+  t: (key: string) => string;
+}
+
+const translations = {
+  en: {
+    // Navigation
+    'nav.home': 'Home',
+    'nav.features': 'Features',
+    'nav.howItWorks': 'How it Works',
+    'nav.contact': 'Contact',
+    'nav.login': 'Login',
+    'nav.signup': 'Sign Up',
+    
+    // Hero Section
+    'hero.title': 'Track visa appointments in real-time',
+    'hero.subtitle': 'Never miss a slot.',
+    'hero.description': 'Get instant notifications when visa appointment slots become available in your preferred locations. Connect with our Telegram bot for real-time updates.',
+    'hero.cta': 'Start Tracking',
+    
+    // Visa Cards
+    'visa.available': 'Available',
+    'visa.full': 'Full',
+    'visa.slots': 'slots',
+    'visa.nextAvailable': 'Next Available',
+    
+    // Features
+    'features.title': 'Why Choose DeepVisas?',
+    'features.realTime': 'Real-time Updates',
+    'features.realTimeDesc': 'Get instant notifications when slots open up',
+    'features.multiCity': 'Multi-city Tracking',
+    'features.multiCityDesc': 'Track appointments across multiple cities simultaneously',
+    'features.telegram': 'Telegram Integration',
+    'features.telegramDesc': 'Receive updates directly on Telegram',
+    'features.secure': 'Secure & Reliable',
+    'features.secureDesc': 'Your data is encrypted and protected',
+    
+    // Dashboard
+    'dashboard.title': 'Dashboard',
+    'dashboard.myVisas': 'My Visas',
+    'dashboard.notifications': 'Notifications',
+    'dashboard.settings': 'Account Settings',
+    'dashboard.addTracking': 'Add New Tracking',
+    'dashboard.telegramStatus': 'Telegram Connection',
+    'dashboard.connected': 'Connected',
+    'dashboard.notConnected': 'Not Connected',
+    'dashboard.connect': 'Connect',
+    
+    // Admin Dashboard
+    'admin.title': 'Admin Dashboard',
+    'admin.users': 'User Management',
+    'admin.slots': 'Slot Management',
+    'admin.broadcast': 'Broadcast System',
+    'admin.analytics': 'Analytics',
+    
+    // Footer
+    'footer.contact': 'Contact Us',
+    'footer.telegram': 'Telegram Channel',
+    'footer.privacy': 'Privacy Policy',
+    'footer.terms': 'Terms of Service'
+  },
+  tr: {
+    // Navigation
+    'nav.home': 'Ana Sayfa',
+    'nav.features': 'Özellikler',
+    'nav.howItWorks': 'Nasıl Çalışır',
+    'nav.contact': 'İletişim',
+    'nav.login': 'Giriş',
+    'nav.signup': 'Kayıt Ol',
+    
+    // Hero Section
+    'hero.title': 'Vize randevularını gerçek zamanlı takip edin',
+    'hero.subtitle': 'Hiçbir fırsatı kaçırmayın.',
+    'hero.description': 'Tercih ettiğiniz lokasyonlarda vize randevu slotları müsait olduğunda anında bildirim alın. Gerçek zamanlı güncellemeler için Telegram botumuzla bağlantı kurun.',
+    'hero.cta': 'Takibe Başla',
+    
+    // Visa Cards
+    'visa.available': 'Müsait',
+    'visa.full': 'Dolu',
+    'visa.slots': 'slot',
+    'visa.nextAvailable': 'Sonraki Müsait',
+    
+    // Features
+    'features.title': 'Neden DeepVisas?',
+    'features.realTime': 'Gerçek Zamanlı Güncellemeler',
+    'features.realTimeDesc': 'Slotlar açıldığında anında bildirim alın',
+    'features.multiCity': 'Çoklu Şehir Takibi',
+    'features.multiCityDesc': 'Aynı anda birden fazla şehri takip edin',
+    'features.telegram': 'Telegram Entegrasyonu',
+    'features.telegramDesc': 'Güncellemeleri doğrudan Telegram\'da alın',
+    'features.secure': 'Güvenli ve Güvenilir',
+    'features.secureDesc': 'Verileriniz şifrelenir ve korunur',
+    
+    // Dashboard
+    'dashboard.title': 'Kontrol Paneli',
+    'dashboard.myVisas': 'Vizelerim',
+    'dashboard.notifications': 'Bildirimler',
+    'dashboard.settings': 'Hesap Ayarları',
+    'dashboard.addTracking': 'Yeni Takip Ekle',
+    'dashboard.telegramStatus': 'Telegram Bağlantısı',
+    'dashboard.connected': 'Bağlı',
+    'dashboard.notConnected': 'Bağlı Değil',
+    'dashboard.connect': 'Bağlan',
+    
+    // Admin Dashboard
+    'admin.title': 'Yönetici Paneli',
+    'admin.users': 'Kullanıcı Yönetimi',
+    'admin.slots': 'Slot Yönetimi',
+    'admin.broadcast': 'Yayın Sistemi',
+    'admin.analytics': 'Analitik',
+    
+    // Footer
+    'footer.contact': 'Bize Ulaşın',
+    'footer.telegram': 'Telegram Kanalı',
+    'footer.privacy': 'Gizlilik Politikası',
+    'footer.terms': 'Kullanım Şartları'
+  }
+};
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [language, setLanguage] = useState<'en' | 'tr'>('en');
+
+  const t = (key: string): string => {
+    return translations[language][key as keyof typeof translations[typeof language]] || key;
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (context === undefined) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
+};
