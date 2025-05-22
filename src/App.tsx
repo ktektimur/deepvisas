@@ -21,6 +21,7 @@ import Notifications from "./pages/Notifications";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
 import UKVisaRequirements from "./pages/UKVisaRequirements";
+import GreeceVisaRequirements from "./pages/GreeceVisaRequirements";
 import AdminVisaSubmissions from "./pages/AdminVisaSubmissions";
 import VisaSubmissionView from "./pages/VisaSubmissionView";
 
@@ -71,6 +72,11 @@ const App = () => (
               <Route path="/dashboard/requirements/uk" element={
                 <ProtectedRoute>
                   <UKVisaRequirements />
+                </ProtectedRoute>
+              } />
+              <Route path="/dashboard/requirements/greece" element={
+                <ProtectedRoute>
+                  <GreeceVisaRequirements />
                 </ProtectedRoute>
               } />
               <Route path="/admin" element={
