@@ -15,106 +15,131 @@ import {
   Star,
   ArrowDown 
 } from 'lucide-react';
+import { VisaApplication } from '@/types/visa';
 
 const Index = () => {
   const { t } = useLanguage();
 
   // Updated visa data for foreign countries from Turkish cities
-  const visaData = [
+  const visaData: VisaApplication[] = [
     {
+      id: '1',
       city: 'Ankara',
       country: 'Netherlands',
       flag: '🇳🇱',
       date: '2024-06-10',
-      status: 'available' as const,
+      applicationDate: '2024-06-10',
+      status: 'available',
       slots: 12,
     },
     {
+      id: '2',
       city: 'Istanbul',
       country: 'France',
       flag: '🇫🇷',
       date: '2024-06-15',
-      status: 'full' as const,
+      applicationDate: '2024-06-15',
+      status: 'full',
       nextAvailable: '2024-06-28',
     },
     {
+      id: '3',
       city: 'Izmir',
       country: 'Belgium',
       flag: '🇧🇪',
       date: '2024-06-05',
-      status: 'available' as const,
+      applicationDate: '2024-06-05',
+      status: 'available',
       slots: 5,
     },
     {
+      id: '4',
       city: 'Antalya',
       country: 'Sweden',
       flag: '🇸🇪',
       date: '2024-05-30',
-      status: 'available' as const,
+      applicationDate: '2024-05-30',
+      status: 'available',
       slots: 8,
     },
     {
+      id: '5',
       city: 'Gaziantep',
       country: 'Norway',
       flag: '🇳🇴',
       date: '2024-06-10',
-      status: 'full' as const,
+      applicationDate: '2024-06-10',
+      status: 'full',
       nextAvailable: '2024-06-25',
     },
     {
+      id: '6',
       city: 'Bursa',
       country: 'Finland',
       flag: '🇫🇮',
       date: '2024-06-12',
-      status: 'available' as const,
+      applicationDate: '2024-06-12',
+      status: 'available',
       slots: 3,
     },
     {
+      id: '7',
       city: 'Istanbul',
       country: 'Ireland',
       flag: '🇮🇪',
       date: '2024-07-03',
-      status: 'full' as const,
+      applicationDate: '2024-07-03',
+      status: 'full',
       nextAvailable: '2024-07-15',
     },
     {
+      id: '8',
       city: 'Ankara',
       country: 'Estonia',
       flag: '🇪🇪',
       date: '2024-06-08',
-      status: 'available' as const,
+      applicationDate: '2024-06-08',
+      status: 'available',
       slots: 6,
     },
     {
+      id: '9',
       city: 'Izmir',
       country: 'Croatia',
       flag: '🇭🇷',
       date: '2024-06-20',
-      status: 'available' as const,
+      applicationDate: '2024-06-20',
+      status: 'available',
       slots: 4,
     },
     {
+      id: '10',
       city: 'Antalya',
       country: 'Luxembourg',
       flag: '🇱🇺',
       date: '2024-06-18',
-      status: 'full' as const,
+      applicationDate: '2024-06-18',
+      status: 'full',
       nextAvailable: '2024-07-10',
     },
     {
+      id: '11',
       city: 'Bursa',
       country: 'Lithuania',
       flag: '🇱🇹',
       date: '2024-06-22',
-      status: 'available' as const,
+      applicationDate: '2024-06-22',
+      status: 'available',
       slots: 7,
     },
     {
+      id: '12',
       city: 'Gaziantep',
       country: 'Slovenia',
       flag: '🇸🇮',
       date: '2024-06-30',
-      status: 'full' as const,
+      applicationDate: '2024-06-30',
+      status: 'full',
       nextAvailable: '2024-07-20',
     },
   ];
@@ -219,8 +244,8 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
-            {visaData.map((visa, index) => (
-              <VisaCard key={index} {...visa} />
+            {visaData.map((visa) => (
+              <VisaCard key={visa.id} visa={visa} />
             ))}
           </div>
         </div>

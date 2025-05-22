@@ -4,6 +4,11 @@ export interface VisaApplication {
   country: string;
   status: string;
   applicationDate: string;
+  city?: string;
+  flag?: string;
+  date?: string;
+  slots?: number;
+  nextAvailable?: string;
 }
 
 export interface VisaCardProps {

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -17,6 +16,7 @@ import {
 } from 'lucide-react';
 import DashboardLayout from '@/components/DashboardLayout';
 import VisaCard from '@/components/VisaCard';
+import { VisaApplication } from '@/types/visa';
 
 // Helper: Returns today's date + X days
 function getMinDatePlusDays(days = 10) {
@@ -34,37 +34,34 @@ const Dashboard = () => {
   const { t } = useLanguage();
   const [telegramConnected, setTelegramConnected] = useState(false);
   const [isTrackingModalOpen, setIsTrackingModalOpen] = useState(false);
-  const [trackedVisas, setTrackedVisas] = useState([]);
+  const [trackedVisas, setTrackedVisas] = useState<VisaApplication[]>([]);
   
   // Define initial visa data
   const initialVisaData = [
     {
-      id: 1,
+      id: '1',
       country: 'United States',
       flag: '🇺🇸',
       city: 'Ankara',
-      visaType: 'Tourist B1/B2',
       status: 'available',
-      lastCheck: '2 minutes ago',
+      applicationDate: '2 minutes ago',
       slots: 3
     },
     {
-      id: 2,
+      id: '2',
       country: 'Germany',
       flag: '🇩🇪',
       city: 'Istanbul',
-      visaType: 'Schengen',
       status: 'full',
-      lastCheck: '5 minutes ago',
+      applicationDate: '5 minutes ago',
     },
     {
-      id: 3,
+      id: '3',
       country: 'United Kingdom',
       flag: '🇬🇧',
       city: 'Izmir',
-      visaType: 'Standard Visitor',
       status: 'available',
-      lastCheck: '1 minute ago',
+      applicationDate: '1 minute ago',
       slots: 1
     }
   ];
@@ -197,13 +194,7 @@ const Dashboard = () => {
                   {trackedVisas.map((visa) => (
                     <VisaCard 
                       key={visa.id}
-                      country={visa.country}
-                      city={visa.city}
-                      flag={visa.flag}
-                      date={visa.date}
-                      status={visa.status}
-                      slots={visa.slots}
-                      nextAvailable={visa.nextAvailable}
+                      visa={visa}
                     />
                   ))}
                 </div>

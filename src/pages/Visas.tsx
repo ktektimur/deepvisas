@@ -42,6 +42,7 @@ const Visas: React.FC = () => {
       country: data.country,
       status: 'Pending',
       applicationDate: new Date().toISOString().split('T')[0],
+      city: data.city,
     };
     setApplications([...applications, newApplication]);
   };
