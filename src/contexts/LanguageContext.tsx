@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface LanguageContextType {
@@ -107,6 +106,51 @@ const translations = {
     'auth.demoAccounts': 'Demo accounts:',
     'auth.signInToAccount': 'Sign in to your DeepVisas account',
     'auth.createNewAccount': 'Create a new account on DeepVisas',
+    
+    // User Profile
+    'profile.title': 'User Profile',
+    'profile.subtitle': 'Manage your personal information',
+    'profile.fullName': 'Full Name',
+    'profile.dateOfBirth': 'Date of Birth',
+    'profile.nationality': 'Nationality',
+    'profile.passportNumber': 'Passport Number',
+    'profile.passportExpiry': 'Passport Expiry Date',
+    'profile.email': 'Email Address',
+    'profile.phone': 'Phone Number',
+    'profile.telegram': 'Telegram Username',
+    'profile.city': 'City of Residence',
+    'profile.visaType': 'Visa Type',
+    'profile.save': 'Save Changes',
+    'profile.cancel': 'Cancel',
+    'profile.updateSuccess': 'Your profile has been successfully updated.',
+    'profile.updateError': 'An error occurred while updating your profile.',
+    'profile.required': 'This field is required',
+    'profile.invalidFormat': 'Invalid format',
+    'profile.telegramSection': 'Telegram Integration',
+    'profile.telegramConnect': 'Connect Telegram',
+    'profile.telegramDisconnect': 'Disconnect',
+    'profile.telegramConnected': 'Connected as',
+    'profile.telegramNotConnected': 'Not connected',
+    'profile.telegramWarning': 'Are you sure you want to disconnect your Telegram account? You will stop receiving notifications.',
+    'profile.telegramConnectInfo': 'Connect your Telegram account to receive real-time notifications about visa appointments.',
+    
+    // Visa Types
+    'visaType.tourism': 'Tourism',
+    'visaType.business': 'Business',
+    'visaType.student': 'Student',
+    'visaType.family': 'Family',
+    'visaType.medical': 'Medical',
+    
+    // Nationalities (common ones)
+    'nationality.turkey': 'Turkey',
+    'nationality.germany': 'Germany',
+    'nationality.usa': 'United States',
+    'nationality.uk': 'United Kingdom',
+    'nationality.iraq': 'Iraq',
+    'nationality.syria': 'Syria',
+    'nationality.iran': 'Iran',
+    'nationality.russia': 'Russia',
+    'nationality.ukraine': 'Ukraine',
   },
   tr: {
     // Navigation
@@ -207,6 +251,51 @@ const translations = {
     'auth.demoAccounts': 'Demo hesap örnekleri:',
     'auth.signInToAccount': 'DeepVisas hesabınıza giriş yapın',
     'auth.createNewAccount': 'DeepVisas\'da yeni bir hesap oluşturun',
+    
+    // User Profile
+    'profile.title': 'Kullanıcı Profili',
+    'profile.subtitle': 'Kişisel bilgilerinizi yönetin',
+    'profile.fullName': 'Ad Soyad',
+    'profile.dateOfBirth': 'Doğum Tarihi',
+    'profile.nationality': 'Uyruk',
+    'profile.passportNumber': 'Pasaport No',
+    'profile.passportExpiry': 'Pasaport Geçerlilik Tarihi',
+    'profile.email': 'E-posta',
+    'profile.phone': 'Telefon Numarası',
+    'profile.telegram': 'Telegram Kullanıcı Adı',
+    'profile.city': 'Yaşadığı Şehir',
+    'profile.visaType': 'Vize Türü',
+    'profile.save': 'Değişiklikleri Kaydet',
+    'profile.cancel': 'İptal',
+    'profile.updateSuccess': 'Bilgileriniz başarıyla güncellendi.',
+    'profile.updateError': 'Profiliniz güncellenirken bir hata oluştu.',
+    'profile.required': 'Bu alan zorunludur',
+    'profile.invalidFormat': 'Geçersiz format',
+    'profile.telegramSection': 'Telegram Entegrasyonu',
+    'profile.telegramConnect': 'Telegram\'a Bağlan',
+    'profile.telegramDisconnect': 'Bağlantıyı Kes',
+    'profile.telegramConnected': 'Bağlı kullanıcı',
+    'profile.telegramNotConnected': 'Bağlı değil',
+    'profile.telegramWarning': 'Telegram hesabınızın bağlantısını kesmek istediğinizden emin misiniz? Vize randevuları hakkında bildirim almayı durduracaksınız.',
+    'profile.telegramConnectInfo': 'Vize randevuları hakkında gerçek zamanlı bildirimler almak için Telegram hesabınızı bağlayın.',
+    
+    // Visa Types
+    'visaType.tourism': 'Turizm',
+    'visaType.business': 'İş',
+    'visaType.student': 'Öğrenci',
+    'visaType.family': 'Aile',
+    'visaType.medical': 'Sağlık',
+    
+    // Nationalities (common ones)
+    'nationality.turkey': 'Türkiye',
+    'nationality.germany': 'Almanya',
+    'nationality.usa': 'Amerika Birleşik Devletleri',
+    'nationality.uk': 'Birleşik Krallık',
+    'nationality.iraq': 'Irak',
+    'nationality.syria': 'Suriye',
+    'nationality.iran': 'İran',
+    'nationality.russia': 'Rusya',
+    'nationality.ukraine': 'Ukrayna',
   }
 };
 
