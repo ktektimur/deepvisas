@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -13,7 +12,7 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, User, Calendar, Globe, Passport, Mail, Phone, MessageSquare, MapPin, FileText } from 'lucide-react';
+import { ArrowLeft, User, Calendar, Globe, IdCard, Mail, Phone, MessageSquare, MapPin, FileText } from 'lucide-react';
 import DashboardLayout from '@/components/DashboardLayout';
 
 interface UserProfile {
@@ -268,7 +267,7 @@ const UserDetails = () => {
                           </div>
                           
                           <div className="flex items-start gap-3">
-                            <Passport className="w-5 h-5 text-gray-500 dark:text-gray-400 mt-0.5" />
+                            <IdCard className="w-5 h-5 text-gray-500 dark:text-gray-400 mt-0.5" />
                             <div>
                               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{t('profile.passportNumber')}</p>
                               <p className="text-gray-900 dark:text-white">{user.passportNumber}</p>

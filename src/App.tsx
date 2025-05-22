@@ -20,6 +20,9 @@ import Visas from "./pages/Visas";
 import Notifications from "./pages/Notifications";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
+import UKVisaRequirements from "./pages/UKVisaRequirements";
+import AdminVisaSubmissions from "./pages/AdminVisaSubmissions";
+import VisaSubmissionView from "./pages/VisaSubmissionView";
 
 const queryClient = new QueryClient();
 
@@ -65,6 +68,11 @@ const App = () => (
                   <Settings />
                 </ProtectedRoute>
               } />
+              <Route path="/dashboard/requirements/uk" element={
+                <ProtectedRoute>
+                  <UKVisaRequirements />
+                </ProtectedRoute>
+              } />
               <Route path="/admin" element={
                 <ProtectedRoute requiredRole="admin">
                   <AdminDashboard />
@@ -78,6 +86,16 @@ const App = () => (
               <Route path="/admin/users/:userId" element={
                 <ProtectedRoute requiredRole="admin">
                   <UserDetails />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/visa-submissions" element={
+                <ProtectedRoute requiredRole="admin">
+                  <AdminVisaSubmissions />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/visa-submissions/:submissionId" element={
+                <ProtectedRoute requiredRole="admin">
+                  <VisaSubmissionView />
                 </ProtectedRoute>
               } />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
