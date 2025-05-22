@@ -16,6 +16,9 @@ const translations = {
     'nav.contact': 'Contact',
     'nav.login': 'Login',
     'nav.signup': 'Sign Up',
+    'nav.logout': 'Logout',
+    'nav.dashboard': 'Dashboard',
+    'nav.adminPanel': 'Admin Panel',
     
     // Hero Section
     'hero.title': 'Track visa appointments in real-time',
@@ -82,7 +85,28 @@ const translations = {
     'form.city': 'City',
     'form.visaType': 'Visa Type',
     'form.submit': 'Submit',
-    'form.cancel': 'Cancel'
+    'form.cancel': 'Cancel',
+    
+    // Auth
+    'auth.login': 'Login',
+    'auth.register': 'Register',
+    'auth.email': 'Email',
+    'auth.password': 'Password',
+    'auth.confirmPassword': 'Confirm Password',
+    'auth.forgotPassword': 'Forgot Password?',
+    'auth.noAccount': "Don't have an account?",
+    'auth.haveAccount': 'Already have an account?',
+    'auth.createAccount': 'Create Account',
+    'auth.loggingIn': 'Logging in...',
+    'auth.registering': 'Registering...',
+    'auth.loginFailed': 'Login failed',
+    'auth.invalidCredentials': 'Invalid email or password. Please try again.',
+    'auth.registerSuccess': 'Your account has been successfully created.',
+    'auth.emailInUse': 'This email address is already in use.',
+    'auth.errorOccurred': 'An error occurred. Please try again.',
+    'auth.demoAccounts': 'Demo accounts:',
+    'auth.signInToAccount': 'Sign in to your DeepVisas account',
+    'auth.createNewAccount': 'Create a new account on DeepVisas',
   },
   tr: {
     // Navigation
@@ -92,6 +116,9 @@ const translations = {
     'nav.contact': 'İletişim',
     'nav.login': 'Giriş',
     'nav.signup': 'Kayıt Ol',
+    'nav.logout': 'Çıkış Yap',
+    'nav.dashboard': 'Panel',
+    'nav.adminPanel': 'Yönetici Paneli',
     
     // Hero Section
     'hero.title': 'Vize randevularını gerçek zamanlı takip edin',
@@ -158,7 +185,28 @@ const translations = {
     'form.city': 'Şehir',
     'form.visaType': 'Vize Tipi',
     'form.submit': 'Gönder',
-    'form.cancel': 'İptal'
+    'form.cancel': 'İptal',
+    
+    // Auth
+    'auth.login': 'Giriş Yap',
+    'auth.register': 'Kaydol',
+    'auth.email': 'E-posta',
+    'auth.password': 'Şifre',
+    'auth.confirmPassword': 'Şifre Onayı',
+    'auth.forgotPassword': 'Şifremi Unuttum?',
+    'auth.noAccount': 'Hesabınız yok mu?',
+    'auth.haveAccount': 'Zaten hesabınız var mı?',
+    'auth.createAccount': 'Hesap Oluştur',
+    'auth.loggingIn': 'Giriş yapılıyor...',
+    'auth.registering': 'Kaydediliyor...',
+    'auth.loginFailed': 'Giriş başarısız',
+    'auth.invalidCredentials': 'E-posta veya şifre hatalı. Lütfen tekrar deneyin.',
+    'auth.registerSuccess': 'Hesabınız başarıyla oluşturuldu.',
+    'auth.emailInUse': 'Bu e-posta adresi zaten kullanılıyor.',
+    'auth.errorOccurred': 'Bir hata oluştu. Lütfen tekrar deneyin.',
+    'auth.demoAccounts': 'Demo hesap örnekleri:',
+    'auth.signInToAccount': 'DeepVisas hesabınıza giriş yapın',
+    'auth.createNewAccount': 'DeepVisas\'da yeni bir hesap oluşturun',
   }
 };
 

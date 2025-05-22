@@ -1,8 +1,10 @@
 
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation } from 'react-router-dom';
+import { LogOut, LogIn, UserPlus } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -10,6 +12,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { language, setLanguage, t } = useLanguage();
+  const { isAuthenticated, user, logout } = useAuth();
   const location = useLocation();
 
   const isHomePage = location.pathname === '/';
@@ -70,19 +73,40 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </button>
               </div>
 
-              {isHomePage && (
-                <>
+              {isAuthenticated ? (
+                <div className="flex items-center gap-4">
+                  {user?.role === 'admin' && (
+                    <Link to="/admin">
+                      <Button variant="outline" size="sm">
+                        {language === 'tr' ? 'Admin Panel' : 'Admin Panel'}
+                      </Button>
+                    </Link>
+                  )}
                   <Link to="/dashboard">
                     <Button variant="outline" size="sm">
-                      {t('nav.login')}
+                      {language === 'tr' ? 'Panel' : 'Dashboard'}
                     </Button>
                   </Link>
-                  <Link to="/dashboard">
+                  <Button size="sm" onClick={logout} variant="ghost">
+                    <LogOut className="w-4 h-4 mr-2" />
+                    {language === 'tr' ? 'Çıkış' : 'Logout'}
+                  </Button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-3">
+                  <Link to="/login">
+                    <Button variant="outline" size="sm">
+                      <LogIn className="w-4 h-4 mr-2" />
+                      {language === 'tr' ? 'Giriş' : 'Login'}
+                    </Button>
+                  </Link>
+                  <Link to="/register">
                     <Button size="sm">
-                      {t('nav.signup')}
+                      <UserPlus className="w-4 h-4 mr-2" />
+                      {language === 'tr' ? 'Kaydol' : 'Register'}
                     </Button>
                   </Link>
-                </>
+                </div>
               )}
             </div>
           </div>
