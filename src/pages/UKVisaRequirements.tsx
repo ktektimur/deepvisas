@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -243,16 +242,16 @@ const UKVisaRequirements = () => {
         <div className="flex flex-col space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+              <h1 className="text-2xl font-semibold text-gray-900">
                 {t('visaUK.title')}
               </h1>
-              <p className="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500">
                 {t('visaUK.description')}
               </p>
             </div>
             <Badge 
               variant="outline" 
-              className="flex items-center gap-1 bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-200 border-blue-200 dark:border-blue-800"
+              className="flex items-center gap-1 bg-blue-50 text-blue-700 border-blue-200"
             >
               <Globe className="h-3.5 w-3.5" />
               <span>UK</span>
@@ -260,9 +259,9 @@ const UKVisaRequirements = () => {
           </div>
           
           {formData ? (
-            <Card className="border dark:border-gray-700">
+            <Card className="border">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-green-600 dark:text-green-400">
+                <CardTitle className="flex items-center gap-2 text-green-600">
                   <CheckCircle className="h-5 w-5" />
                   {t('visaUK.applicationSubmitted')}
                 </CardTitle>
@@ -271,10 +270,10 @@ const UKVisaRequirements = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-gray-600">
                   {t('visaUK.referenceNumber')}: UK-{Math.floor(Math.random() * 100000).toString().padStart(6, '0')}
                 </p>
-                <p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
+                <p className="mt-4 text-sm text-gray-600">
                   {t('visaUK.submissionDate')}: {format(new Date(formData.submissionDate), 'PPP')}
                 </p>
                 <div className="mt-6">
@@ -297,11 +296,11 @@ const UKVisaRequirements = () => {
                   className="w-full"
                 >
                   {/* Personal Information Section */}
-                  <AccordionItem value="personal-info" className="border dark:border-gray-700">
-                    <AccordionTrigger className="px-4 py-2 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                  <AccordionItem value="personal-info" className="border">
+                    <AccordionTrigger className="px-4 py-2 hover:no-underline hover:bg-gray-50">
                       <div className="flex items-center gap-2">
-                        <IdCard className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                        <span className="font-medium text-gray-900 dark:text-white">{t('visaUK.personalInfo')}</span>
+                        <IdCard className="h-5 w-5 text-blue-600" />
+                        <span className="font-medium text-gray-900">{t('visaUK.personalInfo')}</span>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="p-4 pt-2">
@@ -520,11 +519,11 @@ const UKVisaRequirements = () => {
                   </AccordionItem>
                   
                   {/* Contact Information Section */}
-                  <AccordionItem value="contact-info" className="border dark:border-gray-700">
-                    <AccordionTrigger className="px-4 py-2 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                  <AccordionItem value="contact-info" className="border">
+                    <AccordionTrigger className="px-4 py-2 hover:no-underline hover:bg-gray-50">
                       <div className="flex items-center gap-2">
-                        <Phone className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                        <span className="font-medium text-gray-900 dark:text-white">{t('visaUK.contactInfo')}</span>
+                        <Phone className="h-5 w-5 text-blue-600" />
+                        <span className="font-medium text-gray-900">{t('visaUK.contactInfo')}</span>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="p-4 pt-2">
@@ -587,11 +586,11 @@ const UKVisaRequirements = () => {
                   </AccordionItem>
                   
                   {/* Travel Information Section */}
-                  <AccordionItem value="travel-info" className="border dark:border-gray-700">
-                    <AccordionTrigger className="px-4 py-2 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                  <AccordionItem value="travel-info" className="border">
+                    <AccordionTrigger className="px-4 py-2 hover:no-underline hover:bg-gray-50">
                       <div className="flex items-center gap-2">
-                        <Globe className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                        <span className="font-medium text-gray-900 dark:text-white">{t('visaUK.travelInfo')}</span>
+                        <Globe className="h-5 w-5 text-blue-600" />
+                        <span className="font-medium text-gray-900">{t('visaUK.travelInfo')}</span>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="p-4 pt-2">
@@ -762,11 +761,11 @@ const UKVisaRequirements = () => {
                   </AccordionItem>
                   
                   {/* Employment & Financial Section */}
-                  <AccordionItem value="employment-info" className="border dark:border-gray-700">
-                    <AccordionTrigger className="px-4 py-2 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                  <AccordionItem value="employment-info" className="border">
+                    <AccordionTrigger className="px-4 py-2 hover:no-underline hover:bg-gray-50">
                       <div className="flex items-center gap-2">
-                        <FileText className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                        <span className="font-medium text-gray-900 dark:text-white">{t('visaUK.employmentFinancial')}</span>
+                        <FileText className="h-5 w-5 text-blue-600" />
+                        <span className="font-medium text-gray-900">{t('visaUK.employmentFinancial')}</span>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="p-4 pt-2">
@@ -845,11 +844,11 @@ const UKVisaRequirements = () => {
                   </AccordionItem>
                   
                   {/* Travel History Section */}
-                  <AccordionItem value="travel-history" className="border dark:border-gray-700">
-                    <AccordionTrigger className="px-4 py-2 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                  <AccordionItem value="travel-history" className="border">
+                    <AccordionTrigger className="px-4 py-2 hover:no-underline hover:bg-gray-50">
                       <div className="flex items-center gap-2">
-                        <Globe className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                        <span className="font-medium text-gray-900 dark:text-white">{t('visaUK.travelHistory')}</span>
+                        <Globe className="h-5 w-5 text-blue-600" />
+                        <span className="font-medium text-gray-900">{t('visaUK.travelHistory')}</span>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="p-4 pt-2">
@@ -930,11 +929,11 @@ const UKVisaRequirements = () => {
                   </AccordionItem>
                   
                   {/* Additional Information */}
-                  <AccordionItem value="additional-info" className="border dark:border-gray-700">
-                    <AccordionTrigger className="px-4 py-2 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                  <AccordionItem value="additional-info" className="border">
+                    <AccordionTrigger className="px-4 py-2 hover:no-underline hover:bg-gray-50">
                       <div className="flex items-center gap-2">
-                        <AlertTriangle className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                        <span className="font-medium text-gray-900 dark:text-white">{t('visaUK.additionalInfo')}</span>
+                        <AlertTriangle className="h-5 w-5 text-blue-600" />
+                        <span className="font-medium text-gray-900">{t('visaUK.additionalInfo')}</span>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="p-4 pt-2">
