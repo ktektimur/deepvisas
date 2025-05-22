@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -20,12 +19,37 @@ import {
 const Index = () => {
   const { t } = useLanguage();
 
+  // Updated visa data with more countries and cities
   const visaData = [
+    {
+      city: 'Paris',
+      country: 'France',
+      flag: '🇫🇷',
+      date: '2024-06-15',
+      status: 'available' as const,
+      slots: 10,
+    },
+    {
+      city: 'Amsterdam',
+      country: 'Netherlands',
+      flag: '🇳🇱',
+      date: '2024-06-28',
+      status: 'full' as const,
+      nextAvailable: '2024-06-28',
+    },
+    {
+      city: 'Berlin',
+      country: 'Germany',
+      flag: '🇩🇪',
+      date: '2024-06-05',
+      status: 'available' as const,
+      slots: 5,
+    },
     {
       city: 'Ankara',
       country: 'Turkey',
       flag: '🇹🇷',
-      date: '2024-01-15',
+      date: '2024-05-30',
       status: 'available' as const,
       slots: 12,
     },
@@ -33,33 +57,33 @@ const Index = () => {
       city: 'Istanbul',
       country: 'Turkey',
       flag: '🇹🇷',
-      date: '2024-01-18',
+      date: '2024-06-10',
       status: 'full' as const,
-      nextAvailable: '2024-01-25',
+      nextAvailable: '2024-06-25',
     },
     {
-      city: 'Izmir',
-      country: 'Turkey',
-      flag: '🇹🇷',
-      date: '2024-01-20',
+      city: 'Rome',
+      country: 'Italy',
+      flag: '🇮🇹',
+      date: '2024-06-12',
       status: 'available' as const,
       slots: 8,
     },
     {
-      city: 'Bursa',
-      country: 'Turkey',
-      flag: '🇹🇷',
-      date: '2024-01-22',
-      status: 'available' as const,
-      slots: 5,
+      city: 'Madrid',
+      country: 'Spain',
+      flag: '🇪🇸',
+      date: '2024-07-03',
+      status: 'full' as const,
+      nextAvailable: '2024-07-15',
     },
     {
-      city: 'Gaziantep',
-      country: 'Turkey',
-      flag: '🇹🇷',
-      date: '2024-01-28',
-      status: 'full' as const,
-      nextAvailable: '2024-02-05',
+      city: 'London',
+      country: 'United Kingdom',
+      flag: '🇬🇧',
+      date: '2024-06-08',
+      status: 'available' as const,
+      slots: 3,
     },
   ];
 
@@ -107,7 +131,7 @@ const Index = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+      <section className="relative px-4 sm:px-6 lg:px-8 py-20 lg:py-32 bg-gradient-to-b from-blue-50 to-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <div className="mb-8">
@@ -130,12 +154,12 @@ const Index = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link to="/dashboard">
-                <Button size="lg" className="px-8 py-3 text-lg">
+                <Button size="lg" className="px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300">
                   {t('hero.cta')}
                 </Button>
               </Link>
               <a href="https://t.me/VisaBotTracker" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="lg" className="px-8 py-3 text-lg">
+                <Button variant="outline" size="lg" className="px-8 py-3 text-lg border-blue-200 hover:bg-blue-50">
                   <Users className="w-5 h-5 mr-2" />
                   Join Telegram
                 </Button>
@@ -146,23 +170,23 @@ const Index = () => {
         
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ArrowDown className="w-6 h-6 text-gray-400" />
+          <ArrowDown className="w-6 h-6 text-blue-400" />
         </div>
       </section>
 
       {/* Real-time Visa Cards */}
-      <section className="px-4 sm:px-6 lg:px-8 py-16 bg-white/50">
+      <section className="px-4 sm:px-6 lg:px-8 py-16 bg-gradient-to-b from-white to-blue-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Live Visa Availability
             </h2>
-            <p className="text-lg text-gray-600">
-              Real-time updates from Turkish consulates
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Real-time updates from embassy consulates worldwide
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
             {visaData.map((visa, index) => (
               <VisaCard key={index} {...visa} />
             ))}
