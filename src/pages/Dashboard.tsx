@@ -2,23 +2,20 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from '@/components/ui/sonner';
 import AddTrackingModal from '@/components/AddTrackingModal';
 import { 
-  Home, 
-  Settings, 
-  Bell, 
-  Plus, 
-  Users,
-  Globe,
   CheckCircle,
   X,
-  BarChart3,
-  MessageSquare
+  Globe,
+  Bell,
+  Plus,
+  MessageSquare,
+  Users
 } from 'lucide-react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import DashboardLayout from '@/components/DashboardLayout';
 import VisaCard from '@/components/VisaCard';
 
 // Helper: Returns today's date + X days
@@ -37,15 +34,8 @@ const Dashboard = () => {
   const { t } = useLanguage();
   const [telegramConnected, setTelegramConnected] = useState(false);
   const [isTrackingModalOpen, setIsTrackingModalOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
   const [trackedVisas, setTrackedVisas] = useState([]);
   
-  // Check if a route is active
-  const isRouteActive = (path) => {
-    return location.pathname === path;
-  };
-
   // Define initial visa data
   const initialVisaData = [
     {
@@ -126,254 +116,191 @@ const Dashboard = () => {
     toast.success('Notification removed');
   };
 
-  // Navigation handler for sidebar items
-  const handleNavigation = (path) => {
-    navigate(path);
-  };
-
-  // Define navigation items
-  const navItems = [
-    { id: 'home', icon: Home, label: t('nav.home'), path: '/dashboard' },
-    { id: 'visas', icon: Globe, label: t('dashboard.trackedVisas'), path: '/dashboard/visas' },
-    { id: 'notifications', icon: Bell, label: t('dashboard.notifications'), path: '/dashboard/notifications' },
-    { id: 'profile', icon: Users, label: t('dashboard.profile'), path: '/dashboard/profile' },
-    { id: 'analytics', icon: BarChart3, label: t('dashboard.analytics'), path: '/dashboard/analytics' },
-    { id: 'settings', icon: Settings, label: t('dashboard.settings'), path: '/dashboard/settings' }
-  ];
-
+  // THIS IS THE MAIN CONTENT SECTION
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white font-inter">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-blue-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">DV</span>
-              </div>
-              <span className="text-xl font-bold text-gray-900">DeepVisas</span>
-            </Link>
-            
-            <div className="flex items-center space-x-4">
-              <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
-                <CheckCircle className="w-3 h-3 mr-1" />
-                Active
-              </Badge>
-              <Link to="/admin">
-                <Button variant="outline" size="sm">
-                  Admin Panel
-                </Button>
-              </Link>
-            </div>
-          </div>
+    <DashboardLayout>
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            {t('dashboard.title')}
+          </h1>
+          <p className="text-gray-600">
+            Welcome back! Here's your visa tracking overview.
+          </p>
         </div>
-      </header>
 
-      <div className="flex">
-        {/* Sidebar */}
-        <aside className="w-64 bg-white/50 backdrop-blur-sm min-h-screen border-r border-blue-100">
-          <div className="p-6">
-            <nav className="space-y-2">
-              {navItems.map((item) => (
-                <Button 
-                  key={item.id}
-                  variant={isRouteActive(item.path) ? "default" : "ghost"} 
-                  className="w-full justify-start"
-                  onClick={() => handleNavigation(item.path)}
-                >
-                  <item.icon className="w-4 h-4 mr-2" />
-                  {item.label}
-                </Button>
-              ))}
-            </nav>
-          </div>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-6">
-          <div className="max-w-6xl mx-auto">
-            {/* Header */}
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                {t('dashboard.title')}
-              </h1>
-              <p className="text-gray-600">
-                Welcome back! Here's your visa tracking overview.
-              </p>
-            </div>
-
-            {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-              <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-blue-100">Tracked Countries</p>
-                      <p className="text-2xl font-bold">3</p>
-                    </div>
-                    <Globe className="w-8 h-8 text-blue-200" />
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-green-100">Available Slots</p>
-                      <p className="text-2xl font-bold">2</p>
-                    </div>
-                    <CheckCircle className="w-8 h-8 text-green-200" />
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-orange-100">Notifications</p>
-                      <p className="text-2xl font-bold">8</p>
-                    </div>
-                    <Bell className="w-8 h-8 text-orange-200" />
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-purple-100">Success Rate</p>
-                      <p className="text-2xl font-bold">95%</p>
-                    </div>
-                    <Users className="w-8 h-8 text-purple-200" />
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Tracked Visas */}
-              <div className="lg:col-span-2">
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between">
-                    <CardTitle>{t('dashboard.trackedVisas')}</CardTitle>
-                    <Button size="sm" onClick={() => setIsTrackingModalOpen(true)}>
-                      <Plus className="w-4 h-4 mr-2" />
-                      {t('dashboard.addTracking')}
-                    </Button>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {trackedVisas.map((visa) => (
-                        <VisaCard 
-                          key={visa.id}
-                          country={visa.country}
-                          city={visa.city}
-                          flag={visa.flag}
-                          date={visa.date}
-                          status={visa.status}
-                          slots={visa.slots}
-                          nextAvailable={visa.nextAvailable}
-                        />
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-blue-100">Tracked Countries</p>
+                  <p className="text-2xl font-bold">3</p>
+                </div>
+                <Globe className="w-8 h-8 text-blue-200" />
               </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-green-100">Available Slots</p>
+                  <p className="text-2xl font-bold">2</p>
+                </div>
+                <CheckCircle className="w-8 h-8 text-green-200" />
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-orange-100">Notifications</p>
+                  <p className="text-2xl font-bold">8</p>
+                </div>
+                <Bell className="w-8 h-8 text-orange-200" />
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-purple-100">Success Rate</p>
+                  <p className="text-2xl font-bold">95%</p>
+                </div>
+                <Users className="w-8 h-8 text-purple-200" />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
-              {/* Right Sidebar */}
-              <div className="space-y-6">
-                {/* Telegram Status */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">{t('dashboard.telegramStatus')}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center space-x-2">
-                        <div className={`w-3 h-3 rounded-full ${telegramConnected ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                        <span className="text-sm">
-                          {telegramConnected ? t('dashboard.connected') : t('dashboard.notConnected')}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    {/* Telegram Connection Section */}
-                    <div className="mb-4">
-                      <p className="mb-2 text-sm text-gray-700">
-                        Follow our updates on Telegram:{" "}
-                        <a
-                          href="https://t.me/schengenvizerandevulari"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 underline"
-                        >
-                          @schengenvizerandevulari
-                        </a>
-                      </p>
-                    </div>
-                    
-                    {!telegramConnected && (
-                      <Button 
-                        className="w-full" 
-                        onClick={() => {
-                          window.open("https://t.me/schengenvizerandevulari", "_blank");
-                          setTelegramConnected(true);
-                        }}
-                      >
-                        <MessageSquare className="w-4 h-4 mr-2" />
-                        {t('dashboard.connect')}
-                      </Button>
-                    )}
-                    {telegramConnected && (
-                      <div className="text-center">
-                        <p className="text-sm text-green-600 mb-2">✓ Connected to @schengenvizerandevulari</p>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Tracked Visas */}
+          <div className="lg:col-span-2">
+            <Card>
+              <div className="flex flex-row items-center justify-between p-6 border-b">
+                <h2 className="text-xl font-semibold">{t('dashboard.trackedVisas')}</h2>
+                <Button size="sm" onClick={() => setIsTrackingModalOpen(true)}>
+                  <Plus className="w-4 h-4 mr-2" />
+                  {t('dashboard.addTracking')}
+                </Button>
+              </div>
+              <CardContent className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {trackedVisas.map((visa) => (
+                    <VisaCard 
+                      key={visa.id}
+                      country={visa.country}
+                      city={visa.city}
+                      flag={visa.flag}
+                      date={visa.date}
+                      status={visa.status}
+                      slots={visa.slots}
+                      nextAvailable={visa.nextAvailable}
+                    />
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Right Sidebar */}
+          <div className="space-y-6">
+            {/* Telegram Status */}
+            <Card>
+              <div className="p-6 border-b">
+                <h2 className="text-lg font-semibold">{t('dashboard.telegramStatus')}</h2>
+              </div>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center space-x-2">
+                    <div className={`w-3 h-3 rounded-full ${telegramConnected ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                    <span className="text-sm">
+                      {telegramConnected ? t('dashboard.connected') : t('dashboard.notConnected')}
+                    </span>
+                  </div>
+                </div>
+                
+                {/* Updated Telegram Connection Section */}
+                <div className="mb-4">
+                  <p className="mb-2 text-sm text-gray-700">
+                    Follow our updates on Telegram:{" "}
+                    <a
+                      href="https://t.me/deepvisas"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 underline"
+                    >
+                      @deepvisas
+                    </a>
+                  </p>
+                </div>
+                
+                {!telegramConnected && (
+                  <Button 
+                    className="w-full" 
+                    onClick={() => {
+                      window.open("https://t.me/deepvisas", "_blank");
+                      setTelegramConnected(true);
+                    }}
+                  >
+                    <MessageSquare className="w-4 h-4 mr-2" />
+                    {t('dashboard.connect')}
+                  </Button>
+                )}
+                
+                {telegramConnected && (
+                  <div className="text-center">
+                    <p className="text-sm text-green-600 mb-2">✓ Connected to @deepvisas</p>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => setTelegramConnected(false)}
+                    >
+                      Disconnect
+                    </Button>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Recent Notifications */}
+            <Card>
+              <div className="p-6 border-b">
+                <h2 className="text-lg font-semibold">{t('dashboard.notifications')}</h2>
+              </div>
+              <CardContent className="p-6">
+                <div className="space-y-3">
+                  {recentNotifications.map((notification) => (
+                    <div key={notification.id} className="p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <p className="text-sm text-gray-900">{notification.message}</p>
+                          <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
+                        </div>
                         <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => setTelegramConnected(false)}
+                          variant="ghost" 
+                          size="sm" 
+                          className="h-6 w-6 p-0"
+                          onClick={() => handleRemoveNotification(notification.id)}
                         >
-                          Disconnect
+                          <X className="w-3 h-3" />
                         </Button>
                       </div>
-                    )}
-                  </CardContent>
-                </Card>
-
-                {/* Recent Notifications */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">{t('dashboard.notifications')}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {recentNotifications.map((notification) => (
-                        <div key={notification.id} className="p-3 bg-gray-50 rounded-lg">
-                          <div className="flex items-start justify-between">
-                            <div className="flex-1">
-                              <p className="text-sm text-gray-900">{notification.message}</p>
-                              <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
-                            </div>
-                            <Button 
-                              variant="ghost" 
-                              size="sm" 
-                              className="h-6 w-6 p-0"
-                              onClick={() => handleRemoveNotification(notification.id)}
-                            >
-                              <X className="w-3 h-3" />
-                            </Button>
-                          </div>
-                        </div>
-                      ))}
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
-        </main>
+        </div>
       </div>
       
       <AddTrackingModal
@@ -381,7 +308,7 @@ const Dashboard = () => {
         onOpenChange={setIsTrackingModalOpen}
         onSubmit={handleAddTracking}
       />
-    </div>
+    </DashboardLayout>
   );
 };
 

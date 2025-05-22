@@ -45,15 +45,16 @@ const AddTrackingModal: React.FC<AddTrackingModalProps> = ({
     }
   };
 
-  const countries = ['Turkey', 'United States', 'Germany', 'United Kingdom', 'France'];
+  // Updated country list as requested
+  const countries = [
+    'Netherlands', 'France', 'Belgium', 'Bulgaria', 'Croatia', 
+    'Czechia', 'Estonia', 'Finland', 'Ireland', 'Latvia', 
+    'Lithuania', 'Luxembourg', 'Norway', 'Slovenia', 'Sweden', 
+    'Ukraine', 'USA', 'England', 'Iraq'
+  ];
   
-  const cities: { [key: string]: string[] } = {
-    Turkey: ['Ankara', 'Istanbul', 'Izmir', 'Bursa', 'Gaziantep'],
-    'United States': ['Washington', 'New York', 'Los Angeles', 'Chicago', 'Boston'],
-    Germany: ['Berlin', 'Munich', 'Frankfurt', 'Hamburg', 'Cologne'],
-    'United Kingdom': ['London', 'Manchester', 'Edinburgh', 'Birmingham', 'Glasgow'],
-    France: ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice'],
-  };
+  // Updated city list as requested
+  const cities = ['Ankara', 'Istanbul', 'Izmir', 'Gaziantep', 'Antalya', 'Bursa'];
 
   const visaTypes = ['Tourist', 'Business', 'Student', 'Work', 'Family'];
 
@@ -88,18 +89,16 @@ const AddTrackingModal: React.FC<AddTrackingModalProps> = ({
             <Select
               value={city}
               onValueChange={setCity}
-              disabled={!country}
             >
               <SelectTrigger id="city">
                 <SelectValue placeholder="Select a city" />
               </SelectTrigger>
               <SelectContent>
-                {country &&
-                  cities[country]?.map((c) => (
-                    <SelectItem key={c} value={c}>
-                      {c}
-                    </SelectItem>
-                  ))}
+                {cities.map((c) => (
+                  <SelectItem key={c} value={c}>
+                    {c}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

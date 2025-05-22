@@ -1,10 +1,11 @@
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Bell, Check, Trash2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { toast } from '@/components/ui/sonner';
+import DashboardLayout from '@/components/DashboardLayout';
 
 const notificationData = [
   {
@@ -81,93 +82,95 @@ const Notifications = () => {
   const unreadCount = notifications.filter(n => !n.read).length;
 
   return (
-    <div className="container mx-auto p-6">
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center gap-2">
-          <h1 className="text-2xl font-bold">Notifications</h1>
-          {unreadCount > 0 && (
-            <Badge variant="destructive" className="rounded-full px-2">
-              {unreadCount} new
-            </Badge>
-          )}
-        </div>
-        
-        <div className="flex gap-2">
-          <Button 
-            variant="outline" 
-            onClick={handleMarkAllRead}
-            disabled={unreadCount === 0}
-          >
-            <Check className="w-4 h-4 mr-2" />
-            Mark All Read
-          </Button>
-          <Button 
-            variant="outline" 
-            onClick={handleDeleteAll}
-            disabled={notifications.length === 0}
-          >
-            <Trash2 className="w-4 h-4 mr-2" />
-            Clear All
-          </Button>
-        </div>
-      </div>
-
-      {notifications.length === 0 ? (
-        <Card className="text-center py-12">
-          <CardContent>
-            <Bell className="w-12 h-12 mx-auto text-gray-300 mb-4" />
-            <h3 className="text-xl font-medium text-gray-700 mb-2">No notifications</h3>
-            <p className="text-gray-500">You don't have any notifications at the moment.</p>
-          </CardContent>
-        </Card>
-      ) : (
-        <div className="space-y-4">
-          {notifications.map((notification) => (
-            <Card 
-              key={notification.id} 
-              className={`transition-all ${!notification.read ? 'border-l-4 border-blue-500' : ''}`}
+    <DashboardLayout>
+      <div className="container mx-auto">
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl font-bold">Notifications</h1>
+            {unreadCount > 0 && (
+              <Badge variant="destructive" className="rounded-full px-2">
+                {unreadCount} new
+              </Badge>
+            )}
+          </div>
+          
+          <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              onClick={handleMarkAllRead}
+              disabled={unreadCount === 0}
             >
-              <CardContent className="p-4">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-medium">
-                        {notification.title}
-                      </h3>
-                      {!notification.read && (
-                        <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">
-                          New
-                        </Badge>
-                      )}
+              <Check className="w-4 h-4 mr-2" />
+              Mark All Read
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={handleDeleteAll}
+              disabled={notifications.length === 0}
+            >
+              <Trash2 className="w-4 h-4 mr-2" />
+              Clear All
+            </Button>
+          </div>
+        </div>
+
+        {notifications.length === 0 ? (
+          <Card className="text-center py-12">
+            <CardContent>
+              <Bell className="w-12 h-12 mx-auto text-gray-300 mb-4" />
+              <h3 className="text-xl font-medium text-gray-700 mb-2">No notifications</h3>
+              <p className="text-gray-500">You don't have any notifications at the moment.</p>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="space-y-4">
+            {notifications.map((notification) => (
+              <Card 
+                key={notification.id} 
+                className={`transition-all ${!notification.read ? 'border-l-4 border-blue-500' : ''}`}
+              >
+                <CardContent className="p-4">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-medium">
+                          {notification.title}
+                        </h3>
+                        {!notification.read && (
+                          <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">
+                            New
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="text-gray-600 text-sm mt-1">{notification.message}</p>
+                      <p className="text-gray-400 text-xs mt-2">{notification.time}</p>
                     </div>
-                    <p className="text-gray-600 text-sm mt-1">{notification.message}</p>
-                    <p className="text-gray-400 text-xs mt-2">{notification.time}</p>
-                  </div>
-                  <div className="flex gap-2">
-                    {!notification.read && (
+                    <div className="flex gap-2">
+                      {!notification.read && (
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          onClick={() => handleMarkAsRead(notification.id)}
+                        >
+                          <Check className="w-4 h-4" />
+                        </Button>
+                      )}
                       <Button 
                         variant="ghost" 
                         size="sm" 
-                        onClick={() => handleMarkAsRead(notification.id)}
+                        onClick={() => handleDelete(notification.id)}
                       >
-                        <Check className="w-4 h-4" />
+                        <Trash2 className="w-4 h-4" />
                       </Button>
-                    )}
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      onClick={() => handleDelete(notification.id)}
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
-    </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+      </div>
+    </DashboardLayout>
   );
 };
 

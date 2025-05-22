@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound";
 import Visas from "./pages/Visas";
 import Notifications from "./pages/Notifications";
 import Analytics from "./pages/Analytics";
+import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient();
 
@@ -55,6 +56,11 @@ const App = () => (
               <Route path="/dashboard/analytics" element={
                 <ProtectedRoute>
                   <Analytics />
+                </ProtectedRoute>
+              } />
+              <Route path="/dashboard/settings" element={
+                <ProtectedRoute>
+                  <Settings />
                 </ProtectedRoute>
               } />
               <Route path="/admin" element={
