@@ -58,7 +58,7 @@ const VisaCard: React.FC<VisaCardProps> = ({
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-600">{t('visa.slots')}:</span>
               <span className="font-medium text-green-600">{slots}</span>
-            div>
+            </div>
           )}
           
           {status === 'full' && nextAvailable && (

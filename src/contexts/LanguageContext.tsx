@@ -20,14 +20,18 @@ const translations = {
     // Hero Section
     'hero.title': 'Track visa appointments in real-time',
     'hero.subtitle': 'Never miss a slot.',
-    'hero.description': 'Get instant notifications when visa appointment slots become available in your preferred locations. Connect with our Telegram bot for real-time updates.',
-    'hero.cta': 'Start Tracking',
+    'hero.description': 'Get instant notifications when visa appointments become available in your preferred locations. Connect with our Telegram bot for real-time updates.',
+    'hero.cta': 'Start Tracking Now',
     
     // Visa Cards
     'visa.available': 'Available',
     'visa.full': 'Full',
+    'visa.waiting': 'Waiting',
     'visa.slots': 'slots',
     'visa.nextAvailable': 'Next Available',
+    'visa.tourist': 'Tourist',
+    'visa.business': 'Business',
+    'visa.student': 'Student',
     
     // Features
     'features.title': 'Why Choose DeepVisas?',
@@ -43,6 +47,7 @@ const translations = {
     // Dashboard
     'dashboard.title': 'Dashboard',
     'dashboard.myVisas': 'My Visas',
+    'dashboard.trackedVisas': 'Tracked Visas',
     'dashboard.notifications': 'Notifications',
     'dashboard.settings': 'Account Settings',
     'dashboard.addTracking': 'Add New Tracking',
@@ -57,12 +62,27 @@ const translations = {
     'admin.slots': 'Slot Management',
     'admin.broadcast': 'Broadcast System',
     'admin.analytics': 'Analytics',
+    'admin.userDetails': 'User Details',
+    'admin.slotDetails': 'Slot Details',
     
     // Footer
     'footer.contact': 'Contact Us',
     'footer.telegram': 'Telegram Channel',
     'footer.privacy': 'Privacy Policy',
-    'footer.terms': 'Terms of Service'
+    'footer.terms': 'Terms of Service',
+    
+    // NotFound
+    'notFound.title': '404',
+    'notFound.subtitle': 'Page Not Found',
+    'notFound.description': "The page you are looking for doesn't exist or has been moved.",
+    'notFound.button': 'Return Home',
+    
+    // Form labels
+    'form.country': 'Country',
+    'form.city': 'City',
+    'form.visaType': 'Visa Type',
+    'form.submit': 'Submit',
+    'form.cancel': 'Cancel'
   },
   tr: {
     // Navigation
@@ -82,8 +102,12 @@ const translations = {
     // Visa Cards
     'visa.available': 'Müsait',
     'visa.full': 'Dolu',
+    'visa.waiting': 'Beklemede',
     'visa.slots': 'slot',
     'visa.nextAvailable': 'Sonraki Müsait',
+    'visa.tourist': 'Turistik',
+    'visa.business': 'İş',
+    'visa.student': 'Öğrenci',
     
     // Features
     'features.title': 'Neden DeepVisas?',
@@ -99,6 +123,7 @@ const translations = {
     // Dashboard
     'dashboard.title': 'Kontrol Paneli',
     'dashboard.myVisas': 'Vizelerim',
+    'dashboard.trackedVisas': 'Takip Edilen Vizeler',
     'dashboard.notifications': 'Bildirimler',
     'dashboard.settings': 'Hesap Ayarları',
     'dashboard.addTracking': 'Yeni Takip Ekle',
@@ -113,12 +138,27 @@ const translations = {
     'admin.slots': 'Slot Yönetimi',
     'admin.broadcast': 'Yayın Sistemi',
     'admin.analytics': 'Analitik',
+    'admin.userDetails': 'Kullanıcı Detayları',
+    'admin.slotDetails': 'Slot Detayları',
     
     // Footer
     'footer.contact': 'Bize Ulaşın',
     'footer.telegram': 'Telegram Kanalı',
     'footer.privacy': 'Gizlilik Politikası',
-    'footer.terms': 'Kullanım Şartları'
+    'footer.terms': 'Kullanım Şartları',
+    
+    // NotFound
+    'notFound.title': '404',
+    'notFound.subtitle': 'Sayfa Bulunamadı',
+    'notFound.description': 'Aradığınız sayfa mevcut değil veya taşınmış.',
+    'notFound.button': 'Ana Sayfaya Dön',
+    
+    // Form labels
+    'form.country': 'Ülke',
+    'form.city': 'Şehir',
+    'form.visaType': 'Vize Tipi',
+    'form.submit': 'Gönder',
+    'form.cancel': 'İptal'
   }
 };
 

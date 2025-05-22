@@ -4,6 +4,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { toast } from '@/components/ui/sonner';
+import AddTrackingModal from '@/components/AddTrackingModal';
 import { 
   Home, 
   Settings, 
@@ -19,6 +21,7 @@ import { Link } from 'react-router-dom';
 const Dashboard = () => {
   const { t } = useLanguage();
   const [telegramConnected, setTelegramConnected] = useState(false);
+  const [isTrackingModalOpen, setIsTrackingModalOpen] = useState(false);
 
   const trackedVisas = [
     {
@@ -65,6 +68,16 @@ const Dashboard = () => {
     }
   ];
 
+  const handleAddTracking = (data: { country: string; city: string; visaType: string }) => {
+    toast.success('New tracking added', {
+      description: `${data.visaType} visa for ${data.city}, ${data.country}`
+    });
+  };
+
+  const handleRemoveNotification = (id: number) => {
+    toast.success('Notification removed');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white font-inter">
       {/* Header */}
@@ -104,7 +117,7 @@ const Dashboard = () => {
               </Button>
               <Button variant="ghost" className="w-full justify-start">
                 <Globe className="w-4 h-4 mr-2" />
-                {t('dashboard.myVisas')}
+                {t('dashboard.trackedVisas')}
               </Button>
               <Button variant="ghost" className="w-full justify-start">
                 <Bell className="w-4 h-4 mr-2" />
@@ -187,8 +200,8 @@ const Dashboard = () => {
               <div className="lg:col-span-2">
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between">
-                    <CardTitle>{t('dashboard.myVisas')}</CardTitle>
-                    <Button size="sm">
+                    <CardTitle>{t('dashboard.trackedVisas')}</CardTitle>
+                    <Button size="sm" onClick={() => setIsTrackingModalOpen(true)}>
                       <Plus className="w-4 h-4 mr-2" />
                       {t('dashboard.addTracking')}
                     </Button>
@@ -278,7 +291,12 @@ const Dashboard = () => {
                               <p className="text-sm text-gray-900">{notification.message}</p>
                               <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
                             </div>
-                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              className="h-6 w-6 p-0"
+                              onClick={() => handleRemoveNotification(notification.id)}
+                            >
                               <X className="w-3 h-3" />
                             </Button>
                           </div>
@@ -292,6 +310,12 @@ const Dashboard = () => {
           </div>
         </main>
       </div>
+      
+      <AddTrackingModal
+        open={isTrackingModalOpen}
+        onOpenChange={setIsTrackingModalOpen}
+        onSubmit={handleAddTracking}
+      />
     </div>
   );
 };
