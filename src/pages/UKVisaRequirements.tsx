@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Calendar } from '@/components/ui/calendar';
+import { Badge } from '@/components/ui/badge';
 import {
   Select,
   SelectContent,
@@ -39,7 +40,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { CalendarIcon, Globe, Passport, CheckCircle, AlertTriangle } from 'lucide-react';
+import { CalendarIcon, Globe, IdCard, CheckCircle, AlertTriangle, FileText, Phone, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 // Define schema for UK visa form with i18n support
@@ -299,7 +300,7 @@ const UKVisaRequirements = () => {
                   <AccordionItem value="personal-info" className="border dark:border-gray-700">
                     <AccordionTrigger className="px-4 py-2 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-800/50">
                       <div className="flex items-center gap-2">
-                        <Passport className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                        <IdCard className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                         <span className="font-medium text-gray-900 dark:text-white">{t('visaUK.personalInfo')}</span>
                       </div>
                     </AccordionTrigger>

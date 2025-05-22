@@ -57,7 +57,7 @@ const VisaSubmissionView = () => {
     try {
       return format(new Date(dateString), 'PPP');
     } catch (error) {
-      return dateString || 'N/A';
+      return String(dateString) || 'N/A';
     }
   };
 
