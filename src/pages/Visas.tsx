@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,8 +5,23 @@ import { Button } from '@/components/ui/button';
 import { FilterX, Plus } from 'lucide-react';
 import VisaCard from '@/components/VisaCard';
 
-// Sample visa data with dates in 2025
-const visaData = [
+// Define status type
+type VisaStatus = 'available' | 'full';
+
+// Interface for visa item
+interface VisaItem {
+  id: number;
+  country: string;
+  flag: string;
+  city: string;
+  date: string;
+  status: VisaStatus;
+  slots?: number;
+  nextAvailable?: string;
+}
+
+// Sample visa data with 2025 dates
+const visaData: VisaItem[] = [
   {
     id: 1,
     country: 'United States',
@@ -71,7 +85,7 @@ const Visas = () => {
     status: '',
   });
 
-  const filteredVisas = visaData.filter(visa => {
+  const filteredVisas = visaData.filter((visa) => {
     if (filters.country && !visa.country.includes(filters.country)) {
       return false;
     }
@@ -115,8 +129,10 @@ const Visas = () => {
               onChange={(e) => setFilters({ ...filters, country: e.target.value })}
             >
               <option value="">All Countries</option>
-              {Array.from(new Set(visaData.map(v => v.country))).map(country => (
-                <option key={country} value={country}>{country}</option>
+              {Array.from(new Set(visaData.map((v) => v.country))).map((country) => (
+                <option key={country} value={country}>
+                  {country}
+                </option>
               ))}
             </select>
           </div>
