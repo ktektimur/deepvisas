@@ -1,11 +1,27 @@
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface LanguageContextType {
   language: 'en' | 'tr';
   setLanguage: (lang: 'en' | 'tr') => void;
   t: (key: string) => string;
 }
+
+// Function to detect preferred language from the browser
+const getPreferredLanguage = (): 'en' | 'tr' => {
+  if (typeof navigator === 'undefined') return 'en';
+  
+  const browserLang = navigator.language || (navigator as any).userLanguage;
+  return browserLang?.startsWith('tr') ? 'tr' : 'en';
+};
+
+// Function to get stored language preference or use browser language
+const getInitialLanguage = (): 'en' | 'tr' => {
+  if (typeof window === 'undefined') return 'en';
+  
+  const storedLanguage = localStorage.getItem('language') as 'en' | 'tr' | null;
+  return storedLanguage || getPreferredLanguage();
+};
 
 const translations = {
   en: {
@@ -415,7 +431,19 @@ const translations = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<'en' | 'tr'>('en');
+  const [language, setLanguageState] = useState<'en' | 'tr'>(getInitialLanguage());
+  
+  // Update language and store in localStorage
+  const setLanguage = (lang: 'en' | 'tr') => {
+    setLanguageState(lang);
+    localStorage.setItem('language', lang);
+  };
+
+  // Initialize language on mount
+  useEffect(() => {
+    const initialLang = getInitialLanguage();
+    setLanguageState(initialLang);
+  }, []);
 
   const t = (key: string): string => {
     return translations[language][key as keyof typeof translations[typeof language]] || key;

@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,9 @@ import {
   BarChart3,
   Users,
   LogOut,
-  User
+  User,
+  Menu,
+  X
 } from 'lucide-react';
 
 interface DashboardLayoutProps {
@@ -25,6 +27,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Check if a route is active
   const isRouteActive = (path: string) => {
@@ -34,6 +37,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   // Navigation handler for sidebar items
   const handleNavigation = (path: string) => {
     navigate(path);
+    if (window.innerWidth < 768) {
+      setSidebarOpen(false);
+    }
   };
 
   // Define navigation items
@@ -52,24 +58,36 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     navigate('/login');
   };
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white font-inter">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md border-b border-blue-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">DV</span>
-              </div>
-              <span className="text-xl font-bold text-gray-900">DeepVisas</span>
-            </Link>
+            <div className="flex items-center">
+              <button 
+                className="md:hidden mr-2 p-2 rounded-md text-gray-700 hover:bg-gray-100" 
+                onClick={toggleSidebar}
+              >
+                {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+              <Link to="/" className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">DV</span>
+                </div>
+                <span className="text-xl font-bold text-gray-900">DeepVisas</span>
+              </Link>
+            </div>
             
             <div className="flex items-center space-x-4">
               <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
                 Active
               </Badge>
-              <Link to="/admin">
+              <Link to="/admin" className="hidden sm:block">
                 <Button variant="outline" size="sm" className="text-gray-700 border-gray-300 hover:bg-gray-100">
                   Admin Panel
                 </Button>
@@ -79,9 +97,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         </div>
       </header>
 
-      <div className="flex">
-        {/* Sidebar */}
-        <aside className="w-64 bg-white/50 backdrop-blur-sm min-h-screen border-r border-blue-100">
+      <div className="flex flex-col md:flex-row">
+        {/* Sidebar - Mobile (off-canvas) */}
+        <aside 
+          className={`${
+            sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          } md:translate-x-0 fixed md:relative z-40 w-64 h-screen bg-white/50 backdrop-blur-sm border-r border-blue-100 transition-transform duration-300 ease-in-out`}
+        >
           <div className="p-6">
             <nav className="space-y-2">
               {navItems.map((item) => (
@@ -113,8 +135,16 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           </div>
         </aside>
 
+        {/* Backdrop for mobile sidebar */}
+        {sidebarOpen && (
+          <div 
+            className="fixed inset-0 bg-black/20 z-30 md:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+
         {/* Main Content */}
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-4 sm:p-6 md:ml-0 w-full max-w-full overflow-x-hidden">
           {children}
         </main>
       </div>
