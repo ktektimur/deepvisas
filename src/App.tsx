@@ -14,6 +14,9 @@ import UserProfile from "./pages/UserProfile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
+import Visas from "./pages/Visas";
+import Notifications from "./pages/Notifications";
+import Analytics from "./pages/Analytics";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +40,21 @@ const App = () => (
               <Route path="/dashboard/profile" element={
                 <ProtectedRoute>
                   <UserProfile />
+                </ProtectedRoute>
+              } />
+              <Route path="/dashboard/visas" element={
+                <ProtectedRoute>
+                  <Visas />
+                </ProtectedRoute>
+              } />
+              <Route path="/dashboard/notifications" element={
+                <ProtectedRoute>
+                  <Notifications />
+                </ProtectedRoute>
+              } />
+              <Route path="/dashboard/analytics" element={
+                <ProtectedRoute>
+                  <Analytics />
                 </ProtectedRoute>
               } />
               <Route path="/admin" element={

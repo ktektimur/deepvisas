@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -19,6 +19,19 @@ import {
   MessageSquare
 } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import VisaCard from '@/components/VisaCard';
+
+// Helper: Returns today's date + X days
+function getMinDatePlusDays(days = 10) {
+  const today = new Date();
+  today.setDate(today.getDate() + days);
+  return today;
+}
+
+// Helper: Format date as YYYY-MM-DD (ISO)
+function formatDateISO(date) {
+  return date.toISOString().slice(0, 10);
+}
 
 const Dashboard = () => {
   const { t } = useLanguage();
@@ -26,41 +39,67 @@ const Dashboard = () => {
   const [isTrackingModalOpen, setIsTrackingModalOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const [trackedVisas, setTrackedVisas] = useState([]);
   
   // Check if a route is active
-  const isRouteActive = (path: string) => {
+  const isRouteActive = (path) => {
     return location.pathname === path;
   };
 
-  const trackedVisas = [
+  // Define initial visa data
+  const initialVisaData = [
     {
       id: 1,
       country: 'United States',
+      flag: '🇺🇸',
       city: 'Ankara',
       visaType: 'Tourist B1/B2',
       status: 'available',
       lastCheck: '2 minutes ago',
-      nextDate: '2024-01-15'
+      slots: 3
     },
     {
       id: 2,
       country: 'Germany',
+      flag: '🇩🇪',
       city: 'Istanbul',
       visaType: 'Schengen',
       status: 'full',
       lastCheck: '5 minutes ago',
-      nextDate: '2024-01-25'
     },
     {
       id: 3,
       country: 'United Kingdom',
+      flag: '🇬🇧',
       city: 'Izmir',
       visaType: 'Standard Visitor',
       status: 'available',
       lastCheck: '1 minute ago',
-      nextDate: '2024-01-20'
+      slots: 1
     }
   ];
+
+  // Set up visa dates dynamically
+  useEffect(() => {
+    const minDate = getMinDatePlusDays(10); // At least 10 days ahead
+    // Create increasing dates for each visa (+5 days each)
+    const updatedVisas = initialVisaData.map((visa, idx) => {
+      const date = new Date(minDate);
+      date.setDate(date.getDate() + idx * 5); // Add 0, 5, 10 days respectively
+      
+      // For full status visas, set nextAvailable date further in the future
+      const nextAvailableDate = new Date(date);
+      nextAvailableDate.setDate(nextAvailableDate.getDate() + 14); // 2 weeks later
+      
+      return {
+        ...visa,
+        date: formatDateISO(date),
+        nextAvailable: formatDateISO(nextAvailableDate)
+      };
+    });
+    
+    setTrackedVisas(updatedVisas);
+  }, []);
 
   const recentNotifications = [
     {
@@ -77,18 +116,18 @@ const Dashboard = () => {
     }
   ];
 
-  const handleAddTracking = (data: { country: string; city: string; visaType: string }) => {
+  const handleAddTracking = (data) => {
     toast.success('New tracking added', {
       description: `${data.visaType} visa for ${data.city}, ${data.country}`
     });
   };
 
-  const handleRemoveNotification = (id: number) => {
+  const handleRemoveNotification = (id) => {
     toast.success('Notification removed');
   };
 
   // Navigation handler for sidebar items
-  const handleNavigation = (path: string) => {
+  const handleNavigation = (path) => {
     navigate(path);
   };
 
@@ -226,30 +265,18 @@ const Dashboard = () => {
                     </Button>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {trackedVisas.map((visa) => (
-                        <div key={visa.id} className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
-                          <div className="flex items-center justify-between mb-2">
-                            <div>
-                              <h3 className="font-semibold text-gray-900">{visa.country}</h3>
-                              <p className="text-sm text-gray-600">{visa.city} - {visa.visaType}</p>
-                            </div>
-                            <Badge
-                              variant={visa.status === 'available' ? 'default' : 'secondary'}
-                              className={
-                                visa.status === 'available'
-                                  ? 'bg-green-100 text-green-800 hover:bg-green-100'
-                                  : 'bg-red-100 text-red-800 hover:bg-red-100'
-                              }
-                            >
-                              {visa.status === 'available' ? t('visa.available') : t('visa.full')}
-                            </Badge>
-                          </div>
-                          <div className="flex justify-between text-sm text-gray-600">
-                            <span>Last check: {visa.lastCheck}</span>
-                            <span>Next date: {visa.nextDate}</span>
-                          </div>
-                        </div>
+                        <VisaCard 
+                          key={visa.id}
+                          country={visa.country}
+                          city={visa.city}
+                          flag={visa.flag}
+                          date={visa.date}
+                          status={visa.status}
+                          slots={visa.slots}
+                          nextAvailable={visa.nextAvailable}
+                        />
                       ))}
                     </div>
                   </CardContent>
@@ -272,10 +299,29 @@ const Dashboard = () => {
                         </span>
                       </div>
                     </div>
+                    
+                    {/* Telegram Connection Section */}
+                    <div className="mb-4">
+                      <p className="mb-2 text-sm text-gray-700">
+                        Follow our updates on Telegram:{" "}
+                        <a
+                          href="https://t.me/schengenvizerandevulari"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline"
+                        >
+                          @schengenvizerandevulari
+                        </a>
+                      </p>
+                    </div>
+                    
                     {!telegramConnected && (
                       <Button 
                         className="w-full" 
-                        onClick={() => setTelegramConnected(true)}
+                        onClick={() => {
+                          window.open("https://t.me/schengenvizerandevulari", "_blank");
+                          setTelegramConnected(true);
+                        }}
                       >
                         <MessageSquare className="w-4 h-4 mr-2" />
                         {t('dashboard.connect')}
@@ -283,7 +329,7 @@ const Dashboard = () => {
                     )}
                     {telegramConnected && (
                       <div className="text-center">
-                        <p className="text-sm text-green-600 mb-2">✓ Connected as @username</p>
+                        <p className="text-sm text-green-600 mb-2">✓ Connected to @schengenvizerandevulari</p>
                         <Button 
                           variant="outline" 
                           size="sm"
@@ -340,4 +386,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
