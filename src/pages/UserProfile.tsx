@@ -31,7 +31,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { Calendar as CalendarIcon, User, Passport, Mail, Phone, MessageCircle, Building, Globe, AlertCircle } from 'lucide-react';
+import { Calendar as CalendarIcon, User, IdCard, Mail, Phone, MessageCircle, Building, Globe, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface UserProfileData {
@@ -277,7 +277,7 @@ const UserProfile = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex items-center gap-2">
-                            <Passport className="h-4 w-4 text-muted-foreground" />
+                            <IdCard className="h-4 w-4 text-muted-foreground" />
                             {t('profile.passportNumber')}
                           </FormLabel>
                           <FormControl>
@@ -438,7 +438,7 @@ const UserProfile = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex items-center gap-2">
-                            <Passport className="h-4 w-4 text-muted-foreground" />
+                            <IdCard className="h-4 w-4 text-muted-foreground" />
                             {t('profile.visaType')}
                           </FormLabel>
                           <FormControl>
