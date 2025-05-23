@@ -31,7 +31,7 @@ const visaApplications: VisaApplication[] = [
 ];
 
 const Visas: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   
   const [applications, setApplications] = useState(visaApplications);
@@ -59,22 +59,22 @@ const Visas: React.FC = () => {
 
         {/* Visa Application Links */}
         <div className="mb-10">
-          <h2 className="text-xl font-semibold mb-4">Apply for a Visa</h2>
+          <h2 className="text-xl font-semibold mb-4">{language === 'en' ? 'Apply for a Visa' : 'Vize Başvurusu Yap'}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* UK Visa Application Card */}
             <Card className="shadow-sm hover:shadow-md transition-shadow bg-white">
               <CardHeader>
-                <CardTitle>United Kingdom Visa</CardTitle>
+                <CardTitle>{language === 'en' ? 'United Kingdom Visa' : 'Birleşik Krallık Vizesi'}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-600 mb-4">
-                  Apply for a UK visitor, work, or student visa
+                  {language === 'en' ? 'Apply for a UK visitor, work, or student visa' : 'İngiltere ziyaretçi, çalışma veya öğrenci vizesi başvurusu yapın'}
                 </p>
               </CardContent>
               <CardFooter>
                 <Link to="/dashboard/requirements/uk">
                   <Button variant="outline" className="w-full">
-                    Apply Now
+                    {language === 'en' ? 'Apply Now' : 'Şimdi Başvur'}
                   </Button>
                 </Link>
               </CardFooter>
@@ -83,17 +83,17 @@ const Visas: React.FC = () => {
             {/* Greece Visa Application Card */}
             <Card className="shadow-sm hover:shadow-md transition-shadow bg-white">
               <CardHeader>
-                <CardTitle>Greece Visa</CardTitle>
+                <CardTitle>{language === 'en' ? 'Greece Visa' : 'Yunanistan Vizesi'}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-600 mb-4">
-                  Apply for a Greece Schengen visa for tourism or business
+                  {language === 'en' ? 'Apply for a Greece Schengen visa for tourism or business' : 'Turizm veya iş için Yunanistan Schengen vizesi başvurusu yapın'}
                 </p>
               </CardContent>
               <CardFooter>
                 <Link to="/dashboard/requirements/greece">
                   <Button variant="outline" className="w-full">
-                    Apply Now
+                    {language === 'en' ? 'Apply Now' : 'Şimdi Başvur'}
                   </Button>
                 </Link>
               </CardFooter>
