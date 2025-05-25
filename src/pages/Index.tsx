@@ -145,7 +145,7 @@ const Index = () => {
       },
       rating: 5,
       flag: '🇩🇪',
-      title: language === 'en' ? 'Software Engineer' : 'Yazılım Mühendisi'
+      role: language === 'en' ? 'Software Engineer' : 'Yazılım Mühendisi'
     },
     {
       name: language === 'en' ? 'Maria Rodriguez' : 'Merve Özkan',
@@ -155,7 +155,7 @@ const Index = () => {
       },
       rating: 5,
       flag: '🇪🇸',
-      title: language === 'en' ? 'Marketing Manager' : 'Pazarlama Müdürü'
+      role: language === 'en' ? 'Marketing Manager' : 'Pazarlama Müdürü'
     },
     {
       name: language === 'en' ? 'Sarah Johnson' : 'Selin Yılmaz',
@@ -165,7 +165,7 @@ const Index = () => {
       },
       rating: 5,
       flag: '🇬🇧',
-      title: language === 'en' ? 'Business Analyst' : 'İş Analisti'
+      role: language === 'en' ? 'Business Analyst' : 'İş Analisti'
     }
   ];
 
@@ -526,7 +526,6 @@ const Index = () => {
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="font-bold text-gray-900 text-sm">{testimonial.name}</span>
-                        <span className="text-lg">{testimonial.title}</span>
                       </div>
                       <p className="text-gray-600 text-xs">{testimonial.role}</p>
                     </div>
