@@ -305,16 +305,33 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   const setLanguage = (lang: 'en' | 'tr') => {
     setLanguageState(lang);
     localStorage.setItem('language', lang);
+    
+    // Update HTML lang attribute for accessibility
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = lang;
+    }
   };
 
   // Initialize language on mount
   useEffect(() => {
     const initialLang = getInitialLanguage();
     setLanguageState(initialLang);
+    
+    // Set HTML lang attribute
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = initialLang;
+    }
   }, []);
 
   const t = (key: string): string => {
-    return translations[language][key as keyof typeof translations[typeof language]] || key;
+    const keys = key.split('.');
+    let value: any = translations[language];
+    
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    
+    return value || key;
   };
 
   return (

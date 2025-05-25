@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
@@ -48,7 +47,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const navItems = [
     { id: 'home', icon: Home, label: t('nav.home'), path: '/dashboard' },
     { id: 'visas', icon: Globe, label: t('dashboard.trackedVisas'), path: '/dashboard/visas' },
-    { id: 'pricing', icon: CreditCard, label: t('nav.pricing') || 'Pricing', path: '/pricing' },
+    { id: 'pricing', icon: CreditCard, label: t('nav.pricing'), path: '/pricing' },
     { id: 'notifications', icon: Bell, label: t('dashboard.notifications'), path: '/dashboard/notifications' },
     { id: 'analytics', icon: BarChart3, label: t('dashboard.analytics'), path: '/dashboard/analytics' },
     { id: 'profile', icon: User, label: t('profile.title'), path: '/dashboard/profile' },
@@ -57,9 +56,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 
   // Admin navigation items
   const adminNavItems = [
-    { id: 'admin-dashboard', icon: Shield, label: 'Admin Panel', path: '/admin' },
-    { id: 'admin-users', icon: Users, label: 'User Management', path: '/admin/users' },
-    { id: 'admin-pricing', icon: CreditCard, label: 'Pricing Management', path: '/admin/pricing' },
+    { id: 'admin-dashboard', icon: Shield, label: t('admin.panel'), path: '/admin' },
+    { id: 'admin-users', icon: Users, label: t('admin.users'), path: '/admin/users' },
+    { id: 'admin-pricing', icon: CreditCard, label: t('admin.pricing'), path: '/admin/pricing' },
+    { id: 'admin-visa-submissions', icon: Globe, label: 'Visa Submissions', path: '/admin/visa-submissions' },
   ];
 
   // Handle logout
@@ -97,12 +97,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
             
             <div className="flex items-center space-x-4">
               <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
-                Active
+                {t('admin.active')}
               </Badge>
               {isAdmin && (
                 <Link to="/admin" className="hidden sm:block">
                   <Button variant="outline" size="sm" className="text-gray-700 border-gray-300 hover:bg-gray-100">
-                    Admin Panel
+                    {t('admin.panel')}
                   </Button>
                 </Link>
               )}
@@ -141,7 +141,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 <>
                   <div className="my-4 border-t border-gray-200"></div>
                   <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                    Admin
+                    {t('admin.panel')}
                   </div>
                   {adminNavItems.map((item) => (
                     <Button 
@@ -169,7 +169,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                   onClick={handleLogout}
                 >
                   <LogOut className="w-4 h-4 mr-2" />
-                  Logout
+                  {t('nav.logout')}
                 </Button>
               </div>
             </nav>

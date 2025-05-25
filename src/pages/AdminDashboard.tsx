@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -104,17 +103,17 @@ const AdminDashboard = () => {
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">DV</span>
               </div>
-              <span className="text-xl font-bold text-gray-900">DeepVisas Admin</span>
+              <span className="text-xl font-bold text-gray-900">DeepVisas {t('admin.panel')}</span>
             </Link>
             
             <div className="flex items-center space-x-4">
               <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100">
                 <Settings className="w-3 h-3 mr-1" />
-                Admin Access
+                {t('admin.panel')}
               </Badge>
               <Link to="/dashboard">
                 <Button variant="outline" size="sm">
-                  User Dashboard
+                  {t('nav.dashboard')}
                 </Button>
               </Link>
             </div>
@@ -172,7 +171,7 @@ const AdminDashboard = () => {
                 {t('admin.title')}
               </h1>
               <p className="text-gray-600">
-                Manage users, slots, and system notifications.
+                {t('admin.userManagement')}, {t('admin.slotManagement')}, ve sistem bildirimlerini yönetin.
               </p>
             </div>
 
@@ -182,7 +181,7 @@ const AdminDashboard = () => {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-blue-100">Total Users</p>
+                      <p className="text-blue-100">{t('admin.totalUsers')}</p>
                       <p className="text-2xl font-bold">2,847</p>
                     </div>
                     <Users className="w-8 h-8 text-blue-200" />
@@ -194,7 +193,7 @@ const AdminDashboard = () => {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-green-100">Active Sessions</p>
+                      <p className="text-green-100">{t('admin.activeSessions')}</p>
                       <p className="text-2xl font-bold">1,203</p>
                     </div>
                     <UserCheck className="w-8 h-8 text-green-200" />
@@ -206,7 +205,7 @@ const AdminDashboard = () => {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-orange-100">Messages Sent</p>
+                      <p className="text-orange-100">{t('admin.messagesSent')}</p>
                       <p className="text-2xl font-bold">15,624</p>
                     </div>
                     <Send className="w-8 h-8 text-orange-200" />
@@ -218,7 +217,7 @@ const AdminDashboard = () => {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-purple-100">Success Rate</p>
+                      <p className="text-purple-100">{t('admin.successRate')}</p>
                       <p className="text-2xl font-bold">97.2%</p>
                     </div>
                     <BarChart3 className="w-8 h-8 text-purple-200" />
@@ -231,12 +230,12 @@ const AdminDashboard = () => {
             {activeTab === 'users' && (
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
-                  <CardTitle>User Management</CardTitle>
+                  <CardTitle>{t('admin.userManagement')}</CardTitle>
                   <div className="flex items-center space-x-2">
                     <div className="relative">
                       <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                       <Input
-                        placeholder="Search users..."
+                        placeholder={t('admin.searchUsers')}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="pl-10 w-64"
@@ -249,12 +248,12 @@ const AdminDashboard = () => {
                     <table className="w-full">
                       <thead>
                         <tr className="border-b border-gray-200">
-                          <th className="text-left py-3 px-4 font-medium text-gray-900">User</th>
-                          <th className="text-left py-3 px-4 font-medium text-gray-900">Telegram</th>
-                          <th className="text-left py-3 px-4 font-medium text-gray-900">Status</th>
-                          <th className="text-left py-3 px-4 font-medium text-gray-900">Tracked Countries</th>
-                          <th className="text-left py-3 px-4 font-medium text-gray-900">Last Login</th>
-                          <th className="text-left py-3 px-4 font-medium text-gray-900">Actions</th>
+                          <th className="text-left py-3 px-4 font-medium text-gray-900">{t('admin.user')}</th>
+                          <th className="text-left py-3 px-4 font-medium text-gray-900">{t('admin.telegram')}</th>
+                          <th className="text-left py-3 px-4 font-medium text-gray-900">{t('admin.status')}</th>
+                          <th className="text-left py-3 px-4 font-medium text-gray-900">{t('admin.trackedCountries')}</th>
+                          <th className="text-left py-3 px-4 font-medium text-gray-900">{t('admin.lastLogin')}</th>
+                          <th className="text-left py-3 px-4 font-medium text-gray-900">{t('admin.actions')}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -318,19 +317,19 @@ const AdminDashboard = () => {
             {activeTab === 'slots' && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Slot Management</CardTitle>
+                  <CardTitle>{t('admin.slotManagement')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="overflow-x-auto">
                     <table className="w-full">
                       <thead>
                         <tr className="border-b border-gray-200">
-                          <th className="text-left py-3 px-4 font-medium text-gray-900">Location</th>
-                          <th className="text-left py-3 px-4 font-medium text-gray-900">Visa Type</th>
-                          <th className="text-left py-3 px-4 font-medium text-gray-900">Available Slots</th>
-                          <th className="text-left py-3 px-4 font-medium text-gray-900">Status</th>
-                          <th className="text-left py-3 px-4 font-medium text-gray-900">Last Updated</th>
-                          <th className="text-left py-3 px-4 font-medium text-gray-900">Actions</th>
+                          <th className="text-left py-3 px-4 font-medium text-gray-900">{t('admin.location')}</th>
+                          <th className="text-left py-3 px-4 font-medium text-gray-900">{t('admin.visaType')}</th>
+                          <th className="text-left py-3 px-4 font-medium text-gray-900">{t('admin.availableSlots')}</th>
+                          <th className="text-left py-3 px-4 font-medium text-gray-900">{t('admin.status')}</th>
+                          <th className="text-left py-3 px-4 font-medium text-gray-900">{t('admin.lastUpdated')}</th>
+                          <th className="text-left py-3 px-4 font-medium text-gray-900">{t('admin.actions')}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -385,28 +384,28 @@ const AdminDashboard = () => {
             {activeTab === 'broadcast' && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Broadcast System</CardTitle>
+                  <CardTitle>{t('admin.broadcastSystem')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Message Content
+                        {t('admin.messageContent')}
                       </label>
                       <textarea
                         className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         rows={4}
-                        placeholder="Enter your broadcast message here..."
+                        placeholder={t('admin.messageContent')}
                       />
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Target Audience
+                          {t('admin.targetAudience')}
                         </label>
                         <select className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                          <option>All Active Users</option>
+                          <option>{t('admin.totalUsers')}</option>
                           <option>Premium Users Only</option>
                           <option>Users with Telegram Connected</option>
                           <option>Specific Country Trackers</option>
@@ -415,7 +414,7 @@ const AdminDashboard = () => {
                       
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Send Method
+                          {t('admin.sendMethod')}
                         </label>
                         <select className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                           <option>Telegram Only</option>
@@ -427,11 +426,11 @@ const AdminDashboard = () => {
                     
                     <div className="flex justify-end space-x-4">
                       <Button variant="outline">
-                        Preview Message
+                        {t('admin.previewMessage')}
                       </Button>
                       <Button>
                         <Send className="w-4 h-4 mr-2" />
-                        Send Broadcast
+                        {t('admin.sendBroadcast')}
                       </Button>
                     </div>
                   </div>
@@ -443,7 +442,7 @@ const AdminDashboard = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>User Growth</CardTitle>
+                    <CardTitle>{t('admin.userGrowth')}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="h-64 flex items-center justify-center text-gray-500">
@@ -454,7 +453,7 @@ const AdminDashboard = () => {
                 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Notification Success Rate</CardTitle>
+                    <CardTitle>{t('admin.notificationSuccessRate')}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="h-64 flex items-center justify-center text-gray-500">
@@ -465,7 +464,7 @@ const AdminDashboard = () => {
                 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Popular Countries</CardTitle>
+                    <CardTitle>{t('admin.popularCountries')}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="h-64 flex items-center justify-center text-gray-500">
@@ -476,7 +475,7 @@ const AdminDashboard = () => {
                 
                 <Card>
                   <CardHeader>
-                    <CardTitle>System Performance</CardTitle>
+                    <CardTitle>{t('admin.systemPerformance')}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="h-64 flex items-center justify-center text-gray-500">
