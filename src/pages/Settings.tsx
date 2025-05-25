@@ -5,32 +5,34 @@ import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/components/ui/sonner';
+import { useLanguage } from '@/contexts/LanguageContext';
 import DashboardLayout from '@/components/DashboardLayout';
 
 const Settings = () => {
+  const { t } = useLanguage();
   const [emailNotifications, setEmailNotifications] = React.useState(true);
   const [telegramNotifications, setTelegramNotifications] = React.useState(true);
   const [language, setLanguage] = React.useState('en');
 
   const handleSaveSettings = () => {
-    toast.success('Settings saved successfully');
+    toast.success(t('settings.settingsSaved'));
   };
 
   return (
     <DashboardLayout>
       <div className="container mx-auto">
-        <h1 className="text-2xl font-bold mb-6">Settings</h1>
+        <h1 className="text-2xl font-bold mb-6">{t('settings.title')}</h1>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>
             <CardHeader>
-              <CardTitle>Notification Preferences</CardTitle>
+              <CardTitle>{t('settings.notificationPreferences')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <Label htmlFor="email-notifications" className="font-medium">Email Notifications</Label>
-                  <p className="text-sm text-gray-500">Receive updates via email</p>
+                  <Label htmlFor="email-notifications" className="font-medium">{t('settings.emailNotifications')}</Label>
+                  <p className="text-sm text-gray-500">{t('settings.emailNotificationsDesc')}</p>
                 </div>
                 <Switch 
                   id="email-notifications" 
@@ -41,8 +43,8 @@ const Settings = () => {
               
               <div className="flex items-center justify-between">
                 <div>
-                  <Label htmlFor="telegram-notifications" className="font-medium">Telegram Notifications</Label>
-                  <p className="text-sm text-gray-500">Receive updates via Telegram</p>
+                  <Label htmlFor="telegram-notifications" className="font-medium">{t('settings.telegramNotifications')}</Label>
+                  <p className="text-sm text-gray-500">{t('settings.telegramNotificationsDesc')}</p>
                 </div>
                 <Switch 
                   id="telegram-notifications" 
@@ -55,11 +57,11 @@ const Settings = () => {
           
           <Card>
             <CardHeader>
-              <CardTitle>Display Settings</CardTitle>
+              <CardTitle>{t('settings.displaySettings')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="language" className="font-medium mb-2 block">Language</Label>
+                <Label htmlFor="language" className="font-medium mb-2 block">{t('settings.language')}</Label>
                 <select
                   id="language"
                   value={language}
@@ -75,11 +77,11 @@ const Settings = () => {
           
           <Card>
             <CardHeader>
-              <CardTitle>Telegram Integration</CardTitle>
+              <CardTitle>{t('settings.telegramIntegration')}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="mb-4 text-sm text-gray-700">
-                Connect with our DeepVisas Telegram channel for the latest updates:
+                {t('settings.telegramIntegrationDesc')}
               </p>
               <div className="flex items-center space-x-2 mb-4">
                 <a
@@ -92,18 +94,18 @@ const Settings = () => {
                 </a>
               </div>
               <Button onClick={() => window.open("https://t.me/deepvisas", "_blank")}>
-                Connect Telegram
+                {t('settings.connectTelegram')}
               </Button>
             </CardContent>
           </Card>
           
           <Card>
             <CardHeader>
-              <CardTitle>Account Settings</CardTitle>
+              <CardTitle>{t('settings.accountSettings')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="email" className="font-medium mb-2 block">Email Address</Label>
+                <Label htmlFor="email" className="font-medium mb-2 block">{t('settings.emailAddress')}</Label>
                 <input
                   type="email"
                   id="email"
@@ -112,13 +114,13 @@ const Settings = () => {
                   className="w-full p-2 border rounded-md bg-gray-50 text-gray-900"
                 />
               </div>
-              <Button variant="outline">Change Password</Button>
+              <Button variant="outline">{t('settings.changePassword')}</Button>
             </CardContent>
           </Card>
         </div>
         
         <div className="mt-6 flex justify-end">
-          <Button onClick={handleSaveSettings}>Save Settings</Button>
+          <Button onClick={handleSaveSettings}>{t('settings.saveSettings')}</Button>
         </div>
       </div>
     </DashboardLayout>

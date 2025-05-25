@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { BarChart3, TrendingUp, Calendar, Users } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 import {
   BarChart,
   Bar,
@@ -48,10 +48,12 @@ const visaTypeDistribution = [
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
 
 const Analytics = () => {
+  const { t } = useLanguage();
+
   return (
     <DashboardLayout>
       <div className="container mx-auto">
-        <h1 className="text-2xl font-bold mb-6">Analytics Dashboard</h1>
+        <h1 className="text-2xl font-bold mb-6">{t('analytics.title')}</h1>
         
         {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
@@ -61,7 +63,7 @@ const Analytics = () => {
                 <BarChart3 className="text-blue-700 h-6 w-6" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Total Tracked Visas</p>
+                <p className="text-sm font-medium text-gray-500">{t('analytics.totalTrackedVisas')}</p>
                 <h3 className="text-2xl font-bold">120</h3>
               </div>
             </CardContent>
@@ -73,7 +75,7 @@ const Analytics = () => {
                 <TrendingUp className="text-green-700 h-6 w-6" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Success Rate</p>
+                <p className="text-sm font-medium text-gray-500">{t('analytics.successRate')}</p>
                 <h3 className="text-2xl font-bold">86%</h3>
               </div>
             </CardContent>
@@ -85,7 +87,7 @@ const Analytics = () => {
                 <Calendar className="text-orange-700 h-6 w-6" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Appointments Secured</p>
+                <p className="text-sm font-medium text-gray-500">{t('analytics.appointmentsSecured')}</p>
                 <h3 className="text-2xl font-bold">42</h3>
               </div>
             </CardContent>
@@ -97,7 +99,7 @@ const Analytics = () => {
                 <Users className="text-purple-700 h-6 w-6" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Active Users</p>
+                <p className="text-sm font-medium text-gray-500">{t('analytics.activeUsers')}</p>
                 <h3 className="text-2xl font-bold">87</h3>
               </div>
             </CardContent>
@@ -108,8 +110,8 @@ const Analytics = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <Card>
             <CardHeader>
-              <CardTitle>Slots by Country</CardTitle>
-              <CardDescription>Distribution of visa appointment slots by country</CardDescription>
+              <CardTitle>{t('analytics.slotsByCountry')}</CardTitle>
+              <CardDescription>{t('analytics.slotsByCountryDesc')}</CardDescription>
             </CardHeader>
             <CardContent className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -126,8 +128,8 @@ const Analytics = () => {
           
           <Card>
             <CardHeader>
-              <CardTitle>Availability Trend</CardTitle>
-              <CardDescription>Visa appointment availability over time</CardDescription>
+              <CardTitle>{t('analytics.availabilityTrend')}</CardTitle>
+              <CardDescription>{t('analytics.availabilityTrendDesc')}</CardDescription>
             </CardHeader>
             <CardContent className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -147,8 +149,8 @@ const Analytics = () => {
         {/* Additional Chart */}
         <Card>
           <CardHeader>
-            <CardTitle>Visa Type Distribution</CardTitle>
-            <CardDescription>Breakdown of tracked visas by type</CardDescription>
+            <CardTitle>{t('analytics.visaTypeDistribution')}</CardTitle>
+            <CardDescription>{t('analytics.visaTypeDistributionDesc')}</CardDescription>
           </CardHeader>
           <CardContent className="h-[400px]">
             <div className="flex flex-col md:flex-row h-full">

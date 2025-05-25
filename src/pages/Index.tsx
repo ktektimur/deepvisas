@@ -1,5 +1,5 @@
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
@@ -7,35 +7,16 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import VisaCard from '@/components/VisaCard';
 import Layout from '@/components/Layout';
-import { Link } from 'react-router-dom';
-import { 
-  Globe, 
-  Bell, 
-  Users, 
-  Shield, 
-  CheckCircle, 
-  Star,
-  ArrowDown,
-  Clock,
-  Zap,
-  Target,
-  Award,
-  Rocket,
-  User,
-  Calculator,
-  Lock,
-  Menu,
-  X
-} from 'lucide-react';
+import { Globe, Bell, Users, Shield, CheckCircle, Star, ArrowDown, Clock, Zap, Target, Award, Rocket, User, Calculator, Lock, Menu, X } from 'lucide-react';
 import { VisaApplication } from '@/types/visa';
 
 const Index = () => {
-  const { language, setLanguage } = useLanguage();
-  const { t, i18n } = useTranslation();
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const { t, language, setLanguage } = useLanguage();
+  const { i18n } = useTranslation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Sync language changes between contexts
-  React.useEffect(() => {
+  useEffect(() => {
     i18n.changeLanguage(language);
     localStorage.setItem('language', language);
   }, [language, i18n]);
@@ -157,41 +138,35 @@ const Index = () => {
 
   const testimonials = [
     {
-      name: "Ahmet Yılmaz",
-      role: "Software Engineer",
-      location: "AY",
+      name: language === 'en' ? 'Ahmed Al-Rashid' : 'Ahmet Yılmaz',
       comment: {
-        en: "DeepVisas saved me months of manual checking. Got my Netherlands visa appointment in just 2 days!",
-        tr: "DeepVisas manuel kontrol ile geçen aylarımı kurtardı. Hollanda vize randevumu sadece 2 günde aldım!"
+        en: "Thanks to DeepVisas, I got my Germany visa appointment in just 2 days! The Telegram notifications are instant and accurate.",
+        tr: "DeepVisas sayesinde Almanya vize randevumu sadece 2 günde aldım! Telegram bildirimleri anında ve doğru."
       },
       rating: 5,
-      avatar: "AY",
-      country: "🇳🇱"
+      flag: '🇩🇪',
+      title: language === 'en' ? 'Software Engineer' : 'Yazılım Mühendisi'
     },
     {
-      name: "Sarah Johnson",
-      role: "Business Analyst",
-      location: "SJ",
+      name: language === 'en' ? 'Maria Rodriguez' : 'Merve Özkan',
       comment: {
-        en: "The Telegram notifications are instant and accurate. Finally got my Germany visa after weeks of waiting.",
+        en: "I was checking embassy websites manually for months. DeepVisas saved me so much time and stress!",
+        tr: "Aylarca elçilik sitelerini manuel kontrol ediyordum. DeepVisas bana çok zaman ve stres kazandırdı!"
+      },
+      rating: 5,
+      flag: '🇪🇸',
+      title: language === 'en' ? 'Marketing Manager' : 'Pazarlama Müdürü'
+    },
+    {
+      name: language === 'en' ? 'Sarah Johnson' : 'Selin Yılmaz',
+      comment: {
+        en: "The real-time tracking feature is amazing. I got notified within minutes when UK visa slots opened up in Istanbul.",
         tr: "Telegram bildirimleri anında ve doğru. Haftalarca bekledikten sonra nihayet Almanya vizemi aldım."
       },
       rating: 5,
-      avatar: "SJ",
-      country: "🇩🇪"
-    },
-    {
-      name: "Mehmet Özkan",
-      role: "Student",
-      location: "MÖ",
-      comment: {
-        en: "Perfect for students like me. The interface is clean and the alerts work flawlessly. Highly recommended!",
-        tr: "Benim gibi öğrenciler için mükemmel. Arayüz temiz ve uyarılar kusursuz çalışıyor. Kesinlikle tavsiye ederim!"
-      },
-      rating: 5,
-      avatar: "MÖ",
-      country: "🇪🇸"
-    },
+      flag: '🇬🇧',
+      title: language === 'en' ? 'Business Analyst' : 'İş Analisti'
+    }
   ];
 
   const stats = [
@@ -326,7 +301,7 @@ const Index = () => {
               <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
                 {t('title').split(' ').slice(0, 4).join(' ')}{' '}
                 <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
-                  {t('title').split(' ').slice(4).join(' ')}
+                  {t('title').split(' ').slice(4).join('')}
                 </span>
               </h1>
               
@@ -546,12 +521,12 @@ const Index = () => {
                   
                   <div className="flex items-center">
                     <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full flex items-center justify-center mr-3 text-white font-bold text-sm">
-                      {testimonial.avatar}
+                      {testimonial.flag}
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="font-bold text-gray-900 text-sm">{testimonial.name}</span>
-                        <span className="text-lg">{testimonial.country}</span>
+                        <span className="text-lg">{testimonial.title}</span>
                       </div>
                       <p className="text-gray-600 text-xs">{testimonial.role}</p>
                     </div>

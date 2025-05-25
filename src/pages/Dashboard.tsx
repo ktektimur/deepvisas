@@ -123,7 +123,7 @@ const Dashboard = () => {
             {t('dashboard.title')}
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            Welcome back! Here's your visa tracking overview.
+            {t('dashboard.welcomeMessage')}
           </p>
         </div>
 
@@ -133,7 +133,7 @@ const Dashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-blue-100">Tracked Countries</p>
+                  <p className="text-blue-100">{t('dashboard.trackedCountries')}</p>
                   <p className="text-2xl font-bold">3</p>
                 </div>
                 <Globe className="w-8 h-8 text-blue-200" />
@@ -145,7 +145,7 @@ const Dashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-green-100">Available Slots</p>
+                  <p className="text-green-100">{t('dashboard.availableSlots')}</p>
                   <p className="text-2xl font-bold">2</p>
                 </div>
                 <CheckCircle className="w-8 h-8 text-green-200" />
@@ -157,7 +157,7 @@ const Dashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-orange-100">Notifications</p>
+                  <p className="text-orange-100">{t('dashboard.notifications')}</p>
                   <p className="text-2xl font-bold">8</p>
                 </div>
                 <Bell className="w-8 h-8 text-orange-200" />
@@ -169,7 +169,7 @@ const Dashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-purple-100">Success Rate</p>
+                  <p className="text-purple-100">{t('dashboard.successRate')}</p>
                   <p className="text-2xl font-bold">95%</p>
                 </div>
                 <Users className="w-8 h-8 text-purple-200" />
