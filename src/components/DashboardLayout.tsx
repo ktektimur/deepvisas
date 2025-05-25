@@ -15,7 +15,9 @@ import {
   LogOut,
   User,
   Menu,
-  X
+  X,
+  CreditCard,
+  Shield
 } from 'lucide-react';
 
 interface DashboardLayoutProps {
@@ -24,7 +26,7 @@ interface DashboardLayoutProps {
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const { t } = useLanguage();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -46,10 +48,18 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const navItems = [
     { id: 'home', icon: Home, label: t('nav.home'), path: '/dashboard' },
     { id: 'visas', icon: Globe, label: t('dashboard.trackedVisas'), path: '/dashboard/visas' },
+    { id: 'pricing', icon: CreditCard, label: t('nav.pricing') || 'Pricing', path: '/pricing' },
     { id: 'notifications', icon: Bell, label: t('dashboard.notifications'), path: '/dashboard/notifications' },
     { id: 'analytics', icon: BarChart3, label: t('dashboard.analytics'), path: '/dashboard/analytics' },
     { id: 'profile', icon: User, label: t('profile.title'), path: '/dashboard/profile' },
     { id: 'settings', icon: Settings, label: t('dashboard.settings'), path: '/dashboard/settings' }
+  ];
+
+  // Admin navigation items
+  const adminNavItems = [
+    { id: 'admin-dashboard', icon: Shield, label: 'Admin Panel', path: '/admin' },
+    { id: 'admin-users', icon: Users, label: 'User Management', path: '/admin/users' },
+    { id: 'admin-pricing', icon: CreditCard, label: 'Pricing Management', path: '/admin/pricing' },
   ];
 
   // Handle logout
@@ -61,6 +71,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+
+  const isAdmin = user?.role === 'admin';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white font-inter">
@@ -87,11 +99,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
               <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
                 Active
               </Badge>
-              <Link to="/admin" className="hidden sm:block">
-                <Button variant="outline" size="sm" className="text-gray-700 border-gray-300 hover:bg-gray-100">
-                  Admin Panel
-                </Button>
-              </Link>
+              {isAdmin && (
+                <Link to="/admin" className="hidden sm:block">
+                  <Button variant="outline" size="sm" className="text-gray-700 border-gray-300 hover:bg-gray-100">
+                    Admin Panel
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -122,15 +136,42 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 </Button>
               ))}
               
+              {/* Admin Section */}
+              {isAdmin && (
+                <>
+                  <div className="my-4 border-t border-gray-200"></div>
+                  <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                    Admin
+                  </div>
+                  {adminNavItems.map((item) => (
+                    <Button 
+                      key={item.id}
+                      variant={isRouteActive(item.path) ? "default" : "ghost"} 
+                      className={`w-full justify-start ${
+                        isRouteActive(item.path) 
+                          ? "bg-primary text-white" 
+                          : "text-gray-700 hover:bg-gray-100"
+                      }`}
+                      onClick={() => handleNavigation(item.path)}
+                    >
+                      <item.icon className="w-4 h-4 mr-2" />
+                      {item.label}
+                    </Button>
+                  ))}
+                </>
+              )}
+              
               {/* Logout Button */}
-              <Button 
-                variant="ghost" 
-                className="w-full justify-start text-red-500 hover:text-red-600 hover:bg-red-50"
-                onClick={handleLogout}
-              >
-                <LogOut className="w-4 h-4 mr-2" />
-                Logout
-              </Button>
+              <div className="mt-6">
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start text-red-500 hover:text-red-600 hover:bg-red-50"
+                  onClick={handleLogout}
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Logout
+                </Button>
+              </div>
             </nav>
           </div>
         </aside>

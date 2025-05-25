@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
 import DashboardLayout from '@/components/DashboardLayout';
-import { Clock, CreditCard, Globe } from 'lucide-react';
+import { Clock, CreditCard, Globe, Info } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface VisaType {
   type: string;
@@ -74,81 +75,95 @@ const Pricing = () => {
   ];
 
   return (
-    <DashboardLayout>
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            {language === 'tr' ? 'Vize Fiyatları' : 'Visa Pricing'}
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            {language === 'tr' 
-              ? 'Farklı ülkeler için vize türleri ve fiyatları. Hemen abone olun ve takibe başlayın.'
-              : 'Visa types and pricing for different countries. Subscribe now and start tracking.'
-            }
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {pricingData.map((country, index) => (
-            <Card key={index} className="hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 dark:bg-gray-800 dark:border-gray-700">
-              <CardHeader className="text-center border-b dark:border-gray-700">
-                <div className="text-4xl mb-2">{country.flag}</div>
-                <CardTitle className="text-xl font-bold dark:text-white">{country.country}</CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  {country.visaTypes.map((visa, visaIndex) => (
-                    <div key={visaIndex} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                      <div className="flex justify-between items-start mb-3">
-                        <h3 className="font-semibold text-gray-900 dark:text-white">{visa.type}</h3>
-                        <Badge variant="secondary" className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                          {visa.type}
-                        </Badge>
-                      </div>
-                      
-                      <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        <div className="flex items-center space-x-1">
-                          <CreditCard className="w-4 h-4" />
-                          <span className="font-medium">₺{visa.price.toLocaleString()}</span>
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <Clock className="w-4 h-4" />
-                          <span>{visa.duration} {language === 'tr' ? 'gün' : 'days'}</span>
-                        </div>
-                      </div>
-                      
-                      <Button className="w-full bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white">
-                        <Globe className="w-4 h-4 mr-2" />
-                        {language === 'tr' ? 'Abone Ol' : 'Subscribe'}
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-        
-        <div className="text-center mt-12">
-          <Card className="max-w-2xl mx-auto bg-gradient-to-r from-blue-50 to-teal-50 dark:from-blue-900/20 dark:to-teal-900/20 border-blue-200 dark:border-blue-700">
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                {language === 'tr' ? 'Özel Fiyatlandırma' : 'Custom Pricing'}
-              </h2>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
-                {language === 'tr'
-                  ? 'Toplu sipariş veya özel ihtiyaçlarınız için bizimle iletişime geçin.'
-                  : 'Contact us for bulk orders or custom requirements.'
+    <TooltipProvider>
+      <div className="min-h-screen bg-gray-50">
+        <DashboardLayout>
+          <div className="container mx-auto px-4 py-12">
+            <div className="text-center mb-16">
+              <h1 className="text-5xl font-bold text-gray-900 mb-6">
+                {language === 'tr' ? 'Vize Fiyatları' : 'Visa Pricing'}
+              </h1>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                {language === 'tr' 
+                  ? 'Farklı ülkeler için vize türleri ve fiyatları. Hemen abone olun ve takibe başlayın.'
+                  : 'Visa types and pricing for different countries. Subscribe now and start tracking.'
                 }
               </p>
-              <Button variant="outline" className="border-blue-300 text-blue-700 hover:bg-blue-50 dark:border-blue-600 dark:text-blue-400 dark:hover:bg-blue-900/20">
-                {language === 'tr' ? 'İletişime Geç' : 'Contact Us'}
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              {pricingData.map((country, index) => (
+                <Card key={index} className="bg-white border-0 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 rounded-2xl overflow-hidden">
+                  <CardHeader className="text-center pb-4 pt-8 bg-gradient-to-br from-blue-50 to-indigo-50">
+                    <div className="text-6xl mb-4">{country.flag}</div>
+                    <CardTitle className="text-2xl font-bold text-gray-900">{country.country}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-8">
+                    <div className="space-y-6">
+                      {country.visaTypes.map((visa, visaIndex) => (
+                        <div key={visaIndex} className="bg-gray-50 rounded-xl p-6 border border-gray-100">
+                          <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center space-x-2">
+                              <h3 className="text-lg font-semibold text-gray-900">🎯 {visa.type}</h3>
+                              <Tooltip>
+                                <TooltipTrigger>
+                                  <Info className="w-4 h-4 text-gray-400 hover:text-gray-600" />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>{language === 'tr' ? `${visa.type} vizesi hakkında` : `About ${visa.type} visa`}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </div>
+                            <Badge variant="secondary" className="bg-blue-100 text-blue-800 font-medium">
+                              {visa.type}
+                            </Badge>
+                          </div>
+                          
+                          <div className="space-y-3 mb-6">
+                            <div className="flex items-center space-x-3">
+                              <CreditCard className="w-5 h-5 text-green-600" />
+                              <span className="text-2xl font-bold text-gray-900">💰 ₺{visa.price.toLocaleString()}</span>
+                            </div>
+                            <div className="flex items-center space-x-3">
+                              <Clock className="w-5 h-5 text-blue-600" />
+                              <span className="text-gray-700">⏳ {visa.duration} {language === 'tr' ? 'gün' : 'days'}</span>
+                            </div>
+                          </div>
+                          
+                          <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-xl transform hover:scale-105 transition-all duration-200 shadow-lg">
+                            <Globe className="w-5 h-5 mr-2" />
+                            🔘 {language === 'tr' ? 'Abone Ol' : 'Subscribe'}
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            <div className="text-center mt-16">
+              <Card className="max-w-3xl mx-auto bg-gradient-to-r from-blue-50 to-indigo-50 border-0 shadow-lg rounded-2xl">
+                <CardContent className="p-12">
+                  <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                    {language === 'tr' ? 'Özel Fiyatlandırma' : 'Custom Pricing'}
+                  </h2>
+                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                    {language === 'tr'
+                      ? 'Toplu sipariş veya özel ihtiyaçlarınız için bizimle iletişime geçin.'
+                      : 'Contact us for bulk orders or custom requirements.'
+                    }
+                  </p>
+                  <Button variant="outline" className="border-2 border-blue-600 text-blue-700 hover:bg-blue-600 hover:text-white font-semibold py-3 px-8 rounded-xl transform hover:scale-105 transition-all duration-200">
+                    {language === 'tr' ? 'İletişime Geç' : 'Contact Us'}
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </DashboardLayout>
       </div>
-    </DashboardLayout>
+    </TooltipProvider>
   );
 };
 
