@@ -9,12 +9,16 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import DashboardLayout from '@/components/DashboardLayout';
 
 const Settings = () => {
-  const { t } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
   const [emailNotifications, setEmailNotifications] = React.useState(true);
   const [telegramNotifications, setTelegramNotifications] = React.useState(true);
-  const [language, setLanguage] = React.useState('en');
 
   const handleSaveSettings = () => {
+    toast.success(t('settings.settingsSaved'));
+  };
+
+  const handleLanguageChange = (newLanguage: 'en' | 'tr') => {
+    setLanguage(newLanguage);
     toast.success(t('settings.settingsSaved'));
   };
 
@@ -65,11 +69,11 @@ const Settings = () => {
                 <select
                   id="language"
                   value={language}
-                  onChange={(e) => setLanguage(e.target.value)}
+                  onChange={(e) => handleLanguageChange(e.target.value as 'en' | 'tr')}
                   className="w-full p-2 border rounded-md bg-white text-gray-900"
                 >
                   <option value="en">English</option>
-                  <option value="tr">Turkish</option>
+                  <option value="tr">Türkçe</option>
                 </select>
               </div>
             </CardContent>

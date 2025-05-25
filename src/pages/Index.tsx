@@ -136,36 +136,157 @@ const Index = () => {
     }
   ];
 
+  // Enhanced testimonials with 15 entries and proper multilingual support
   const testimonials = [
     {
-      name: language === 'en' ? 'Ahmed Al-Rashid' : 'Ahmet Yılmaz',
+      name: language === 'tr' ? 'Ahmet Yılmaz' : 'Ahmed Al-Rashid',
       comment: {
         en: "Thanks to DeepVisas, I got my Germany visa appointment in just 2 days! The Telegram notifications are instant and accurate.",
         tr: "DeepVisas sayesinde Almanya vize randevumu sadece 2 günde aldım! Telegram bildirimleri anında ve doğru."
       },
       rating: 5,
       flag: '🇩🇪',
-      role: language === 'en' ? 'Software Engineer' : 'Yazılım Mühendisi'
+      role: language === 'tr' ? 'Yazılım Mühendisi' : 'Software Engineer'
     },
     {
-      name: language === 'en' ? 'Maria Rodriguez' : 'Merve Özkan',
+      name: language === 'tr' ? 'Merve Özkan' : 'Maria Rodriguez',
       comment: {
         en: "I was checking embassy websites manually for months. DeepVisas saved me so much time and stress!",
         tr: "Aylarca elçilik sitelerini manuel kontrol ediyordum. DeepVisas bana çok zaman ve stres kazandırdı!"
       },
       rating: 5,
       flag: '🇪🇸',
-      role: language === 'en' ? 'Marketing Manager' : 'Pazarlama Müdürü'
+      role: language === 'tr' ? 'Pazarlama Müdürü' : 'Marketing Manager'
     },
     {
-      name: language === 'en' ? 'Sarah Johnson' : 'Selin Yılmaz',
+      name: language === 'tr' ? 'Selin Yılmaz' : 'Sarah Johnson',
       comment: {
         en: "The real-time tracking feature is amazing. I got notified within minutes when UK visa slots opened up in Istanbul.",
-        tr: "Telegram bildirimleri anında ve doğru. Haftalarca bekledikten sonra nihayet Almanya vizemi aldım."
+        tr: "Gerçek zamanlı takip özelliği harika. İstanbul'da İngiltere vize slotları açıldığında dakikalar içinde bildirim aldım."
       },
       rating: 5,
       flag: '🇬🇧',
-      role: language === 'en' ? 'Business Analyst' : 'İş Analisti'
+      role: language === 'tr' ? 'İş Analisti' : 'Business Analyst'
+    },
+    {
+      name: language === 'tr' ? 'Mehmet Demir' : 'Michael Davis',
+      comment: {
+        en: "DeepVisas helped me secure my US visa appointment when I thought it was impossible. Highly recommended!",
+        tr: "İmkansız olduğunu düşündüğüm ABD vize randevumu DeepVisas sayesinde aldım. Kesinlikle tavsiye ederim!"
+      },
+      rating: 5,
+      flag: '🇺🇸',
+      role: language === 'tr' ? 'Doktor' : 'Doctor'
+    },
+    {
+      name: language === 'tr' ? 'Ayşe Kara' : 'Anna Kowalski',
+      comment: {
+        en: "The Telegram bot is so convenient. I received my France visa slot notification while having coffee!",
+        tr: "Telegram botu çok kullanışlı. Fransa vize slotu bildirimimi kahve içerken aldım!"
+      },
+      rating: 5,
+      flag: '🇫🇷',
+      role: language === 'tr' ? 'Öğretmen' : 'Teacher'
+    },
+    {
+      name: language === 'tr' ? 'Emre Şahin' : 'Erik Schmidt',
+      comment: {
+        en: "Finally got my Netherlands visa after weeks of waiting. DeepVisas made the process so much easier.",
+        tr: "Haftalarca bekledikten sonra nihayet Hollanda vizemi aldım. DeepVisas süreci çok kolaylaştırdı."
+      },
+      rating: 5,
+      flag: '🇳🇱',
+      role: language === 'tr' ? 'Mimar' : 'Architect'
+    },
+    {
+      name: language === 'tr' ? 'Fatma Arslan' : 'Fatima Al-Zahra',
+      comment: {
+        en: "The multi-city tracking feature is brilliant. I monitor both Istanbul and Ankara simultaneously.",
+        tr: "Çoklu şehir takip özelliği harika. Hem İstanbul hem Ankara'yı aynı anda izliyorum."
+      },
+      rating: 5,
+      flag: '🇮🇹',
+      role: language === 'tr' ? 'Hemşire' : 'Nurse'
+    },
+    {
+      name: language === 'tr' ? 'Burak Çelik' : 'Bruno Castillo',
+      comment: {
+        en: "DeepVisas notifications are faster than checking the embassy website manually. Saved my vacation plans!",
+        tr: "DeepVisas bildirimleri elçilik sitesini manuel kontrol etmekten daha hızlı. Tatil planlarımı kurtardı!"
+      },
+      rating: 5,
+      flag: '🇪🇸',
+      role: language === 'tr' ? 'Turist Rehberi' : 'Tour Guide'
+    },
+    {
+      name: language === 'tr' ? 'Zeynep Yıldız' : 'Zara Wilson',
+      comment: {
+        en: "The interface is user-friendly and the notifications are reliable. Best visa tracking service I've used.",
+        tr: "Arayüz kullanıcı dostu ve bildirimler güvenilir. Kullandığım en iyi vize takip servisi."
+      },
+      rating: 5,
+      flag: '🇬🇧',
+      role: language === 'tr' ? 'Grafik Tasarımcı' : 'Graphic Designer'
+    },
+    {
+      name: language === 'tr' ? 'Can Özdemir' : 'Carlos Mendoza',
+      comment: {
+        en: "I was skeptical at first, but DeepVisas proved to be incredibly accurate and fast with notifications.",
+        tr: "Başta şüpheliydim ama DeepVisas bildirimlerinde inanılmaz derecede doğru ve hızlı olduğunu kanıtladı."
+      },
+      rating: 5,
+      flag: '🇲🇽',
+      role: language === 'tr' ? 'Müzisyen' : 'Musician'
+    },
+    {
+      name: language === 'tr' ? 'Deniz Aktaş' : 'Diana Anderson',
+      comment: {
+        en: "The 99.9% uptime is real. Never missed an important visa slot notification thanks to DeepVisas.",
+        tr: "%99.9 çalışma süresi gerçek. DeepVisas sayesinde hiçbir önemli vize slotu bildirimini kaçırmadım."
+      },
+      rating: 5,
+      flag: '🇸🇪',
+      role: language === 'tr' ? 'Avukat' : 'Lawyer'
+    },
+    {
+      name: language === 'tr' ? 'Hakan Polat' : 'Hans Mueller',
+      comment: {
+        en: "DeepVisas helped me track multiple visa types across different cities. Excellent service quality.",
+        tr: "DeepVisas farklı şehirlerde birden fazla vize türünü takip etmeme yardımcı oldu. Mükemmel hizmet kalitesi."
+      },
+      rating: 5,
+      flag: '🇩🇪',
+      role: language === 'tr' ? 'Mühendis' : 'Engineer'
+    },
+    {
+      name: language === 'tr' ? 'İpek Yılmaz' : 'Isabella Rodriguez',
+      comment: {
+        en: "The Telegram integration is seamless. I get instant notifications wherever I am. Highly efficient!",
+        tr: "Telegram entegrasyonu kusursuz. Nerede olursam olayım anında bildirim alıyorum. Son derece verimli!"
+      },
+      rating: 5,
+      flag: '🇵🇹',
+      role: language === 'tr' ? 'Eczacı' : 'Pharmacist'
+    },
+    {
+      name: language === 'tr' ? 'Okan Aydın' : 'Oliver Thompson',
+      comment: {
+        en: "DeepVisas turned the stressful visa appointment hunting into a breeze. Worth every penny!",
+        tr: "DeepVisas stresli vize randevu avcılığını çok kolay hale getirdi. Her kuruşa değer!"
+      },
+      rating: 5,
+      flag: '🇦🇺',
+      role: language === 'tr' ? 'Pilot' : 'Pilot'
+    },
+    {
+      name: language === 'tr' ? 'Sibel Koç' : 'Sophie Dubois',
+      comment: {
+        en: "Real-time updates and accurate information. DeepVisas is a game-changer for visa applications.",
+        tr: "Gerçek zamanlı güncellemeler ve doğru bilgi. DeepVisas vize başvuruları için devrim niteliğinde."
+      },
+      rating: 5,
+      flag: '🇫🇷',
+      role: language === 'tr' ? 'Psikolog' : 'Psychologist'
     }
   ];
 
@@ -493,7 +614,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* Enhanced Testimonials Section with Horizontal Scroll */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -505,34 +626,44 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg transform hover:-translate-y-2 bg-white">
-                <CardContent className="p-6">
+          {/* Horizontal scroll container */}
+          <div className="overflow-x-auto pb-6">
+            <div className="flex space-x-6 w-max">
+              {testimonials.map((testimonial, index) => (
+                <div 
+                  key={index} 
+                  className="w-80 bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl hover:scale-105 transition-all duration-300 flex-shrink-0"
+                >
+                  {/* Rating Stars */}
                   <div className="flex items-center mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
                     ))}
                   </div>
                   
-                  <p className="text-gray-700 mb-6 leading-relaxed italic">
+                  {/* Quote */}
+                  <p className="text-gray-700 mb-6 leading-relaxed italic text-sm min-h-[80px]">
                     "{testimonial.comment[language as 'en' | 'tr']}"
                   </p>
                   
+                  {/* User Info */}
                   <div className="flex items-center">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full flex items-center justify-center mr-3 text-white font-bold text-sm">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full flex items-center justify-center mr-3 text-white text-xl">
                       {testimonial.flag}
                     </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-gray-900 text-sm">{testimonial.name}</span>
-                      </div>
+                    <div className="flex-1">
+                      <div className="font-bold text-gray-900 text-sm">{testimonial.name}</div>
                       <p className="text-gray-600 text-xs">{testimonial.role}</p>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Scroll indicator */}
+          <div className="text-center mt-6">
+            <p className="text-sm text-gray-500">← Scroll to see more testimonials →</p>
           </div>
         </div>
       </section>
