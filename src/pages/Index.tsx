@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -14,15 +13,24 @@ const Index = () => {
   const { t, language, setLanguage } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Updated visa data for foreign countries from Turkish cities
+  // Random future date generator for visa slots
+  const getRandomFutureDate = () => {
+    const today = new Date();
+    const randomDays = Math.floor(Math.random() * 20) + 10; // 10-30 days
+    const futureDate = new Date(today);
+    futureDate.setDate(today.getDate() + randomDays);
+    return futureDate.toISOString().split("T")[0]; // YYYY-MM-DD
+  };
+
+  // Updated visa data with random future dates
   const visaData: VisaApplication[] = [
     {
       id: '1',
       city: 'Ankara',
       country: 'Netherlands',
       flag: '🇳🇱',
-      date: '2024-12-15',
-      applicationDate: '2024-12-15',
+      date: getRandomFutureDate(),
+      applicationDate: getRandomFutureDate(),
       status: 'available',
       slots: 12,
     },
@@ -31,18 +39,18 @@ const Index = () => {
       city: 'Istanbul',
       country: 'France',
       flag: '🇫🇷',
-      date: '2024-01-20',
-      applicationDate: '2024-01-20',
+      date: getRandomFutureDate(),
+      applicationDate: getRandomFutureDate(),
       status: 'full',
-      nextAvailable: '2024-01-20',
+      nextAvailable: getRandomFutureDate(),
     },
     {
       id: '3',
       city: 'Istanbul',
       country: 'Germany',
       flag: '🇩🇪',
-      date: '2024-12-28',
-      applicationDate: '2024-12-28',
+      date: getRandomFutureDate(),
+      applicationDate: getRandomFutureDate(),
       status: 'available',
       slots: 5,
     },
@@ -51,18 +59,18 @@ const Index = () => {
       city: 'Ankara',
       country: 'Spain',
       flag: '🇪🇸',
-      date: '2025-02-10',
-      applicationDate: '2025-02-10',
+      date: getRandomFutureDate(),
+      applicationDate: getRandomFutureDate(),
       status: 'full',
-      nextAvailable: '2025-02-10',
+      nextAvailable: getRandomFutureDate(),
     },
     {
       id: '5',
       city: 'Istanbul',
       country: 'Italy',
       flag: '🇮🇹',
-      date: '2025-01-05',
-      applicationDate: '2025-01-05',
+      date: getRandomFutureDate(),
+      applicationDate: getRandomFutureDate(),
       status: 'available',
       slots: 8,
     },
@@ -71,10 +79,10 @@ const Index = () => {
       city: 'Ankara',
       country: 'UK',
       flag: '🇬🇧',
-      date: '2025-03-15',
-      applicationDate: '2025-03-15',
+      date: getRandomFutureDate(),
+      applicationDate: getRandomFutureDate(),
       status: 'full',
-      nextAvailable: '2025-03-15',
+      nextAvailable: getRandomFutureDate(),
     },
   ];
 
@@ -129,7 +137,6 @@ const Index = () => {
     }
   ];
 
-  // Enhanced testimonials with proper type definition and multilingual support
   const testimonials: Testimonial[] = [
     {
       name: language === 'tr' ? 'Ahmet Yılmaz' : 'Ahmed Al-Rashid',

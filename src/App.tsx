@@ -20,6 +20,8 @@ import Visas from "./pages/Visas";
 import Notifications from "./pages/Notifications";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
+import Pricing from "./pages/Pricing";
+import AdminPricing from "./pages/AdminPricing";
 import UKVisaRequirements from "./pages/UKVisaRequirements";
 import GreeceVisaRequirements from "./pages/GreeceVisaRequirements";
 import AdminVisaSubmissions from "./pages/AdminVisaSubmissions";
@@ -39,6 +41,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/pricing" element={<Pricing />} />
               <Route path="/dashboard" element={
                 <ProtectedRoute>
                   <Dashboard />
@@ -92,6 +95,11 @@ const App = () => (
               <Route path="/admin/users/:userId" element={
                 <ProtectedRoute requiredRole="admin">
                   <UserDetails />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/pricing" element={
+                <ProtectedRoute requiredRole="admin">
+                  <AdminPricing />
                 </ProtectedRoute>
               } />
               <Route path="/admin/visa-submissions" element={

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -19,11 +18,12 @@ import DashboardLayout from '@/components/DashboardLayout';
 import VisaCard from '@/components/VisaCard';
 import { VisaApplication } from '@/types/visa';
 
-// Helper: Returns today's date + X days
-function getMinDatePlusDays(days = 10) {
+// Helper: Returns today's date + X days with random variation
+function getRandomFutureDate(baseDays = 10) {
   const today = new Date();
-  today.setDate(today.getDate() + days);
-  return today;
+  const randomDays = Math.floor(Math.random() * 20) + baseDays; // baseDays to baseDays+20 range
+  today.setDate(today.getDate() + randomDays);
+  return today.toISOString().slice(0, 10);
 }
 
 // Helper: Format date as YYYY-MM-DD (ISO)
@@ -37,7 +37,7 @@ const Dashboard = () => {
   const [isTrackingModalOpen, setIsTrackingModalOpen] = useState(false);
   const [trackedVisas, setTrackedVisas] = useState<VisaApplication[]>([]);
   
-  // Define initial visa data
+  // Define initial visa data with random future dates
   const initialVisaData = [
     {
       id: '1',
@@ -67,20 +67,16 @@ const Dashboard = () => {
     }
   ];
 
-  // Set up visa dates dynamically
+  // Set up visa dates dynamically with random future dates
   useEffect(() => {
-    const minDate = getMinDatePlusDays(10);
     const updatedVisas = initialVisaData.map((visa, idx) => {
-      const date = new Date(minDate);
-      date.setDate(date.getDate() + idx * 5);
-      
-      const nextAvailableDate = new Date(date);
-      nextAvailableDate.setDate(nextAvailableDate.getDate() + 14);
+      const date = getRandomFutureDate(10 + idx * 5);
+      const nextAvailableDate = getRandomFutureDate(20 + idx * 7);
       
       return {
         ...visa,
-        date: formatDateISO(date),
-        nextAvailable: formatDateISO(nextAvailableDate)
+        date: date,
+        nextAvailable: nextAvailableDate
       };
     });
     
