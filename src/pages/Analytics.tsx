@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { BarChart3, TrendingUp, Calendar, Users } from 'lucide-react';
@@ -37,18 +38,18 @@ const availabilityTrend = [
   { name: 'Jun', available: 25, full: 5 },
 ];
 
-const visaTypeDistribution = [
-  { name: 'Tourist', value: 45 },
-  { name: 'Business', value: 25 },
-  { name: 'Student', value: 15 },
-  { name: 'Work', value: 10 },
-  { name: 'Other', value: 5 },
-];
-
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
 
 const Analytics = () => {
   const { t } = useLanguage();
+
+  const visaTypeDistribution = [
+    { name: t('visaTypes.tourist'), value: 45 },
+    { name: t('visaTypes.business'), value: 25 },
+    { name: t('visaTypes.student'), value: 15 },
+    { name: t('visaTypes.work'), value: 10 },
+    { name: t('visaTypes.other'), value: 5 },
+  ];
 
   return (
     <DashboardLayout>

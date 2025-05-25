@@ -69,15 +69,13 @@ const Dashboard = () => {
 
   // Set up visa dates dynamically
   useEffect(() => {
-    const minDate = getMinDatePlusDays(10); // At least 10 days ahead
-    // Create increasing dates for each visa (+5 days each)
+    const minDate = getMinDatePlusDays(10);
     const updatedVisas = initialVisaData.map((visa, idx) => {
       const date = new Date(minDate);
-      date.setDate(date.getDate() + idx * 5); // Add 0, 5, 10 days respectively
+      date.setDate(date.getDate() + idx * 5);
       
-      // For full status visas, set nextAvailable date further in the future
       const nextAvailableDate = new Date(date);
-      nextAvailableDate.setDate(nextAvailableDate.getDate() + 14); // 2 weeks later
+      nextAvailableDate.setDate(nextAvailableDate.getDate() + 14);
       
       return {
         ...visa,
@@ -114,7 +112,6 @@ const Dashboard = () => {
     toast.success('Notification removed');
   };
 
-  // THIS IS THE MAIN CONTENT SECTION
   return (
     <DashboardLayout>
       <div className="max-w-6xl mx-auto">
@@ -220,7 +217,6 @@ const Dashboard = () => {
                   </div>
                 </div>
                 
-                {/* Updated Telegram Connection Section with the requested link */}
                 <div className="mb-4">
                   <p className="mb-2 text-sm text-gray-700 dark:text-gray-300">
                     Follow our updates on Telegram:{" "}

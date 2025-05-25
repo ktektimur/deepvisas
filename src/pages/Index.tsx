@@ -1,25 +1,18 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import VisaCard from '@/components/VisaCard';
 import Layout from '@/components/Layout';
 import { Globe, Bell, Users, Shield, CheckCircle, Star, ArrowDown, Clock, Zap, Target, Award, Rocket, User, Calculator, Lock, Menu, X } from 'lucide-react';
 import { VisaApplication } from '@/types/visa';
+import { Testimonial } from '@/types/testimonial';
 
 const Index = () => {
   const { t, language, setLanguage } = useLanguage();
-  const { i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Sync language changes between contexts
-  useEffect(() => {
-    i18n.changeLanguage(language);
-    localStorage.setItem('language', language);
-  }, [language, i18n]);
 
   // Updated visa data for foreign countries from Turkish cities
   const visaData: VisaApplication[] = [
@@ -136,8 +129,8 @@ const Index = () => {
     }
   ];
 
-  // Enhanced testimonials with 15 entries and proper multilingual support
-  const testimonials = [
+  // Enhanced testimonials with proper type definition and multilingual support
+  const testimonials: Testimonial[] = [
     {
       name: language === 'tr' ? 'Ahmet Yılmaz' : 'Ahmed Al-Rashid',
       comment: {
@@ -402,7 +395,6 @@ const Index = () => {
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 to-white pt-16">
-        {/* Decorative elements */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400 rounded-full filter blur-3xl"></div>
           <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-teal-400 rounded-full filter blur-3xl"></div>
@@ -422,7 +414,7 @@ const Index = () => {
               <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
                 {t('title').split(' ').slice(0, 4).join(' ')}{' '}
                 <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
-                  {t('title').split(' ').slice(4).join('')}
+                  {t('title').split(' ').slice(4).join(' ')}
                 </span>
               </h1>
               
@@ -563,7 +555,6 @@ const Index = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {steps.map((step, index) => (
               <div key={index} className="text-center relative">
-                {/* Connection line for desktop */}
                 {index < steps.length - 1 && (
                   <div className="hidden lg:block absolute top-16 left-full w-full h-0.5 bg-gray-200 z-0" style={{ width: 'calc(100% - 2rem)' }}></div>
                 )}
@@ -626,7 +617,6 @@ const Index = () => {
             </p>
           </div>
           
-          {/* Horizontal scroll container */}
           <div className="overflow-x-auto pb-6">
             <div className="flex space-x-6 w-max">
               {testimonials.map((testimonial, index) => (
@@ -634,19 +624,16 @@ const Index = () => {
                   key={index} 
                   className="w-80 bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl hover:scale-105 transition-all duration-300 flex-shrink-0"
                 >
-                  {/* Rating Stars */}
                   <div className="flex items-center mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
                     ))}
                   </div>
                   
-                  {/* Quote */}
                   <p className="text-gray-700 mb-6 leading-relaxed italic text-sm min-h-[80px]">
-                    "{testimonial.comment[language as 'en' | 'tr']}"
+                    "{testimonial.comment[language]}"
                   </p>
                   
-                  {/* User Info */}
                   <div className="flex items-center">
                     <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full flex items-center justify-center mr-3 text-white text-xl">
                       {testimonial.flag}
@@ -661,7 +648,6 @@ const Index = () => {
             </div>
           </div>
           
-          {/* Scroll indicator */}
           <div className="text-center mt-6">
             <p className="text-sm text-gray-500">← Scroll to see more testimonials →</p>
           </div>
@@ -695,7 +681,6 @@ const Index = () => {
       <footer id="contact" className="bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {/* Brand section */}
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
                 <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-teal-500 rounded-xl flex items-center justify-center">
@@ -708,7 +693,6 @@ const Index = () => {
               </p>
             </div>
             
-            {/* Quick Links */}
             <div>
               <h3 className="font-bold mb-6 text-lg">{t('quickLinks')}</h3>
               <ul className="space-y-3 text-gray-300">
@@ -720,7 +704,6 @@ const Index = () => {
               </ul>
             </div>
             
-            {/* Contact & Support */}
             <div>
               <h3 className="font-bold mb-6 text-lg">{t('contactSupport')}</h3>
               <ul className="space-y-3 text-gray-300">
