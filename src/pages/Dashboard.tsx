@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { toast } from '@/components/ui/sonner';
 import AddTrackingModal from '@/components/AddTrackingModal';
 import { 
@@ -12,25 +11,17 @@ import {
   Bell,
   Plus,
   MessageSquare,
-  Users
+  Users,
 } from 'lucide-react';
 import DashboardLayout from '@/components/DashboardLayout';
 import VisaCard from '@/components/VisaCard';
 import { VisaApplication } from '@/types/visa';
 
-// Helper: Returns today's date + X days with random variation
 function getRandomFutureDate(baseDays = 10): string {
   const today = new Date();
   const randomDays = Math.floor(Math.random() * 20) + baseDays;
   today.setDate(today.getDate() + randomDays);
   return today.toISOString().slice(0, 10);
-}
-
-interface Notification {
-  id: number;
-  message: string;
-  time: string;
-  type: string;
 }
 
 const Dashboard = () => {
@@ -39,7 +30,6 @@ const Dashboard = () => {
   const [isTrackingModalOpen, setIsTrackingModalOpen] = useState(false);
   const [trackedVisas, setTrackedVisas] = useState<VisaApplication[]>([]);
   
-  // Define initial visa data with random future dates
   const initialVisaData: VisaApplication[] = [
     {
       id: '1',
@@ -75,7 +65,6 @@ const Dashboard = () => {
     }
   ];
 
-  // Set up visa dates dynamically with random future dates
   useEffect(() => {
     const updatedVisas = initialVisaData.map((visa, idx) => {
       const date = getRandomFutureDate(10 + idx * 5);
@@ -91,7 +80,7 @@ const Dashboard = () => {
     setTrackedVisas(updatedVisas);
   }, [t]);
 
-  const recentNotifications: Notification[] = [
+  const recentNotifications = [
     {
       id: 1,
       message: t('dashboard.newSlotsAvailable'),
