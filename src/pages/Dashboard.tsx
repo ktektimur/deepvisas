@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -45,7 +46,7 @@ const Dashboard = () => {
       flag: '🇺🇸',
       city: 'Ankara',
       status: 'available',
-      applicationDate: '2 minutes ago',
+      applicationDate: t('dashboard.minutesAgo', '2'),
       slots: 3
     },
     {
@@ -54,7 +55,7 @@ const Dashboard = () => {
       flag: '🇩🇪',
       city: 'Istanbul',
       status: 'full',
-      applicationDate: '5 minutes ago',
+      applicationDate: t('dashboard.minutesAgo', '5'),
     },
     {
       id: '3',
@@ -62,7 +63,7 @@ const Dashboard = () => {
       flag: '🇬🇧',
       city: 'Izmir',
       status: 'available',
-      applicationDate: '1 minute ago',
+      applicationDate: t('dashboard.minutesAgo', '1'),
       slots: 1
     }
   ];
@@ -81,31 +82,31 @@ const Dashboard = () => {
     });
     
     setTrackedVisas(updatedVisas);
-  }, []);
+  }, [t]);
 
   const recentNotifications = [
     {
       id: 1,
-      message: 'New slots available in Ankara for US Tourist visa',
-      time: '5 minutes ago',
+      message: t('dashboard.newSlotsAvailable'),
+      time: t('dashboard.minutesAgo', '5'),
       type: 'success'
     },
     {
       id: 2,
-      message: 'Slots filled up in Istanbul for Schengen visa',
-      time: '1 hour ago',
+      message: t('dashboard.slotsFilledUp'),
+      time: t('dashboard.hourAgo', '1'),
       type: 'warning'
     }
   ];
 
   const handleAddTracking = (data) => {
-    toast.success('New tracking added', {
-      description: `${data.visaType} visa for ${data.city}, ${data.country}`
+    toast.success(t('dashboard.newTrackingAdded'), {
+      description: `${data.visaType} ${t('dashboard.visaFor')} ${data.city}, ${data.country}`
     });
   };
 
   const handleRemoveNotification = (id) => {
-    toast.success('Notification removed');
+    toast.success(t('dashboard.notificationRemoved'));
   };
 
   return (
@@ -215,7 +216,7 @@ const Dashboard = () => {
                 
                 <div className="mb-4">
                   <p className="mb-2 text-sm text-gray-700 dark:text-gray-300">
-                    Follow our updates on Telegram:{" "}
+                    {t('dashboard.followTelegram')}{" "}
                     <a
                       href="https://t.me/deepvisas"
                       target="_blank"
@@ -242,14 +243,14 @@ const Dashboard = () => {
                 
                 {telegramConnected && (
                   <div className="text-center">
-                    <p className="text-sm text-green-600 dark:text-green-400 mb-2">✓ Connected to @deepvisas</p>
+                    <p className="text-sm text-green-600 dark:text-green-400 mb-2">✓ {t('dashboard.connectedTo')} @deepvisas</p>
                     <Button 
                       variant="outline" 
                       size="sm"
                       onClick={() => setTelegramConnected(false)}
                       className="dark:border-gray-700 dark:text-gray-300"
                     >
-                      Disconnect
+                      {t('dashboard.disconnect')}
                     </Button>
                   </div>
                 )}

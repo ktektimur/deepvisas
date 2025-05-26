@@ -81,7 +81,17 @@
     "visaManagement": "Vize işlemlerinizi yönetin ve takip edin",
     "yourApplications": "Başvurularınız",
     "analytics": "Analizler",
-    "settings": "Ayarlar"
+    "settings": "Ayarlar",
+    "minutesAgo": "{{count}} dakika önce",
+    "hourAgo": "{{count}} saat önce",
+    "newSlotsAvailable": "Ankara'da ABD Turist vizesi için yeni slotlar müsait",
+    "slotsFilledUp": "İstanbul'da Schengen vizesi slotları doldu",
+    "newTrackingAdded": "Yeni takip eklendi",
+    "visaFor": "vizesi için",
+    "notificationRemoved": "Bildirim kaldırıldı",
+    "followTelegram": "Telegram'da güncellemelerimizi takip edin:",
+    "connectedTo": "Bağlandı:",
+    "disconnect": "Bağlantıyı Kes"
   },
   "admin": {
     "title": "Yönetici Paneli",
@@ -170,16 +180,13 @@
   },
   "notifications": {
     "title": "Bildirimler",
-    "markAsRead": "Okundu Olarak İşaretle",
-    "delete": "Sil",
-    "markAllRead": "Tümünü Okundu İşaretle",
-    "clearAll": "Tümünü Temizle",
+    "markAsRead": "Okundu olarak işaretlendi",
+    "delete": "Bildirim silindi",
+    "markAllRead": "Tüm bildirimler okundu olarak işaretlendi",
+    "clearAll": "Tüm bildirimler temizlendi",
     "noNotifications": "Bildirim yok",
     "noNotificationsDesc": "Şu anda hiç bildirimin yok.",
-    "newNotification": "Yeni bildirim",
-    "minutesAgo": "dakika önce",
-    "hoursAgo": "saat önce",
-    "daysAgo": "gün önce"
+    "newNotification": "yeni"
   },
   "visas": {
     "title": "Vize Başvuruları",

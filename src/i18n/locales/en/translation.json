@@ -81,7 +81,17 @@
     "visaManagement": "Manage and track your visa applications",
     "yourApplications": "Your Applications",
     "analytics": "Analytics",
-    "settings": "Settings"
+    "settings": "Settings",
+    "minutesAgo": "{{count}} minutes ago",
+    "hourAgo": "{{count}} hour ago",
+    "newSlotsAvailable": "New slots available in Ankara for US Tourist visa",
+    "slotsFilledUp": "Slots filled up in Istanbul for Schengen visa",
+    "newTrackingAdded": "New tracking added",
+    "visaFor": "visa for",
+    "notificationRemoved": "Notification removed",
+    "followTelegram": "Follow our updates on Telegram:",
+    "connectedTo": "Connected to",
+    "disconnect": "Disconnect"
   },
   "admin": {
     "title": "Admin Dashboard",
@@ -170,16 +180,13 @@
   },
   "notifications": {
     "title": "Notifications",
-    "markAsRead": "Mark as Read",
-    "delete": "Delete",
-    "markAllRead": "Mark All Read",
-    "clearAll": "Clear All",
+    "markAsRead": "Marked as read",
+    "delete": "Notification deleted",
+    "markAllRead": "All notifications marked as read",
+    "clearAll": "All notifications cleared",
     "noNotifications": "No notifications",
     "noNotificationsDesc": "You don't have any notifications at the moment.",
-    "newNotification": "new",
-    "minutesAgo": "minutes ago",
-    "hoursAgo": "hours ago",
-    "daysAgo": "days ago"
+    "newNotification": "new"
   },
   "visas": {
     "title": "Visa Applications",
