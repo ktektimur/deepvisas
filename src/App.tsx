@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import Layout from "@/components/Layout";
+import DashboardLayout from "@/components/DashboardLayout";
 import React from "react";
 
 // Lazy load pages for better performance
@@ -40,36 +42,28 @@ const queryClient = new QueryClient({
   },
 });
 
-// Main Layout Component
-const MainLayout = () => (
-  <div className="min-h-screen flex flex-col">
-    {/* Header could be added here */}
-    <main className="flex-1">
-      <Outlet />
-    </main>
-    {/* Footer could be added here */}
-  </div>
-);
-
-// Dashboard Layout Component
-const DashboardLayout = () => (
-  <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-    {/* Dashboard specific header/sidebar */}
+// Main Layout Component with Outlet
+const MainLayoutWrapper = () => (
+  <Layout>
     <Outlet />
-  </div>
+  </Layout>
 );
 
-// Protected Dashboard Layout
-const ProtectedDashboardLayout = () => (
+// Protected Dashboard Layout with Outlet
+const ProtectedDashboardLayoutWrapper = () => (
   <ProtectedRoute>
-    <DashboardLayout />
+    <DashboardLayout>
+      <Outlet />
+    </DashboardLayout>
   </ProtectedRoute>
 );
 
-// Protected Admin Layout
-const ProtectedAdminLayout = () => (
+// Protected Admin Layout with Outlet
+const ProtectedAdminLayoutWrapper = () => (
   <ProtectedRoute requiredRole="admin">
-    <DashboardLayout />
+    <DashboardLayout>
+      <Outlet />
+    </DashboardLayout>
   </ProtectedRoute>
 );
 
@@ -83,7 +77,7 @@ const App = () => (
             <React.Suspense fallback={<div>Loading...</div>}>
               <Routes>
                 {/* Public Routes with Main Layout */}
-                <Route path="/" element={<MainLayout />}>
+                <Route path="/" element={<MainLayoutWrapper />}>
                   <Route index element={<Index />} />
                   <Route path="login" element={<Login />} />
                   <Route path="register" element={<Register />} />
@@ -91,7 +85,7 @@ const App = () => (
                 </Route>
 
                 {/* Protected Routes with Dashboard Layout */}
-                <Route path="/dashboard" element={<ProtectedDashboardLayout />}>
+                <Route path="/dashboard" element={<ProtectedDashboardLayoutWrapper />}>
                   <Route index element={<Dashboard />} />
                   <Route path="profile" element={<UserProfile />} />
                   <Route path="visas" element={<Visas />} />
@@ -103,7 +97,7 @@ const App = () => (
                 </Route>
 
                 {/* Admin Routes with Dashboard Layout */}
-                <Route path="/admin" element={<ProtectedAdminLayout />}>
+                <Route path="/admin" element={<ProtectedAdminLayoutWrapper />}>
                   <Route index element={<AdminDashboard />} />
                   <Route path="users" element={<AdminUserProfiles />} />
                   <Route path="users/:userId" element={<UserDetails />} />
