@@ -54,13 +54,13 @@
   "termsOfUse": "Kullanım Şartları",
   "helpCenter": "Yardım Merkezi",
   "nav": {
-    "home": "Ana Sayfa",
+    "home": "Anasayfa",
     "features": "Özellikler",
     "howItWorks": "Nasıl Çalışır",
     "contact": "İletişim",
     "login": "Giriş",
     "signup": "Kayıt Ol",
-    "logout": "Çıkış Yap",
+    "logout": "Çıkış",
     "dashboard": "Panel",
     "adminPanel": "Yönetici Paneli",
     "pricing": "Fiyatlandırma"
@@ -80,7 +80,7 @@
     "connect": "Bağlan",
     "visaManagement": "Vize işlemlerinizi yönetin ve takip edin",
     "yourApplications": "Başvurularınız",
-    "analytics": "Analitik",
+    "analytics": "Analizler",
     "settings": "Ayarlar"
   },
   "admin": {
@@ -166,6 +166,28 @@
     "settingsSaved": "Ayarlar başarıyla kaydedildi"
   },
   "profile": {
-    "title": "Kullanıcı Profili"
+    "title": "Profil"
+  },
+  "notifications": {
+    "title": "Bildirimler",
+    "markAsRead": "Okundu Olarak İşaretle",
+    "delete": "Sil",
+    "markAllRead": "Tümünü Okundu İşaretle",
+    "clearAll": "Tümünü Temizle",
+    "noNotifications": "Bildirim yok",
+    "noNotificationsDesc": "Şu anda hiç bildirimin yok.",
+    "newNotification": "Yeni bildirim",
+    "minutesAgo": "dakika önce",
+    "hoursAgo": "saat önce",
+    "daysAgo": "gün önce"
+  },
+  "visas": {
+    "title": "Vize Başvuruları",
+    "applyForVisa": "Vize Başvurusu Yap",
+    "ukVisa": "Birleşik Krallık Vizesi",
+    "ukVisaDesc": "İngiltere ziyaretçi, çalışma veya öğrenci vizesi başvurusu yapın",
+    "greeceVisa": "Yunanistan Vizesi",
+    "greeceVisaDesc": "Turizm veya iş için Yunanistan Schengen vizesi başvurusu yapın",
+    "applyNow": "Şimdi Başvur"
   }
 }

@@ -167,5 +167,27 @@
   },
   "profile": {
     "title": "User Profile"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAsRead": "Mark as Read",
+    "delete": "Delete",
+    "markAllRead": "Mark All Read",
+    "clearAll": "Clear All",
+    "noNotifications": "No notifications",
+    "noNotificationsDesc": "You don't have any notifications at the moment.",
+    "newNotification": "new",
+    "minutesAgo": "minutes ago",
+    "hoursAgo": "hours ago",
+    "daysAgo": "days ago"
+  },
+  "visas": {
+    "title": "Visa Applications",
+    "applyForVisa": "Apply for a Visa",
+    "ukVisa": "United Kingdom Visa",
+    "ukVisaDesc": "Apply for a UK visitor, work, or student visa",
+    "greeceVisa": "Greece Visa",
+    "greeceVisaDesc": "Apply for a Greece Schengen visa for tourism or business",
+    "applyNow": "Apply Now"
   }
 }

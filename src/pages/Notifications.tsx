@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Bell, Check, Trash2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { toast } from '@/components/ui/sonner';
+import { useLanguage } from '@/contexts/LanguageContext';
 import DashboardLayout from '@/components/DashboardLayout';
 
 const notificationData = [
@@ -51,6 +52,7 @@ const notificationData = [
 ];
 
 const Notifications = () => {
+  const { t } = useLanguage();
   const [notifications, setNotifications] = React.useState(notificationData);
   
   const handleMarkAsRead = (id) => {
@@ -59,24 +61,24 @@ const Notifications = () => {
         notification.id === id ? { ...notification, read: true } : notification
       )
     );
-    toast.success('Marked as read');
+    toast.success(t('notifications.markAsRead'));
   };
   
   const handleDelete = (id) => {
     setNotifications(prev => prev.filter(notification => notification.id !== id));
-    toast.success('Notification deleted');
+    toast.success(t('notifications.delete'));
   };
   
   const handleMarkAllRead = () => {
     setNotifications(prev => 
       prev.map(notification => ({ ...notification, read: true }))
     );
-    toast.success('All notifications marked as read');
+    toast.success(t('notifications.markAllRead'));
   };
   
   const handleDeleteAll = () => {
     setNotifications([]);
-    toast.success('All notifications deleted');
+    toast.success(t('notifications.clearAll'));
   };
   
   const unreadCount = notifications.filter(n => !n.read).length;
@@ -86,10 +88,10 @@ const Notifications = () => {
       <div className="container mx-auto">
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold">Notifications</h1>
+            <h1 className="text-2xl font-bold">{t('notifications.title')}</h1>
             {unreadCount > 0 && (
               <Badge variant="destructive" className="rounded-full px-2">
-                {unreadCount} new
+                {unreadCount} {t('notifications.newNotification')}
               </Badge>
             )}
           </div>
@@ -101,7 +103,7 @@ const Notifications = () => {
               disabled={unreadCount === 0}
             >
               <Check className="w-4 h-4 mr-2" />
-              Mark All Read
+              {t('notifications.markAllRead')}
             </Button>
             <Button 
               variant="outline" 
@@ -109,7 +111,7 @@ const Notifications = () => {
               disabled={notifications.length === 0}
             >
               <Trash2 className="w-4 h-4 mr-2" />
-              Clear All
+              {t('notifications.clearAll')}
             </Button>
           </div>
         </div>
@@ -118,8 +120,8 @@ const Notifications = () => {
           <Card className="text-center py-12">
             <CardContent>
               <Bell className="w-12 h-12 mx-auto text-gray-300 mb-4" />
-              <h3 className="text-xl font-medium text-gray-700 mb-2">No notifications</h3>
-              <p className="text-gray-500">You don't have any notifications at the moment.</p>
+              <h3 className="text-xl font-medium text-gray-700 mb-2">{t('notifications.noNotifications')}</h3>
+              <p className="text-gray-500">{t('notifications.noNotificationsDesc')}</p>
             </CardContent>
           </Card>
         ) : (
@@ -138,7 +140,7 @@ const Notifications = () => {
                         </h3>
                         {!notification.read && (
                           <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">
-                            New
+                            {t('notifications.newNotification')}
                           </Badge>
                         )}
                       </div>
