@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { toast } from '@/components/ui/sonner';
 import AddTrackingModal from '@/components/AddTrackingModal';
 import { 
@@ -11,17 +12,31 @@ import {
   Bell,
   Plus,
   MessageSquare,
-  Users,
+  Users
 } from 'lucide-react';
-import DashboardLayout from '@/components/DashboardLayout';
+import DashboardLayout from '@/components/DashboardLayout'; // Doğru import
 import VisaCard from '@/components/VisaCard';
 import { VisaApplication } from '@/types/visa';
 
+// Helper: Returns today's date + X days with random variation
 function getRandomFutureDate(baseDays = 10): string {
   const today = new Date();
   const randomDays = Math.floor(Math.random() * 20) + baseDays;
   today.setDate(today.getDate() + randomDays);
   return today.toISOString().slice(0, 10);
+}
+
+interface Notification {
+  id: number;
+  message: string;
+  time: string;
+  type: string;
+}
+
+interface TrackingData {
+  visaType: string;
+  city: string;
+  country: string;
 }
 
 const Dashboard = () => {
@@ -80,7 +95,7 @@ const Dashboard = () => {
     setTrackedVisas(updatedVisas);
   }, [t]);
 
-  const recentNotifications = [
+  const recentNotifications: Notification[] = [
     {
       id: 1,
       message: t('dashboard.newSlotsAvailable'),
@@ -95,7 +110,7 @@ const Dashboard = () => {
     }
   ];
 
-  const handleAddTracking = (data: any) => {
+  const handleAddTracking = (data: TrackingData) => {
     toast.success(t('dashboard.newTrackingAdded'), {
       description: `${data.visaType} ${t('dashboard.visaFor')} ${data.city}, ${data.country}`
     });
@@ -207,7 +222,7 @@ const Dashboard = () => {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-2">
-                    <div className={`w-3 h-3 rounded-full ${telegramConnected ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                    <div className={`w-3 h-3 rounded-full ${telegramConnected ? 'bg-green-500' : 'bg-red-500'}`} />
                     <span className="text-sm dark:text-gray-300">
                       {telegramConnected ? t('dashboard.connected') : t('dashboard.notConnected')}
                     </span>
@@ -243,7 +258,9 @@ const Dashboard = () => {
                 
                 {telegramConnected && (
                   <div className="text-center">
-                    <p className="text-sm text-green-600 dark:text-green-400 mb-2">✓ {t('dashboard.connectedTo')} @deepvisas</p>
+                    <p className="text-sm text-green-600 dark:text-green-400 mb-2">
+                      ✓ {t('dashboard.connectedTo')} @deepvisas
+                    </p>
                     <Button 
                       variant="outline" 
                       size="sm"
