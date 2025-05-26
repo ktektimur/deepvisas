@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -20,7 +19,7 @@ import VisaCard from '@/components/VisaCard';
 import { VisaApplication } from '@/types/visa';
 
 // Helper: Returns today's date + X days with random variation
-function getRandomFutureDate(baseDays = 10) {
+function getRandomFutureDate(baseDays = 10): string {
   const today = new Date();
   const randomDays = Math.floor(Math.random() * 20) + baseDays; // baseDays to baseDays+20 range
   today.setDate(today.getDate() + randomDays);
@@ -28,18 +27,24 @@ function getRandomFutureDate(baseDays = 10) {
 }
 
 // Helper: Format date as YYYY-MM-DD (ISO)
-function formatDateISO(date) {
+function formatDateISO(date: Date): string {
   return date.toISOString().slice(0, 10);
 }
 
+type TrackingData = {
+  visaType: string;
+  city: string;
+  country: string;
+};
+
 const Dashboard = () => {
   const { t } = useLanguage();
-  const [telegramConnected, setTelegramConnected] = useState(false);
-  const [isTrackingModalOpen, setIsTrackingModalOpen] = useState(false);
+  const [telegramConnected, setTelegramConnected] = useState<boolean>(false);
+  const [isTrackingModalOpen, setIsTrackingModalOpen] = useState<boolean>(false);
   const [trackedVisas, setTrackedVisas] = useState<VisaApplication[]>([]);
   
   // Define initial visa data with random future dates
-  const initialVisaData = [
+  const initialVisaData: VisaApplication[] = [
     {
       id: '1',
       country: 'United States',
@@ -99,13 +104,13 @@ const Dashboard = () => {
     }
   ];
 
-  const handleAddTracking = (data) => {
+  const handleAddTracking = (data: TrackingData) => {
     toast.success(t('dashboard.newTrackingAdded'), {
       description: `${data.visaType} ${t('dashboard.visaFor')} ${data.city}, ${data.country}`
     });
   };
 
-  const handleRemoveNotification = (id) => {
+  const handleRemoveNotification = (id: number) => {
     toast.success(t('dashboard.notificationRemoved'));
   };
 
@@ -291,11 +296,4 @@ const Dashboard = () => {
       
       <AddTrackingModal
         open={isTrackingModalOpen}
-        onOpenChange={setIsTrackingModalOpen}
-        onSubmit={handleAddTracking}
-      />
-    </DashboardLayout>
-  );
-};
-
-export default Dashboard;
+        onOpenChange={setIs
