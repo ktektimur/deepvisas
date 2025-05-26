@@ -46,7 +46,7 @@ const Dashboard = () => {
       flag: '🇺🇸',
       city: 'Ankara',
       status: 'available',
-      applicationDate: t('dashboard.minutesAgo', '2'),
+      applicationDate: '2 ' + t('dashboard.minutesAgo'),
       slots: 3
     },
     {
@@ -55,7 +55,7 @@ const Dashboard = () => {
       flag: '🇩🇪',
       city: 'Istanbul',
       status: 'full',
-      applicationDate: t('dashboard.minutesAgo', '5'),
+      applicationDate: '5 ' + t('dashboard.minutesAgo'),
     },
     {
       id: '3',
@@ -63,7 +63,7 @@ const Dashboard = () => {
       flag: '🇬🇧',
       city: 'Izmir',
       status: 'available',
-      applicationDate: t('dashboard.minutesAgo', '1'),
+      applicationDate: '1 ' + t('dashboard.minutesAgo'),
       slots: 1
     }
   ];
@@ -88,13 +88,13 @@ const Dashboard = () => {
     {
       id: 1,
       message: t('dashboard.newSlotsAvailable'),
-      time: t('dashboard.minutesAgo', '5'),
+      time: '5 ' + t('dashboard.minutesAgo'),
       type: 'success'
     },
     {
       id: 2,
       message: t('dashboard.slotsFilledUp'),
-      time: t('dashboard.hourAgo', '1'),
+      time: '1 ' + t('dashboard.hourAgo'),
       type: 'warning'
     }
   ];
