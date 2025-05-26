@@ -1,7 +1,8 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
@@ -40,20 +41,36 @@ const queryClient = new QueryClient({
 });
 
 // Main Layout Component
-const MainLayout = ({ children }: { children: React.ReactNode }) => (
+const MainLayout = () => (
   <div className="min-h-screen flex flex-col">
     {/* Header could be added here */}
-    <main className="flex-1">{children}</main>
+    <main className="flex-1">
+      <Outlet />
+    </main>
     {/* Footer could be added here */}
   </div>
 );
 
 // Dashboard Layout Component
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
+const DashboardLayout = () => (
   <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
     {/* Dashboard specific header/sidebar */}
-    {children}
+    <Outlet />
   </div>
+);
+
+// Protected Dashboard Layout
+const ProtectedDashboardLayout = () => (
+  <ProtectedRoute>
+    <DashboardLayout />
+  </ProtectedRoute>
+);
+
+// Protected Admin Layout
+const ProtectedAdminLayout = () => (
+  <ProtectedRoute requiredRole="admin">
+    <DashboardLayout />
+  </ProtectedRoute>
 );
 
 const App = () => (
@@ -66,41 +83,33 @@ const App = () => (
             <React.Suspense fallback={<div>Loading...</div>}>
               <Routes>
                 {/* Public Routes with Main Layout */}
-                <Route element={<MainLayout />}>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/pricing" element={<Pricing />} />
+                <Route path="/" element={<MainLayout />}>
+                  <Route index element={<Index />} />
+                  <Route path="login" element={<Login />} />
+                  <Route path="register" element={<Register />} />
+                  <Route path="pricing" element={<Pricing />} />
                 </Route>
 
                 {/* Protected Routes with Dashboard Layout */}
-                <Route element={
-                  <ProtectedRoute>
-                    <DashboardLayout />
-                  </ProtectedRoute>
-                }>
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/dashboard/profile" element={<UserProfile />} />
-                  <Route path="/dashboard/visas" element={<Visas />} />
-                  <Route path="/dashboard/notifications" element={<Notifications />} />
-                  <Route path="/dashboard/analytics" element={<Analytics />} />
-                  <Route path="/dashboard/settings" element={<Settings />} />
-                  <Route path="/dashboard/requirements/uk" element={<UKVisaRequirements />} />
-                  <Route path="/dashboard/requirements/greece" element={<GreeceVisaRequirements />} />
+                <Route path="/dashboard" element={<ProtectedDashboardLayout />}>
+                  <Route index element={<Dashboard />} />
+                  <Route path="profile" element={<UserProfile />} />
+                  <Route path="visas" element={<Visas />} />
+                  <Route path="notifications" element={<Notifications />} />
+                  <Route path="analytics" element={<Analytics />} />
+                  <Route path="settings" element={<Settings />} />
+                  <Route path="requirements/uk" element={<UKVisaRequirements />} />
+                  <Route path="requirements/greece" element={<GreeceVisaRequirements />} />
                 </Route>
 
                 {/* Admin Routes with Dashboard Layout */}
-                <Route element={
-                  <ProtectedRoute requiredRole="admin">
-                    <DashboardLayout />
-                  </ProtectedRoute>
-                }>
-                  <Route path="/admin" element={<AdminDashboard />} />
-                  <Route path="/admin/users" element={<AdminUserProfiles />} />
-                  <Route path="/admin/users/:userId" element={<UserDetails />} />
-                  <Route path="/admin/pricing" element={<AdminPricing />} />
-                  <Route path="/admin/visa-submissions" element={<AdminVisaSubmissions />} />
-                  <Route path="/admin/visa-submissions/:submissionId" element={<VisaSubmissionView />} />
+                <Route path="/admin" element={<ProtectedAdminLayout />}>
+                  <Route index element={<AdminDashboard />} />
+                  <Route path="users" element={<AdminUserProfiles />} />
+                  <Route path="users/:userId" element={<UserDetails />} />
+                  <Route path="pricing" element={<AdminPricing />} />
+                  <Route path="visa-submissions" element={<AdminVisaSubmissions />} />
+                  <Route path="visa-submissions/:submissionId" element={<VisaSubmissionView />} />
                 </Route>
 
                 {/* 404 Route */}
