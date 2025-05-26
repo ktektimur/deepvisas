@@ -1,9 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { toast } from '@/components/ui/sonner';
+import { toast } from 'sonner';
 import AddTrackingModal from '@/components/AddTrackingModal';
 import { 
   CheckCircle,
@@ -14,7 +15,7 @@ import {
   MessageSquare,
   Users
 } from 'lucide-react';
-import DashboardLayout from '@/components/DashboardLayout'; // Doğru import
+import DashboardLayout from '@/components/DashboardLayout';
 import VisaCard from '@/components/VisaCard';
 import { VisaApplication } from '@/types/visa';
 
@@ -111,9 +112,7 @@ const Dashboard = () => {
   ];
 
   const handleAddTracking = (data: TrackingData) => {
-    toast.success(t('dashboard.newTrackingAdded'), {
-      description: `${data.visaType} ${t('dashboard.visaFor')} ${data.city}, ${data.country}`
-    });
+    toast.success(t('dashboard.newTrackingAdded'));
   };
 
   const handleRemoveNotification = (id: number) => {

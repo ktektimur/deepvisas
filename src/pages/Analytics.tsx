@@ -19,29 +19,27 @@ import {
 } from 'recharts';
 import DashboardLayout from '@/components/DashboardLayout';
 
-// Sample analytics data
-const slotsByCountry = [
-  { name: 'United States', value: 35 },
-  { name: 'Germany', value: 28 },
-  { name: 'United Kingdom', value: 22 },
-  { name: 'France', value: 15 },
-  { name: 'Spain', value: 12 },
-  { name: 'Italy', value: 8 },
-];
-
-const availabilityTrend = [
-  { name: 'Jan', available: 12, full: 18 },
-  { name: 'Feb', available: 15, full: 15 },
-  { name: 'Mar', available: 10, full: 20 },
-  { name: 'Apr', available: 18, full: 12 },
-  { name: 'May', available: 22, full: 8 },
-  { name: 'Jun', available: 25, full: 5 },
-];
-
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
-
 const Analytics = () => {
   const { t } = useLanguage();
+
+  // Sample analytics data
+  const slotsByCountry = [
+    { name: 'United States', value: 35 },
+    { name: 'Germany', value: 28 },
+    { name: 'United Kingdom', value: 22 },
+    { name: 'France', value: 15 },
+    { name: 'Spain', value: 12 },
+    { name: 'Italy', value: 8 },
+  ];
+
+  const availabilityTrend = [
+    { name: 'Jan', available: 12, full: 18 },
+    { name: 'Feb', available: 15, full: 15 },
+    { name: 'Mar', available: 10, full: 20 },
+    { name: 'Apr', available: 18, full: 12 },
+    { name: 'May', available: 22, full: 8 },
+    { name: 'Jun', available: 25, full: 5 },
+  ];
 
   const visaTypeDistribution = [
     { name: t('visaTypes.tourist'), value: 45 },
@@ -50,6 +48,8 @@ const Analytics = () => {
     { name: t('visaTypes.work'), value: 10 },
     { name: t('visaTypes.other'), value: 5 },
   ];
+
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
 
   return (
     <DashboardLayout>
