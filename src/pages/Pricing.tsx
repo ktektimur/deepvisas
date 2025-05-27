@@ -3,7 +3,6 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useLanguage } from '@/contexts/LanguageContext';
 import DashboardLayout from '@/components/DashboardLayout';
 import { Clock, CreditCard, Globe, Info } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -21,55 +20,53 @@ interface CountryPricing {
 }
 
 const Pricing = () => {
-  const { t, language } = useLanguage();
-
   const pricingData: CountryPricing[] = [
     {
-      country: "Netherlands",
+      country: "Hollanda",
       flag: "🇳🇱",
       visaTypes: [
-        { type: language === 'tr' ? "Turistik" : "Tourist", price: 1500, duration: 30 },
-        { type: language === 'tr' ? "İş" : "Business", price: 2000, duration: 60 },
+        { type: "Turistik", price: 1500, duration: 30 },
+        { type: "İş", price: 2000, duration: 60 },
       ],
     },
     {
-      country: "France",
+      country: "Fransa",
       flag: "🇫🇷",
       visaTypes: [
-        { type: language === 'tr' ? "Öğrenci" : "Student", price: 1800, duration: 90 },
-        { type: language === 'tr' ? "Turistik" : "Tourist", price: 1400, duration: 30 },
+        { type: "Öğrenci", price: 1800, duration: 90 },
+        { type: "Turistik", price: 1400, duration: 30 },
       ],
     },
     {
-      country: "Germany",
+      country: "Almanya",
       flag: "🇩🇪",
       visaTypes: [
-        { type: language === 'tr' ? "İş" : "Business", price: 2200, duration: 90 },
-        { type: language === 'tr' ? "Turistik" : "Tourist", price: 1600, duration: 45 },
+        { type: "İş", price: 2200, duration: 90 },
+        { type: "Turistik", price: 1600, duration: 45 },
       ],
     },
     {
-      country: "Spain",
+      country: "İspanya",
       flag: "🇪🇸",
       visaTypes: [
-        { type: language === 'tr' ? "Turistik" : "Tourist", price: 1300, duration: 30 },
-        { type: language === 'tr' ? "Çalışma" : "Work", price: 2500, duration: 180 },
+        { type: "Turistik", price: 1300, duration: 30 },
+        { type: "Çalışma", price: 2500, duration: 180 },
       ],
     },
     {
-      country: "Italy",
+      country: "İtalya",
       flag: "🇮🇹",
       visaTypes: [
-        { type: language === 'tr' ? "Turistik" : "Tourist", price: 1450, duration: 30 },
-        { type: language === 'tr' ? "İş" : "Business", price: 1950, duration: 60 },
+        { type: "Turistik", price: 1450, duration: 30 },
+        { type: "İş", price: 1950, duration: 60 },
       ],
     },
     {
-      country: "USA",
+      country: "ABD",
       flag: "🇺🇸",
       visaTypes: [
-        { type: language === 'tr' ? "Turistik" : "Tourist", price: 3500, duration: 90 },
-        { type: language === 'tr' ? "İş" : "Business", price: 4200, duration: 120 },
+        { type: "Turistik", price: 3500, duration: 90 },
+        { type: "İş", price: 4200, duration: 120 },
       ],
     },
   ];
@@ -81,13 +78,10 @@ const Pricing = () => {
           <div className="container mx-auto px-4 py-12">
             <div className="text-center mb-16">
               <h1 className="text-5xl font-bold text-gray-900 mb-6">
-                {language === 'tr' ? 'Vize Fiyatları' : 'Visa Pricing'}
+                Vize Fiyatları
               </h1>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                {language === 'tr' 
-                  ? 'Farklı ülkeler için vize türleri ve fiyatları. Hemen abone olun ve takibe başlayın.'
-                  : 'Visa types and pricing for different countries. Subscribe now and start tracking.'
-                }
+                Farklı ülkeler için vize türleri ve fiyatları. Hemen abone olun ve takibe başlayın.
               </p>
             </div>
 
@@ -110,7 +104,7 @@ const Pricing = () => {
                                   <Info className="w-4 h-4 text-gray-400 hover:text-gray-600" />
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                  <p>{language === 'tr' ? `${visa.type} vizesi hakkında` : `About ${visa.type} visa`}</p>
+                                  <p>{visa.type} vizesi hakkında</p>
                                 </TooltipContent>
                               </Tooltip>
                             </div>
@@ -126,13 +120,13 @@ const Pricing = () => {
                             </div>
                             <div className="flex items-center space-x-3">
                               <Clock className="w-5 h-5 text-blue-600" />
-                              <span className="text-gray-700">⏳ {visa.duration} {language === 'tr' ? 'gün' : 'days'}</span>
+                              <span className="text-gray-700">⏳ {visa.duration} gün</span>
                             </div>
                           </div>
                           
                           <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-xl transform hover:scale-105 transition-all duration-200 shadow-lg">
                             <Globe className="w-5 h-5 mr-2" />
-                            🔘 {language === 'tr' ? 'Abone Ol' : 'Subscribe'}
+                            🔘 Abone Ol
                           </Button>
                         </div>
                       ))}
@@ -146,16 +140,13 @@ const Pricing = () => {
               <Card className="max-w-3xl mx-auto bg-gradient-to-r from-blue-50 to-indigo-50 border-0 shadow-lg rounded-2xl">
                 <CardContent className="p-12">
                   <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                    {language === 'tr' ? 'Özel Fiyatlandırma' : 'Custom Pricing'}
+                    Özel Fiyatlandırma
                   </h2>
                   <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                    {language === 'tr'
-                      ? 'Toplu sipariş veya özel ihtiyaçlarınız için bizimle iletişime geçin.'
-                      : 'Contact us for bulk orders or custom requirements.'
-                    }
+                    Toplu sipariş veya özel ihtiyaçlarınız için bizimle iletişime geçin.
                   </p>
                   <Button variant="outline" className="border-2 border-blue-600 text-blue-700 hover:bg-blue-600 hover:text-white font-semibold py-3 px-8 rounded-xl transform hover:scale-105 transition-all duration-200">
-                    {language === 'tr' ? 'İletişime Geç' : 'Contact Us'}
+                    İletişime Geç
                   </Button>
                 </CardContent>
               </Card>
