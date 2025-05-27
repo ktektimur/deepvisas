@@ -3,11 +3,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Layout from "@/components/Layout";
 import DashboardLayout from "@/components/DashboardLayout";
+import AdminLayout from "@/components/AdminLayout";
 import React from "react";
 
 // Lazy load pages for better performance
@@ -61,58 +61,58 @@ const ProtectedDashboardLayoutWrapper = () => (
 // Protected Admin Layout with Outlet
 const ProtectedAdminLayoutWrapper = () => (
   <ProtectedRoute requiredRole="admin">
-    <DashboardLayout>
+    <AdminLayout>
       <Outlet />
-    </DashboardLayout>
+    </AdminLayout>
   </ProtectedRoute>
 );
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
-      <LanguageProvider>
-        <AuthProvider>
-          <TooltipProvider>
-            <Toaster />
-            <React.Suspense fallback={<div>Loading...</div>}>
-              <Routes>
-                {/* Public Routes with Main Layout */}
-                <Route path="/" element={<MainLayoutWrapper />}>
-                  <Route index element={<Index />} />
-                  <Route path="login" element={<Login />} />
-                  <Route path="register" element={<Register />} />
-                  <Route path="pricing" element={<Pricing />} />
-                </Route>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <React.Suspense fallback={<div>Yükleniyor...</div>}>
+            <Routes>
+              {/* Public Routes with Main Layout */}
+              <Route path="/" element={<MainLayoutWrapper />}>
+                <Route index element={<Index />} />
+                <Route path="pricing" element={<Pricing />} />
+                <Route path="register" element={<Register />} />
+              </Route>
 
-                {/* Protected Routes with Dashboard Layout */}
-                <Route path="/dashboard" element={<ProtectedDashboardLayoutWrapper />}>
-                  <Route index element={<Dashboard />} />
-                  <Route path="profile" element={<UserProfile />} />
-                  <Route path="visas" element={<Visas />} />
-                  <Route path="notifications" element={<Notifications />} />
-                  <Route path="analytics" element={<Analytics />} />
-                  <Route path="settings" element={<Settings />} />
-                  <Route path="requirements/uk" element={<UKVisaRequirements />} />
-                  <Route path="requirements/greece" element={<GreeceVisaRequirements />} />
-                </Route>
+              {/* Login Route - No Layout */}
+              <Route path="/login" element={<Login />} />
 
-                {/* Admin Routes with Dashboard Layout */}
-                <Route path="/admin" element={<ProtectedAdminLayoutWrapper />}>
-                  <Route index element={<AdminDashboard />} />
-                  <Route path="users" element={<AdminUserProfiles />} />
-                  <Route path="users/:userId" element={<UserDetails />} />
-                  <Route path="pricing" element={<AdminPricing />} />
-                  <Route path="visa-submissions" element={<AdminVisaSubmissions />} />
-                  <Route path="visa-submissions/:submissionId" element={<VisaSubmissionView />} />
-                </Route>
+              {/* Protected Routes with Dashboard Layout */}
+              <Route path="/dashboard" element={<ProtectedDashboardLayoutWrapper />}>
+                <Route index element={<Dashboard />} />
+                <Route path="profile" element={<UserProfile />} />
+                <Route path="visas" element={<Visas />} />
+                <Route path="notifications" element={<Notifications />} />
+                <Route path="analytics" element={<Analytics />} />
+                <Route path="settings" element={<Settings />} />
+                <Route path="requirements/uk" element={<UKVisaRequirements />} />
+                <Route path="requirements/greece" element={<GreeceVisaRequirements />} />
+              </Route>
 
-                {/* 404 Route */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </React.Suspense>
-          </TooltipProvider>
-        </AuthProvider>
-      </LanguageProvider>
+              {/* Admin Routes with Admin Layout */}
+              <Route path="/admin" element={<ProtectedAdminLayoutWrapper />}>
+                <Route index element={<AdminDashboard />} />
+                <Route path="users" element={<AdminUserProfiles />} />
+                <Route path="users/:userId" element={<UserDetails />} />
+                <Route path="pricing" element={<AdminPricing />} />
+                <Route path="visa-submissions" element={<AdminVisaSubmissions />} />
+                <Route path="visa-submissions/:submissionId" element={<VisaSubmissionView />} />
+              </Route>
+
+              {/* 404 Route */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </React.Suspense>
+        </TooltipProvider>
+      </AuthProvider>
     </BrowserRouter>
   </QueryClientProvider>
 );

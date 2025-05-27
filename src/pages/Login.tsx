@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Navigate, Link } from 'react-router-dom';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from "@/hooks/use-toast";
 
@@ -19,11 +18,9 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
-import Layout from '@/components/Layout';
 import { Loader2 } from 'lucide-react';
 
 const Login: React.FC = () => {
-  const { t, language } = useLanguage();
   const { isAuthenticated, login } = useAuth();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -36,10 +33,10 @@ const Login: React.FC = () => {
   // Form validation schema
   const formSchema = z.object({
     email: z.string()
-      .min(1, language === 'tr' ? 'E-posta gerekli' : 'Email is required')
-      .email(language === 'tr' ? 'Geçersiz e-posta adresi' : 'Invalid email address'),
+      .min(1, 'E-posta gerekli')
+      .email('Geçersiz e-posta adresi'),
     password: z.string()
-      .min(1, language === 'tr' ? 'Şifre gerekli' : 'Password is required'),
+      .min(1, 'Şifre gerekli'),
   });
 
   // Form initialization
@@ -59,20 +56,16 @@ const Login: React.FC = () => {
       
       if (!success) {
         toast({
-          title: language === 'tr' ? 'Giriş başarısız' : 'Login failed',
-          description: language === 'tr' 
-            ? 'E-posta veya şifre hatalı. Lütfen tekrar deneyin.' 
-            : 'Invalid email or password. Please try again.',
+          title: 'Giriş başarısız',
+          description: 'E-posta veya şifre hatalı. Lütfen tekrar deneyin.',
           variant: 'destructive',
         });
       }
       
     } catch (error) {
       toast({
-        title: language === 'tr' ? 'Hata' : 'Error',
-        description: language === 'tr' 
-          ? 'Giriş sırasında bir hata oluştu.' 
-          : 'An error occurred during login.',
+        title: 'Hata',
+        description: 'Giriş sırasında bir hata oluştu.',
         variant: 'destructive',
       });
     } finally {
@@ -81,22 +74,30 @@ const Login: React.FC = () => {
   };
 
   const demoLogins = [
-    { label: 'Admin', email: 'admin@deepvisas.com', password: 'password123' },
-    { label: 'User', email: 'user@deepvisas.com', password: 'password123' },
+    { label: 'Yönetici', email: 'admin@deepvisas.com', password: 'password123' },
+    { label: 'Kullanıcı', email: 'user@deepvisas.com', password: 'password123' },
   ];
 
   return (
-    <Layout>
-      <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-12">
-        <Card className="w-full max-w-md bg-white/95 shadow-xl">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex items-center justify-center px-4 py-12">
+      <div className="w-full max-w-md">
+        {/* Logo */}
+        <div className="text-center mb-8">
+          <Link to="/" className="inline-flex items-center space-x-2">
+            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold">DV</span>
+            </div>
+            <span className="text-2xl font-bold text-gray-900">DeepVisas</span>
+          </Link>
+        </div>
+
+        <Card className="bg-white/95 shadow-xl">
           <CardHeader>
             <CardTitle className="text-2xl font-bold text-center">
-              {language === 'tr' ? 'Giriş Yap' : 'Login'}
+              Giriş Yap
             </CardTitle>
             <CardDescription className="text-center">
-              {language === 'tr' 
-                ? 'DeepVisas hesabınıza giriş yapın' 
-                : 'Sign in to your DeepVisas account'}
+              DeepVisas hesabınıza giriş yapın
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -107,9 +108,9 @@ const Login: React.FC = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{language === 'tr' ? 'E-posta' : 'Email'}</FormLabel>
+                      <FormLabel>E-posta</FormLabel>
                       <FormControl>
-                        <Input placeholder="email@example.com" {...field} />
+                        <Input placeholder="email@ornek.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -120,7 +121,7 @@ const Login: React.FC = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{language === 'tr' ? 'Şifre' : 'Password'}</FormLabel>
+                      <FormLabel>Şifre</FormLabel>
                       <FormControl>
                         <Input type="password" {...field} />
                       </FormControl>
@@ -132,10 +133,10 @@ const Login: React.FC = () => {
                   {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      {language === 'tr' ? 'Giriş yapılıyor...' : 'Logging in...'}
+                      Giriş yapılıyor...
                     </>
                   ) : (
-                    language === 'tr' ? 'Giriş Yap' : 'Login'
+                    'Giriş Yap'
                   )}
                 </Button>
               </form>
@@ -143,7 +144,7 @@ const Login: React.FC = () => {
 
             <div className="mt-6">
               <p className="text-sm text-gray-500 text-center mb-4">
-                {language === 'tr' ? 'Demo hesap örnekleri:' : 'Demo accounts:'}
+                Demo hesap örnekleri:
               </p>
               <div className="grid grid-cols-2 gap-3">
                 {demoLogins.map((demo) => (
@@ -166,18 +167,18 @@ const Login: React.FC = () => {
           </CardContent>
           <CardFooter className="flex flex-col space-y-3">
             <div className="text-sm text-center w-full">
-              {language === 'tr' ? 'Hesabınız yok mu?' : "Don't have an account?"}{' '}
+              Hesabınız yok mu?{' '}
               <Link
                 to="/register"
                 className="text-primary hover:underline font-medium"
               >
-                {language === 'tr' ? 'Kaydolun' : 'Register'}
+                Kaydolun
               </Link>
             </div>
           </CardFooter>
         </Card>
       </div>
-    </Layout>
+    </div>
   );
 };
 

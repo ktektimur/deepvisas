@@ -8,22 +8,22 @@ import {
   Home, 
   Settings, 
   Bell,
-  Globe,
-  BarChart3,
   Users,
   LogOut,
   User,
   Menu,
   X,
   CreditCard,
-  Shield
+  Shield,
+  BarChart3,
+  Globe
 } from 'lucide-react';
 
-interface DashboardLayoutProps {
+interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
-const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,15 +40,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     setSidebarOpen(false);
   };
 
-  // User menu items
-  const navItems = [
-    { id: 'home', icon: Home, label: 'Anasayfa', path: '/dashboard' },
-    { id: 'visas', icon: Globe, label: 'Takip Edilen Vizeler', path: '/dashboard/visas' },
-    { id: 'pricing', icon: CreditCard, label: 'Fiyatlandırma', path: '/pricing' },
-    { id: 'notifications', icon: Bell, label: 'Bildirimler', path: '/dashboard/notifications' },
-    { id: 'analytics', icon: BarChart3, label: 'Analitik', path: '/dashboard/analytics' },
-    { id: 'profile', icon: User, label: 'Profil', path: '/dashboard/profile' },
-    { id: 'settings', icon: Settings, label: 'Ayarlar', path: '/dashboard/settings' }
+  // Admin menu items
+  const adminNavItems = [
+    { id: 'admin-dashboard', icon: Shield, label: 'Yönetici Paneli', path: '/admin' },
+    { id: 'admin-users', icon: Users, label: 'Kullanıcı Yönetimi', path: '/admin/users' },
+    { id: 'admin-pricing', icon: CreditCard, label: 'Fiyat Yönetimi', path: '/admin/pricing' },
+    { id: 'admin-visa-submissions', icon: Globe, label: 'Vize Başvuruları', path: '/admin/visa-submissions' },
+    { id: 'admin-analytics', icon: BarChart3, label: 'Analitik', path: '/admin/analytics' },
   ];
 
   // Logout handler
@@ -57,12 +55,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     navigate('/login');
   };
 
-  const isAdmin = user?.role === 'admin';
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 to-white">
       {/* Header */}
-      <header className="bg-white/90 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-40">
+      <header className="bg-white/90 backdrop-blur-sm border-b border-red-100 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
@@ -73,25 +69,23 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
               >
                 {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
-              <Link to="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <Link to="/admin" className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">DV</span>
                 </div>
-                <span className="text-xl font-bold text-gray-900">DeepVisas</span>
+                <span className="text-xl font-bold text-gray-900">DeepVisas Admin</span>
               </Link>
             </div>
             
             <div className="flex items-center space-x-4">
-              <Badge className="bg-green-100 text-green-800 hover:bg-green-100 hidden sm:inline-flex">
-                Aktif
+              <Badge className="bg-red-100 text-red-800 hover:bg-red-100 hidden sm:inline-flex">
+                Yönetici
               </Badge>
-              {isAdmin && (
-                <Link to="/admin" className="hidden sm:block">
-                  <Button variant="outline" size="sm">
-                    Yönetici Paneli
-                  </Button>
-                </Link>
-              )}
+              <Link to="/dashboard" className="hidden sm:block">
+                <Button variant="outline" size="sm">
+                  Kullanıcı Paneli
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -102,17 +96,17 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         <aside 
           className={`${
             sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-          } lg:translate-x-0 fixed lg:static z-30 w-64 h-[calc(100vh-4rem)] bg-white/80 backdrop-blur-sm border-r border-blue-100 transition-transform duration-300 ease-in-out overflow-y-auto`}
+          } lg:translate-x-0 fixed lg:static z-30 w-64 h-[calc(100vh-4rem)] bg-white/80 backdrop-blur-sm border-r border-red-100 transition-transform duration-300 ease-in-out overflow-y-auto`}
         >
           <div className="p-6">
             <nav className="space-y-1">
-              {navItems.map((item) => (
+              {adminNavItems.map((item) => (
                 <Button 
                   key={item.id}
                   variant={isRouteActive(item.path) ? "default" : "ghost"} 
                   className={`w-full justify-start ${
                     isRouteActive(item.path) 
-                      ? "bg-primary text-white" 
+                      ? "bg-red-600 text-white" 
                       : "text-gray-700 hover:bg-gray-100"
                   }`}
                   onClick={() => handleNavigation(item.path)}
@@ -154,4 +148,4 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   );
 };
 
-export default DashboardLayout;
+export default AdminLayout;

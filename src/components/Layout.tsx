@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation } from 'react-router-dom';
@@ -11,12 +10,9 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const { language, setLanguage, t } = useLanguage();
   const { isAuthenticated, user, logout } = useAuth();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const isHomePage = location.pathname === '/';
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -39,16 +35,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             {/* Navigation Links - Desktop */}
             <div className="hidden md:flex items-center space-x-8">
               <Link to="/" className="text-gray-700 hover:text-primary transition-colors">
-                {t('nav.home')}
+                Anasayfa
               </Link>
               <a href="#features" className="text-gray-700 hover:text-primary transition-colors">
-                {t('nav.features')}
+                Özellikler
               </a>
               <a href="#how-it-works" className="text-gray-700 hover:text-primary transition-colors">
-                {t('nav.howItWorks')}
+                Nasıl Çalışır
               </a>
               <a href="#contact" className="text-gray-700 hover:text-primary transition-colors">
-                {t('nav.contact')}
+                İletişim
               </a>
             </div>
 
@@ -63,49 +59,25 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               </Button>
             </div>
 
-            {/* Right side - Language toggle and auth buttons - Desktop */}
-            <div className="hidden md:flex items-center space-x-4">              
-              {/* Language Toggle */}
-              <div className="flex items-center bg-gray-100 rounded-lg p-1 transition-colors">
-                <button
-                  onClick={() => setLanguage('en')}
-                  className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
-                    language === 'en'
-                      ? 'bg-white text-primary shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                >
-                  EN
-                </button>
-                <button
-                  onClick={() => setLanguage('tr')}
-                  className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
-                    language === 'tr'
-                      ? 'bg-white text-primary shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                >
-                  TR
-                </button>
-              </div>
-
+            {/* Right side - Auth buttons - Desktop */}
+            <div className="hidden md:flex items-center space-x-4">
               {isAuthenticated ? (
                 <div className="flex items-center gap-4">
                   {user?.role === 'admin' && (
                     <Link to="/admin">
                       <Button variant="outline" size="sm">
-                        {language === 'tr' ? 'Admin Panel' : 'Admin Panel'}
+                        Yönetici Paneli
                       </Button>
                     </Link>
                   )}
                   <Link to="/dashboard">
                     <Button variant="outline" size="sm">
-                      {language === 'tr' ? 'Panel' : 'Dashboard'}
+                      Panel
                     </Button>
                   </Link>
                   <Button size="sm" onClick={logout} variant="ghost">
                     <LogOut className="w-4 h-4 mr-2" />
-                    {language === 'tr' ? 'Çıkış' : 'Logout'}
+                    Çıkış
                   </Button>
                 </div>
               ) : (
@@ -113,13 +85,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <Link to="/login">
                     <Button variant="outline" size="sm">
                       <LogIn className="w-4 h-4 mr-2" />
-                      {language === 'tr' ? 'Giriş' : 'Login'}
+                      Giriş
                     </Button>
                   </Link>
                   <Link to="/register">
                     <Button size="sm">
                       <UserPlus className="w-4 h-4 mr-2" />
-                      {language === 'tr' ? 'Kaydol' : 'Register'}
+                      Kaydol
                     </Button>
                   </Link>
                 </div>
@@ -138,53 +110,29 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 className="text-gray-700 hover:text-primary transition-colors py-2"
                 onClick={toggleMobileMenu}
               >
-                {t('nav.home')}
+                Anasayfa
               </Link>
               <a 
                 href="#features" 
                 className="text-gray-700 hover:text-primary transition-colors py-2"
                 onClick={toggleMobileMenu}
               >
-                {t('nav.features')}
+                Özellikler
               </a>
               <a 
                 href="#how-it-works" 
                 className="text-gray-700 hover:text-primary transition-colors py-2"
                 onClick={toggleMobileMenu}
               >
-                {t('nav.howItWorks')}
+                Nasıl Çalışır
               </a>
               <a 
                 href="#contact" 
                 className="text-gray-700 hover:text-primary transition-colors py-2"
                 onClick={toggleMobileMenu}
               >
-                {t('nav.contact')}
+                İletişim
               </a>
-            </div>
-
-            {/* Language Toggle - Mobile */}
-            <div className="flex items-center bg-gray-100 rounded-lg p-1 transition-colors self-start">
-              <button
-                onClick={() => setLanguage('en')}
-                className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
-                  language === 'en'
-                    ? 'bg-white text-primary shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                EN
-              </button>
-              <button
-                onClick={() => setLanguage('tr')}
-                className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
-                  language === 'tr'
-                    ? 'bg-white text-primary shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                TR
-              </button>
             </div>
 
             {/* Auth buttons - Mobile */}
@@ -193,18 +141,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 {user?.role === 'admin' && (
                   <Link to="/admin" onClick={toggleMobileMenu}>
                     <Button variant="outline" size="sm" className="w-full justify-center">
-                      {language === 'tr' ? 'Admin Panel' : 'Admin Panel'}
+                      Yönetici Paneli
                     </Button>
                   </Link>
                 )}
                 <Link to="/dashboard" onClick={toggleMobileMenu}>
                   <Button variant="outline" size="sm" className="w-full justify-center">
-                    {language === 'tr' ? 'Panel' : 'Dashboard'}
+                    Panel
                   </Button>
                 </Link>
                 <Button size="sm" onClick={logout} variant="ghost" className="w-full justify-center">
                   <LogOut className="w-4 h-4 mr-2" />
-                  {language === 'tr' ? 'Çıkış' : 'Logout'}
+                  Çıkış
                 </Button>
               </div>
             ) : (
@@ -212,13 +160,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <Link to="/login" onClick={toggleMobileMenu}>
                   <Button variant="outline" size="sm" className="w-full justify-center">
                     <LogIn className="w-4 h-4 mr-2" />
-                    {language === 'tr' ? 'Giriş' : 'Login'}
+                    Giriş
                   </Button>
                 </Link>
                 <Link to="/register" onClick={toggleMobileMenu}>
                   <Button size="sm" className="w-full justify-center">
                     <UserPlus className="w-4 h-4 mr-2" />
-                    {language === 'tr' ? 'Kaydol' : 'Register'}
+                    Kaydol
                   </Button>
                 </Link>
               </div>

@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -40,7 +39,6 @@ interface TrackingData {
 }
 
 const Dashboard = () => {
-  const { t } = useLanguage();
   const [telegramConnected, setTelegramConnected] = useState(false);
   const [isTrackingModalOpen, setIsTrackingModalOpen] = useState(false);
   const [trackedVisas, setTrackedVisas] = useState<VisaApplication[]>([]);
@@ -48,32 +46,32 @@ const Dashboard = () => {
   const initialVisaData: VisaApplication[] = [
     {
       id: '1',
-      country: 'United States',
+      country: 'Amerika Birleşik Devletleri',
       flag: '🇺🇸',
       city: 'Ankara',
       status: 'available',
-      applicationDate: '2 minutes ago',
+      applicationDate: '2 dakika önce',
       slots: 3,
       date: '',
       nextAvailable: ''
     },
     {
       id: '2',
-      country: 'Germany',
+      country: 'Almanya',
       flag: '🇩🇪',
-      city: 'Istanbul',
+      city: 'İstanbul',
       status: 'full',
-      applicationDate: '5 minutes ago',
+      applicationDate: '5 dakika önce',
       date: '',
       nextAvailable: ''
     },
     {
       id: '3',
-      country: 'United Kingdom',
+      country: 'Birleşik Krallık',
       flag: '🇬🇧',
-      city: 'Izmir',
+      city: 'İzmir',
       status: 'available',
-      applicationDate: '1 minute ago',
+      applicationDate: '1 dakika önce',
       slots: 1,
       date: '',
       nextAvailable: ''
@@ -98,24 +96,24 @@ const Dashboard = () => {
   const recentNotifications: Notification[] = [
     {
       id: 1,
-      message: 'New slots available for US Tourist visa in Ankara',
-      time: '5 minutes ago',
+      message: 'Ankara\'da ABD Turist vizesi için yeni slotlar müsait',
+      time: '5 dakika önce',
       type: 'success'
     },
     {
       id: 2,
-      message: 'All slots filled for Schengen visa in Istanbul',
-      time: '1 hour ago',
+      message: 'İstanbul\'da Schengen vizesi tüm slotlar doldu',
+      time: '1 saat önce',
       type: 'warning'
     }
   ];
 
   const handleAddTracking = (data: TrackingData) => {
-    toast.success('New visa tracking added successfully!');
+    toast.success('Yeni vize takibi başarıyla eklendi!');
   };
 
   const handleRemoveNotification = (id: number) => {
-    toast.success('Notification removed');
+    toast.success('Bildirim kaldırıldı');
   };
 
   return (
@@ -123,10 +121,10 @@ const Dashboard = () => {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Visa Dashboard
+          Vize Paneli
         </h1>
         <p className="text-gray-600">
-          Welcome to your personalized visa tracking dashboard
+          Kişiselleştirilmiş vize takip panelinize hoş geldiniz
         </p>
       </div>
 
@@ -136,7 +134,7 @@ const Dashboard = () => {
           <CardContent className="p-4 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-blue-100 text-sm">Tracked Countries</p>
+                <p className="text-blue-100 text-sm">Takip Edilen Ülkeler</p>
                 <p className="text-2xl font-bold">3</p>
               </div>
               <Globe className="w-6 h-6 sm:w-8 sm:h-8 text-blue-200" />
@@ -148,7 +146,7 @@ const Dashboard = () => {
           <CardContent className="p-4 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-green-100 text-sm">Available Slots</p>
+                <p className="text-green-100 text-sm">Müsait Slotlar</p>
                 <p className="text-2xl font-bold">2</p>
               </div>
               <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8 text-green-200" />
@@ -160,7 +158,7 @@ const Dashboard = () => {
           <CardContent className="p-4 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-orange-100 text-sm">Notifications</p>
+                <p className="text-orange-100 text-sm">Bildirimler</p>
                 <p className="text-2xl font-bold">8</p>
               </div>
               <Bell className="w-6 h-6 sm:w-8 sm:h-8 text-orange-200" />
@@ -172,7 +170,7 @@ const Dashboard = () => {
           <CardContent className="p-4 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-purple-100 text-sm">Success Rate</p>
+                <p className="text-purple-100 text-sm">Başarı Oranı</p>
                 <p className="text-2xl font-bold">95%</p>
               </div>
               <Users className="w-6 h-6 sm:w-8 sm:h-8 text-purple-200" />
@@ -186,14 +184,14 @@ const Dashboard = () => {
         <div className="lg:col-span-2">
           <Card>
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 sm:p-6 border-b gap-4">
-              <h2 className="text-xl font-semibold">Tracked Visas</h2>
+              <h2 className="text-xl font-semibold">Takip Edilen Vizeler</h2>
               <Button 
                 size="sm" 
                 onClick={() => setIsTrackingModalOpen(true)}
                 className="w-full sm:w-auto"
               >
                 <Plus className="w-4 h-4 mr-2" />
-                Add Tracking
+                Takip Ekle
               </Button>
             </div>
             <CardContent className="p-4 sm:p-6">
@@ -214,21 +212,21 @@ const Dashboard = () => {
           {/* Telegram Status */}
           <Card>
             <div className="p-4 sm:p-6 border-b">
-              <h2 className="text-lg font-semibold">Telegram Integration</h2>
+              <h2 className="text-lg font-semibold">Telegram Entegrasyonu</h2>
             </div>
             <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-2">
                   <div className={`w-3 h-3 rounded-full ${telegramConnected ? 'bg-green-500' : 'bg-red-500'}`} />
                   <span className="text-sm">
-                    {telegramConnected ? 'Connected' : 'Not Connected'}
+                    {telegramConnected ? 'Bağlı' : 'Bağlı Değil'}
                   </span>
                 </div>
               </div>
               
               <div className="mb-4">
                 <p className="mb-2 text-sm text-gray-700">
-                  Follow our Telegram channel{" "}
+                  Telegram kanalımızı takip edin{" "}
                   <a
                     href="https://t.me/deepvisas"
                     target="_blank"
@@ -249,14 +247,14 @@ const Dashboard = () => {
                   }}
                 >
                   <MessageSquare className="w-4 h-4 mr-2" />
-                  Connect to Telegram
+                  Telegram'a Bağlan
                 </Button>
               )}
               
               {telegramConnected && (
                 <div className="text-center">
                   <p className="text-sm text-green-600 mb-2">
-                    ✓ Connected to @deepvisas
+                    ✓ @deepvisas'a bağlı
                   </p>
                   <Button 
                     variant="outline" 
@@ -264,7 +262,7 @@ const Dashboard = () => {
                     onClick={() => setTelegramConnected(false)}
                     className="w-full"
                   >
-                    Disconnect
+                    Bağlantıyı Kes
                   </Button>
                 </div>
               )}
@@ -274,7 +272,7 @@ const Dashboard = () => {
           {/* Recent Notifications */}
           <Card>
             <div className="p-4 sm:p-6 border-b">
-              <h2 className="text-lg font-semibold">Recent Notifications</h2>
+              <h2 className="text-lg font-semibold">Son Bildirimler</h2>
             </div>
             <CardContent className="p-4 sm:p-6">
               <div className="space-y-3">
