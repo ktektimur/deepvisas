@@ -2,87 +2,16 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import VisaCard from '@/components/VisaCard';
-import Layout from '@/components/Layout';
-import { Globe, Bell, Users, Shield, CheckCircle, Star, ArrowDown, Clock, Zap, Target, Award, Rocket, User, Calculator, Lock, Menu, X } from 'lucide-react';
-import { VisaApplication } from '@/types/visa';
+import { Globe, Bell, Users, Shield, CheckCircle, Star, ArrowDown, Clock, Zap, Target, Award, Rocket, User, Calculator, Lock, Menu, X, RefreshCw } from 'lucide-react';
 import { Testimonial } from '@/types/testimonial';
+import { useVisaData, getFallbackVisaData } from '@/hooks/useVisaData';
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data: visaData, isLoading, error, refetch, isRefetching } = useVisaData();
 
-  // Random future date generator for visa slots
-  const getRandomFutureDate = () => {
-    const today = new Date();
-    const randomDays = Math.floor(Math.random() * 20) + 10; // 10-30 days
-    const futureDate = new Date(today);
-    futureDate.setDate(today.getDate() + randomDays);
-    return futureDate.toISOString().split("T")[0]; // YYYY-MM-DD
-  };
-
-  // Updated visa data with random future dates
-  const visaData: VisaApplication[] = [
-    {
-      id: '1',
-      city: 'Ankara',
-      country: 'Hollanda',
-      flag: '🇳🇱',
-      date: getRandomFutureDate(),
-      applicationDate: getRandomFutureDate(),
-      status: 'available',
-      slots: 12,
-    },
-    {
-      id: '2',
-      city: 'İstanbul',
-      country: 'Fransa',
-      flag: '🇫🇷',
-      date: getRandomFutureDate(),
-      applicationDate: getRandomFutureDate(),
-      status: 'full',
-      nextAvailable: getRandomFutureDate(),
-    },
-    {
-      id: '3',
-      city: 'İstanbul',
-      country: 'Almanya',
-      flag: '🇩🇪',
-      date: getRandomFutureDate(),
-      applicationDate: getRandomFutureDate(),
-      status: 'available',
-      slots: 5,
-    },
-    {
-      id: '4',
-      city: 'Ankara',
-      country: 'İspanya',
-      flag: '🇪🇸',
-      date: getRandomFutureDate(),
-      applicationDate: getRandomFutureDate(),
-      status: 'full',
-      nextAvailable: getRandomFutureDate(),
-    },
-    {
-      id: '5',
-      city: 'İstanbul',
-      country: 'İtalya',
-      flag: '🇮🇹',
-      date: getRandomFutureDate(),
-      applicationDate: getRandomFutureDate(),
-      status: 'available',
-      slots: 8,
-    },
-    {
-      id: '6',
-      city: 'Ankara',
-      country: 'İngiltere',
-      flag: '🇬🇧',
-      date: getRandomFutureDate(),
-      applicationDate: getRandomFutureDate(),
-      status: 'full',
-      nextAvailable: getRandomFutureDate(),
-    },
-  ];
+  // Use API data if available, otherwise use fallback data
+  const displayData = visaData || getFallbackVisaData();
 
   const features = [
     {
@@ -464,20 +393,44 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Live Visa Availability Section */}
+      {/* Live Visa Availability Section with API Data */}
       <section id="visa-availability" className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Canlı Vize Durumu
-            </h2>
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
+                Canlı Vize Durumu
+              </h2>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => refetch()}
+                disabled={isRefetching}
+                className="flex items-center gap-2"
+              >
+                <RefreshCw className={`w-4 h-4 ${isRefetching ? 'animate-spin' : ''}`} />
+                Yenile
+              </Button>
+            </div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Türkiye'deki tüm büyük elçiliklerde gerçek zamanlı takip
             </p>
+            {error && (
+              <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <p className="text-sm text-yellow-700">
+                  API geçici olarak erişilemez durumda. Yedek veriler gösteriliyor.
+                </p>
+              </div>
+            )}
+            {isLoading && (
+              <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <p className="text-sm text-blue-700">Vize verileri yükleniyor...</p>
+              </div>
+            )}
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {visaData.map((visa) => (
+            {displayData.map((visa) => (
               <div key={visa.id} className="bg-white rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition-shadow duration-300">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-3">
@@ -493,14 +446,18 @@ const Index = () => {
                         <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
                           Müsait
                         </span>
-                        <div className="text-sm text-green-600 mt-2">🟢 {visa.slots} slot</div>
+                        {visa.slots && (
+                          <div className="text-sm text-green-600 mt-2">🟢 {visa.slots} slot</div>
+                        )}
                       </div>
                     ) : (
                       <div>
                         <span className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium">
                           Dolu
                         </span>
-                        <div className="text-sm text-gray-500 mt-2">Sonraki: {visa.nextAvailable}</div>
+                        {visa.nextAvailable && (
+                          <div className="text-sm text-gray-500 mt-2">Sonraki: {visa.nextAvailable}</div>
+                        )}
                       </div>
                     )}
                   </div>
